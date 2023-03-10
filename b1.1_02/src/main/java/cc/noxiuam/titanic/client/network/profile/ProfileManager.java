@@ -2,13 +2,11 @@ package cc.noxiuam.titanic.client.network.profile;
 
 import cc.noxiuam.titanic.client.Titanic;
 import cc.noxiuam.titanic.client.util.Logger;
-import cc.noxiuam.titanic.event.impl.player.PlayerLoadEvent;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import net.minecraft.src.EntityPlayer;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,44 +18,35 @@ import java.util.List;
 @Getter
 public class ProfileManager {
 
-    // A list of all the player profiles that are downloaded.
-    private final List<Profile> playerProfiles = new ArrayList<>();
+    private final List<Profile> profileCache = new ArrayList<>();
 
     private final Logger logger = new Logger("Profile Management");
-    private final JsonParser parser = new JsonParser();
 
     public ProfileManager() {
-        Titanic.getInstance().getEventManager().addEvent(PlayerLoadEvent.class, this::onPlayerLoad);
+        new Thread(new ProfileCacheRefreshThread()).start();
     }
 
-    /**
-     * Fixes player skins, and provides RetroMC cape support.
-     */
-    private void onPlayerLoad(PlayerLoadEvent event) {
-        EntityPlayer player = event.getPlayer();
+    @SneakyThrows
+    public void downloadAllProfiles() {
+        List<String> names = new ArrayList<>();
 
-        String username = player.field_771_i;
+        URL url = new URL("https://noxiuam.cc/titanic-client/profiles.json");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        if (username.equalsIgnoreCase("Noxiuam")) {
-            username = "GitCLI";
+        connection.setRequestMethod("GET");
+        connection.addRequestProperty("User-Agent", "Mozilla/4.0");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        JsonArray remoteNames = new JsonParser().parse(br).getAsJsonArray();
+
+        for (int i = 0; i < remoteNames.size(); i++) {
+            names.add(remoteNames.get(i).toString().replaceAll("\"", ""));
         }
 
-        player.field_20047_bv = "https://mc-heads.net/skin/" + username;
-        //player.playerCloakUrl = SkinUtil.getCapeURL(username);
-
-        String retroCape = "http://assets.retromc.org/capes/" + username + ".png";
-
-        if (this.isValidURL(retroCape)) {
-            player.field_20067_q = retroCape;
+        for (String name : names) {
+            this.downloadAndAddProfile(name);
         }
-
-        if (this.profileExists(username)) {
-            player.playerProfile = this.getProfile(username);
-            if (player.playerProfile.isHasCape()) {
-                player.field_20067_q = "https://noxiuam.cc/titanic-client/cosmetic/cape/AP_" + player.playerProfile.getRank() + ".png";
-            }
-        }
-
     }
 
     /**
@@ -77,60 +66,15 @@ public class ProfileManager {
             connection.addRequestProperty("User-Agent", "Mozilla/4.0");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            JsonObject playerObj = parser.parse(br).getAsJsonObject();
+            JsonObject playerObj = new JsonParser().parse(br).getAsJsonObject();
 
             boolean hasCape = playerObj.get("hasCape").getAsBoolean();
             String rank = playerObj.get("rank").getAsString().toUpperCase();
 
             Profile profile = new Profile(username, hasCape, rank);
-            System.out.println(profile.toString());
-
-            this.playerProfiles.add(profile);
+            this.profileCache.add(profile);
             connection.disconnect();
-        } catch (Exception e) {
-            // The profile did not exist.
-        }
-
-    }
-
-    @SneakyThrows
-    public void downloadAllProfiles() {
-        List<String> names = new ArrayList<>();
-
-        URL url = new URL("https://noxiuam.cc/titanic-client/profiles.json");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("GET");
-        connection.addRequestProperty("User-Agent", "Mozilla/4.0");
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        JsonArray serverNames = new JsonParser().parse(br).getAsJsonArray();
-
-        for (int i = 0; i < serverNames.size(); i++) {
-            names.add(serverNames.get(i).toString().replaceAll("\"", ""));
-        }
-
-        for (String name : names) {
-            this.downloadAndAddProfile(name);
-        }
-    }
-
-    /**
-     * Gets a player profile from playerProfiles.
-     *
-     * @param target The username of the target player.
-     */
-    public Profile getProfile(String target) {
-
-        for (Profile profile : this.playerProfiles) {
-            if (profile.getUsername().equals(target)) {
-                return profile;
-            }
-        }
-
-        // Fake profile to prevent crashes.
-        return new Profile(target, false, "DEFAULT");
+        } catch (Exception ignored) { }
     }
 
     /**
@@ -139,7 +83,7 @@ public class ProfileManager {
      * @param username The target player.
      */
     public boolean profileExists(String username) {
-        for (Profile profile : this.playerProfiles) {
+        for (Profile profile : this.profileCache) {
             if (profile.getUsername().equals(username)) {
                 return true;
             }
@@ -149,17 +93,32 @@ public class ProfileManager {
     }
 
     /**
-     * Checks if a URL is valid or not.
+     * Gets a player profile from playerProfiles.
      *
-     * @param url The url to check
+     * @param target The username of the target player.
      */
-    public boolean isValidURL(String url) {
-        try {
-            new URL(url).toURI();
-            return true;
-        } catch (Exception e) {
-            return false;
+    public Profile getProfile(String target) {
+        for (Profile profile : this.profileCache) {
+            if (profile.getUsername().equals(target)) {
+                return profile;
+            }
         }
+
+        return new Profile(target, false, "DEFAULT");
+    }
+
+    static class ProfileCacheRefreshThread implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                Titanic.getInstance().getProfileManager().downloadAllProfiles();
+                Thread.sleep(60000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 }

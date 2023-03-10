@@ -1,6 +1,7 @@
 package cc.noxiuam.titanic.client;
 
 import cc.noxiuam.titanic.bridge.Bridge;
+import cc.noxiuam.titanic.client.module.ModuleManager;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
 import cc.noxiuam.titanic.client.util.Logger;
 import cc.noxiuam.titanic.event.EventManager;
@@ -11,13 +12,14 @@ import net.minecraft.client.Minecraft;
 @Getter
 public class Titanic {
 
-    @Getter
-    private static Titanic instance;
+    @Getter private static Titanic instance;
+    
     public final boolean debug = false;
 
     private final Bridge bridge;
     private final EventManager eventManager;
     private final ProfileManager profileManager;
+    private final ModuleManager moduleManager;
 
     public Titanic(Minecraft mc) {
         instance = this;
@@ -32,10 +34,11 @@ public class Titanic {
         logger.info("Created Bridge");
 
         profileManager = new ProfileManager();
+        profileManager.downloadAllProfiles();
         logger.info("Created Profile Manager");
 
-        logger.info("Downloading all profiles");
-        profileManager.downloadAllProfiles();
+        moduleManager = new ModuleManager();
+        logger.info("Created Module Manager");
 
     }
 
