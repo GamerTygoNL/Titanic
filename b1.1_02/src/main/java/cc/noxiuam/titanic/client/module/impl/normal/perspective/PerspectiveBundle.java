@@ -2,9 +2,10 @@ package cc.noxiuam.titanic.client.module.impl.normal.perspective;
 
 import cc.noxiuam.titanic.client.Titanic;
 import cc.noxiuam.titanic.client.module.AbstractModule;
+import cc.noxiuam.titanic.client.module.data.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.impl.KeybindSetting;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
-import cc.noxiuam.titanic.event.impl.world.FovChangeEvent;
+import cc.noxiuam.titanic.event.impl.FovChangeEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -12,12 +13,14 @@ import org.lwjgl.opengl.GL11;
 public class PerspectiveBundle extends AbstractModule {
 
     public PerspectiveView currentPerspective = PerspectiveView.FIRST;
-    private final KeybindSetting switchPerspectiveKeybind;
+    private final KeybindSetting switchPerspectiveKey;
+    private final BooleanSetting viewBobbingInThirdPerson;
 
     public PerspectiveBundle() {
         super("perspectiveBundle", "Perspective", true);
         this.initSettings(
-                switchPerspectiveKeybind = new KeybindSetting("switchPerspectiveKeybind", "Switch Perspective", Keyboard.KEY_R)
+                switchPerspectiveKey = new KeybindSetting("switchPerspectiveKeybind", "Switch Perspective", Keyboard.KEY_R),
+                viewBobbingInThirdPerson = new BooleanSetting("viewBobbingInThirdPerson", "3rd Person View Bobbing", false)
         );
         this.addEvent(FovChangeEvent.class, this::getModernFovModifier);
         this.addEvent(KeyboardEvent.class, this::updateCurrentPerspective);
@@ -38,7 +41,7 @@ public class PerspectiveBundle extends AbstractModule {
     private void updateCurrentPerspective(KeyboardEvent event) {
         Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
 
-        if (event.getKey() == switchPerspectiveKeybind.value()) {
+        if (event.getKey() == switchPerspectiveKey.value()) {
             if (currentPerspective == PerspectiveView.FIRST) {
                 currentPerspective = PerspectiveView.SECOND;
                 mc.gameSettings.thirdPersonView = true;

@@ -1,7 +1,8 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.client.Titanic;
-import cc.noxiuam.titanic.event.impl.world.FovChangeEvent;
+import cc.noxiuam.titanic.event.impl.FovChangeEvent;
+import cc.noxiuam.titanic.event.impl.gui.DrawGameOverlayEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -257,7 +258,7 @@ public class EntityRenderer {
         if (mc.gameSettings.viewBobbing) {
             setupViewBobbing(f);
         }
-        if (!mc.gameSettings.thirdPersonView && !Keyboard.isKeyDown(59)) {
+        if (!mc.gameSettings.thirdPersonView) {
             itemRenderer.renderItemInFirstPerson(f);
         }
         GL11.glPopMatrix();
@@ -300,7 +301,11 @@ public class EntityRenderer {
         int i1 = j - (Mouse.getY() * j) / mc.displayHeight - 1;
         if (mc.theWorld != null) {
             renderWorld(f);
-            if (!Keyboard.isKeyDown(59)) {
+
+            DrawGameOverlayEvent event = new DrawGameOverlayEvent();
+            Titanic.getInstance().getEventManager().handleEvent(event);
+
+            if (event.isCancelled()) {
                 mc.ingameGUI.renderGameOverlay(f, mc.currentScreen != null, k, i1);
             }
         } else {

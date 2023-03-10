@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.event.impl.world;
+package cc.noxiuam.titanic.event.impl;
 
 import cc.noxiuam.titanic.event.AbstractEvent;
 import lombok.AllArgsConstructor;

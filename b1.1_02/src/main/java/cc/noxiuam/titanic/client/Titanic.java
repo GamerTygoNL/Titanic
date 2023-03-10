@@ -12,6 +12,7 @@ import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiChat;
+import net.minecraft.src.ScreenShotHelper;
 import org.lwjgl.input.Keyboard;
 
 @Getter
@@ -51,6 +52,12 @@ public class Titanic {
     }
 
     private void handleKeyboard(KeyboardEvent event) {
+        Minecraft mc = bridge.getMinecraftBridge().bridge$getMinecraft();
+
+        if (event.getKey() == Keyboard.KEY_F2) {
+            mc.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(Minecraft.getMinecraftDir(), mc.displayWidth, mc.displayHeight));
+            mc.isTakingScreenshot = true;
+        }
 
         if (event.getKey() == Keyboard.KEY_SLASH) {
             bridge.getMinecraftBridge()

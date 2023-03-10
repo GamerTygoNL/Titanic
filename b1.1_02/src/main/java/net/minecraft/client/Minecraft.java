@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
 import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import net.minecraft.src.*;
 import org.lwjgl.LWJGLException;
@@ -54,7 +55,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
     public boolean field_6289_L;
     public boolean isFancyGraphics;
     protected MinecraftApplet mcApplet;
-    boolean isTakingScreenshot;
+    public boolean isTakingScreenshot;
     long prevFrameTime;
     long systemTime;
     private boolean mainFrame;
@@ -491,7 +492,11 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                     }
                     Thread.sleep(10L);
                 }
-                if (Keyboard.isKeyDown(61)) {
+
+                DebugDrawEvent debugDrawEvent = new DebugDrawEvent();
+                Titanic.getInstance().getEventManager().handleEvent(debugDrawEvent);
+
+                if (Keyboard.isKeyDown(61) || debugDrawEvent.isCancelled()) {
                     displayDebugInfo(l2);
                 } else {
                     prevFrameTime = System.nanoTime();

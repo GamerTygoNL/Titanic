@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -136,7 +137,11 @@ public class GuiIngame extends Gui {
 
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-        if (Keyboard.isKeyDown(61)) {
+
+        DebugDrawEvent debugDrawEvent = new DebugDrawEvent();
+        Titanic.getInstance().getEventManager().handleEvent(debugDrawEvent);
+
+        if (Keyboard.isKeyDown(61) || debugDrawEvent.isCancelled()) {
             fontrenderer.drawStringWithShadow("Minecraft Beta 1.1_02 (" + mc.debug + ")", 2, 2, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6241_m(), 2, 12, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6262_n(), 2, 22, 0xffffff);
