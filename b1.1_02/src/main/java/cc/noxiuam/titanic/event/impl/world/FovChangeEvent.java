@@ -11,6 +11,5 @@ import lombok.Setter;
 public class FovChangeEvent extends AbstractEvent {
 
     public float f2;
-    public double d3;
 
 }

@@ -181,7 +181,6 @@ public class EntityRenderer {
 
             if (event.isCancelled()) {
                 f2 = event.getF2();
-                d3 = event.getD3();
             }
 
             double d4 = (double) (-MathHelper.sin((f1 / 180F) * 3.141593F) * MathHelper.cos((f2 / 180F) * 3.141593F)) * d3;
