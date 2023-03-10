@@ -176,7 +176,7 @@ public class EntityRenderer {
                 d3 += 2D;
             }
 
-            FovChangeEvent event = new FovChangeEvent(f2, d3);
+            FovChangeEvent event = new FovChangeEvent(f2);
             Titanic.getInstance().getEventManager().handleEvent(event);
 
             if (event.isCancelled()) {
