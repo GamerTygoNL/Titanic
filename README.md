@@ -1,5 +1,5 @@
 # Titanic
-Minecraft Beta PvP Client
+A QOL client for Legacy Minecraft Versions.
 
 ## Which versions will this client support?
 The client will support Beta 1.1_02 and Beta 1.7.3.
