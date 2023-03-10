@@ -15,8 +15,8 @@ public class PlayerModelFix extends AbstractFixModule {
 
     public PlayerModelFix() {
         super("Player Model Fix");
-        Titanic.getInstance().getEventManager().addEvent(CapeRenderEvent.class, this::fixCapeModel);
-        Titanic.getInstance().getEventManager().addEvent(PlayerModelRenderEvent.class, this::fixPlayerHeadModel);
+        addEvent(CapeRenderEvent.class, this::fixCapeModel);
+        addEvent(PlayerModelRenderEvent.class, this::fixPlayerHeadModel);
     }
 
     public void fixPlayerHeadModel(PlayerModelRenderEvent event) {

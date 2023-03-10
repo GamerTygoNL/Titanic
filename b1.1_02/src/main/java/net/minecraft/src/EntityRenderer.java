@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.event.impl.world.FovChangeEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -173,6 +175,15 @@ public class EntityRenderer {
                 f2 += 180F;
                 d3 += 2D;
             }
+
+            FovChangeEvent event = new FovChangeEvent(f2, d3);
+            Titanic.getInstance().getEventManager().handleEvent(event);
+
+            if (event.isCancelled()) {
+                f2 = event.getF2();
+                d3 = event.getD3();
+            }
+
             double d4 = (double) (-MathHelper.sin((f1 / 180F) * 3.141593F) * MathHelper.cos((f2 / 180F) * 3.141593F)) * d3;
             double d5 = (double) (MathHelper.cos((f1 / 180F) * 3.141593F) * MathHelper.cos((f2 / 180F) * 3.141593F)) * d3;
             double d6 = (double) (-MathHelper.sin((f2 / 180F) * 3.141593F)) * d3;

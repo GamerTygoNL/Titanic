@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.event.impl.chat.ChatReceivedEvent;
 import net.minecraft.client.Minecraft;
 
 import java.io.BufferedReader;
@@ -288,6 +290,10 @@ public class NetClientHandler extends NetHandler {
     }
 
     public void handleChat(Packet3Chat packet3chat) {
+        String msg = packet3chat.message;
+        ChatReceivedEvent event = new ChatReceivedEvent(msg);
+        Titanic.getInstance().getEventManager().handleEvent(event);
+
         mc.ingameGUI.addChatMessage(packet3chat.message);
     }
 

@@ -13,8 +13,13 @@ public class GuiChat extends GuiScreen {
     private String message;
     private int updateCounter;
 
-    public GuiChat() {
+    public GuiChat(boolean command) {
         message = "";
+
+        if (command) {
+            message = "/";
+        }
+
         updateCounter = 0;
     }
 

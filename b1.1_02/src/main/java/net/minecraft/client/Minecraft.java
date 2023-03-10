@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
 import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import net.minecraft.src.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -269,7 +270,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
         try {
             Controllers.create();
         } catch (Exception exception) {
-            exception.printStackTrace();
+            //exception.printStackTrace();
         }
         new Titanic(this);
         checkGLError("Pre startup");
@@ -893,7 +894,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                                 thePlayer.func_20060_w();
                             }
                             if (isMultiplayerWorld() && Keyboard.getEventKey() == gameSettings.keyBindChat.keyCode) {
-                                displayGuiScreen(new GuiChat());
+                                displayGuiScreen(new GuiChat(false));
                             }
                         }
                         for (int i = 0; i < 9; i++) {
@@ -905,6 +906,8 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                         if (Keyboard.getEventKey() == gameSettings.keyBindToggleFog.keyCode) {
                             gameSettings.setOptionValue(EnumOptions.RENDER_DISTANCE, !Keyboard.isKeyDown(42) && !Keyboard.isKeyDown(54) ? 1 : -1);
                         }
+
+                        Titanic.getInstance().getEventManager().handleEvent(new KeyboardEvent(Keyboard.getEventKey()));
                     }
                 }
             } while (true);

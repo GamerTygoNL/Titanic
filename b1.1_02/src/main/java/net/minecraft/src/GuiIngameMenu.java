@@ -1,5 +1,8 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.event.AbstractEvent;
+
 public class GuiIngameMenu extends GuiScreen {
 
     private int updateCounter2;
@@ -46,12 +49,23 @@ public class GuiIngameMenu extends GuiScreen {
     public void drawScreen(int i, int j, float f) {
         drawDefaultBackground();
         boolean flag = !mc.theWorld.func_650_a(updateCounter2++);
-        if (flag || updateCounter < 20) {
-            float f1 = ((float) (updateCounter % 10) + f) / 10F;
-            f1 = MathHelper.sin(f1 * 3.141593F * 2.0F) * 0.2F + 0.8F;
-            int k = (int) (255F * f1);
-            drawString(fontRenderer, "Saving level..", 8, height - 16, k << 16 | k << 8 | k);
+
+        AbstractEvent event = new AbstractEvent() {
+            @Override
+            public boolean isCancelled() {
+                return Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft().isMultiplayerWorld();
+            }
+        };
+
+        if (!event.isCancelled()) {
+            if (flag || updateCounter < 20) {
+                float f1 = ((float) (updateCounter % 10) + f) / 10F;
+                f1 = MathHelper.sin(f1 * 3.141593F * 2.0F) * 0.2F + 0.8F;
+                int k = (int) (255F * f1);
+                drawString(fontRenderer, "Saving level..", 8, height - 16, k << 16 | k << 8 | k);
+            }
         }
+
         drawCenteredString(fontRenderer, "Game menu", width / 2, 40, 0xffffff);
         super.drawScreen(i, j, f);
     }

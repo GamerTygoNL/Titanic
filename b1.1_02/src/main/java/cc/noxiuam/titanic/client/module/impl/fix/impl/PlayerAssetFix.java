@@ -16,7 +16,7 @@ public class PlayerAssetFix extends AbstractFixModule {
 
     public PlayerAssetFix() {
         super("Player Asset Fix");
-        Titanic.getInstance().getEventManager().addEvent(PlayerLoadEvent.class, this::fixPlayerAssets);
+        addEvent(PlayerLoadEvent.class, this::fixPlayerAssets);
     }
 
     /**
