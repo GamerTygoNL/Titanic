@@ -33,7 +33,6 @@ public class PerspectiveBundle extends AbstractModule {
         if (currentPerspective == PerspectiveView.THIRD) {
             GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
         }
-
     }
 
     private void updateCurrentPerspective(KeyboardEvent event) {
