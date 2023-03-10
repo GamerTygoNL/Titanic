@@ -42,7 +42,7 @@ public class ProfileManager {
             username = "GitCLI";
         }
 
-        //player.field_20047_bv = "https://mc-heads.net/skin/" + username;
+        player.field_20047_bv = "https://mc-heads.net/skin/" + username;
         //player.playerCloakUrl = SkinUtil.getCapeURL(username);
 
         String retroCape = "http://assets.retromc.org/capes/" + username + ".png";
@@ -51,11 +51,8 @@ public class ProfileManager {
             player.field_20067_q = retroCape;
         }
 
-        System.out.println("exists=" + this.profileExists(username));
-
         if (this.profileExists(username)) {
             player.playerProfile = this.getProfile(username);
-            System.out.println("hasCape" + player.playerProfile.isHasCape());
             if (player.playerProfile.isHasCape()) {
                 player.field_20067_q = "https://noxiuam.cc/titanic-client/cosmetic/cape/AP_" + player.playerProfile.getRank() + ".png";
             }
