@@ -17,3 +17,13 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Implementing quality of life features such as a brightness slider & fixes for crashes
 - [ ] Implement a basic cosmetic system for capes only, wings and emotes will come at a later time
 - [ ] Bukkit API to allow servers to disable certain features on the server
+
+<details>
+  <summary><strong>Bug Fixes</strong></summary>
+  - [ ] Fix chunk crash when loading them too fast
+  - [ ] Fix chest inventory "chest" text not being capitalized properly
+  - [ ] Fix armor models not moving with player swinging animation
+  - [ ] Fix capes models when sneaking and other stuff
+  - [ ] Remove "Saving level..." when on a server, it doesnt save anything
+  - [ ] Swinging with any item has no cooldown
+</details>
