@@ -24,5 +24,4 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Fix armor models not moving with player swinging animation
 - [x] Fix capes models when sneaking and other stuff
 - [x] Fix player head model when sneaking and unsneaking
-- [ ] Remove "Saving level..." when on a server, it doesnt save anything
-- [ ] Swinging with any item has no cooldown
+- [x] Remove "Saving level..." when on a server, it doesnt save anything
