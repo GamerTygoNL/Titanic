@@ -4,6 +4,7 @@ import cc.noxiuam.titanic.bridge.Bridge;
 import cc.noxiuam.titanic.client.command.CommandManager;
 import cc.noxiuam.titanic.client.module.ModuleManager;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
+import cc.noxiuam.titanic.client.ui.HudLayoutEditor;
 import cc.noxiuam.titanic.client.util.Logger;
 import cc.noxiuam.titanic.event.AbstractEvent;
 import cc.noxiuam.titanic.event.EventManager;
@@ -52,14 +53,21 @@ public class Titanic {
     }
 
     private void handleKeyboard(KeyboardEvent event) {
+        int key = event.getKey();
         Minecraft mc = bridge.getMinecraftBridge().bridge$getMinecraft();
 
-        if (event.getKey() == Keyboard.KEY_F2) {
-            mc.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(Minecraft.getMinecraftDir(), mc.displayWidth, mc.displayHeight));
-            mc.isTakingScreenshot = true;
+        if (key == Keyboard.KEY_RSHIFT) {
+            mc.displayGuiScreen(new HudLayoutEditor());
+            return;
         }
 
-        if (event.getKey() == Keyboard.KEY_SLASH) {
+        if (key == Keyboard.KEY_F2) {
+            mc.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(Minecraft.getMinecraftDir(), mc.displayWidth, mc.displayHeight));
+            mc.isTakingScreenshot = true;
+            return;
+        }
+
+        if (key == Keyboard.KEY_SLASH) {
             bridge.getMinecraftBridge()
                     .bridge$getMinecraft()
                     .displayGuiScreen(new GuiChat(true));
