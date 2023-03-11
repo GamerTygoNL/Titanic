@@ -1,6 +1,11 @@
 package cc.noxiuam.titanic.client.ui.component;
 
+import cc.noxiuam.titanic.client.Titanic;
+import net.minecraft.client.Minecraft;
+
 public abstract class AbstractComponent {
+
+    protected final Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
 
     protected float x;
     protected float y;
@@ -60,4 +65,5 @@ public abstract class AbstractComponent {
                 && mouseY < y + height;
     }
 
+    public void handleElementMouse() {}
 }

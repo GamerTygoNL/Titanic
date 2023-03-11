@@ -1,13 +1,11 @@
 package cc.noxiuam.titanic.client.module.impl.normal.perspective;
 
-import cc.noxiuam.titanic.client.Titanic;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.impl.KeybindSetting;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
-import cc.noxiuam.titanic.event.impl.perspective.FovChangeEvent;
+import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -23,7 +21,7 @@ public class PerspectiveBundle extends AbstractModule {
                 switchPerspectiveKey = new KeybindSetting("switchPerspectiveKeybind", "Switch Perspective", Keyboard.KEY_R),
                 viewBobbingInThirdPerson = new BooleanSetting("viewBobbingInThirdPerson", "3rd Person View Bobbing", false)
         );
-        this.addEvent(FovChangeEvent.class, this::getModernFovModifier);
+        this.addEvent(CameraChangeEvent.class, this::getModernCamera);
         this.addEvent(KeyboardEvent.class, this::updateCurrentPerspective);
         this.addEvent(ViewBobbingSetupEvent.class, this::setupViewBobbing);
     }
@@ -35,7 +33,7 @@ public class PerspectiveBundle extends AbstractModule {
         }
     }
 
-    private void getModernFovModifier(FovChangeEvent event) {
+    private void getModernCamera(CameraChangeEvent event) {
         event.cancel();
 
         if (currentPerspective == PerspectiveView.THIRD) {
@@ -48,6 +46,11 @@ public class PerspectiveBundle extends AbstractModule {
     }
 
     private void updateCurrentPerspective(KeyboardEvent event) {
+        if (event.getKey() == Keyboard.KEY_F5) {
+            event.cancel();
+            return;
+        }
+
         if (event.getKey() == switchPerspectiveKey.value()) {
             if (currentPerspective == PerspectiveView.FIRST) {
                 currentPerspective = PerspectiveView.SECOND;

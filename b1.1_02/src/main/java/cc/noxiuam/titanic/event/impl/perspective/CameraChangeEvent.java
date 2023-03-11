@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class FovChangeEvent extends AbstractEvent {
+public class CameraChangeEvent extends AbstractEvent {
 
     public float f2;
 

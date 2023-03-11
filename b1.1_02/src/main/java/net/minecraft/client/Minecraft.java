@@ -889,7 +889,11 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                             if (Keyboard.getEventKey() == 31 && Keyboard.isKeyDown(61)) {
                                 forceReload();
                             }
-                            if (Keyboard.getEventKey() == 63) {
+
+                            KeyboardEvent event = new KeyboardEvent(Keyboard.getEventKey());
+                            Titanic.getInstance().getEventManager().handleEvent(event);
+
+                            if (Keyboard.getEventKey() == 63 && !event.isCancelled()) {
                                 gameSettings.thirdPersonView = !gameSettings.thirdPersonView;
                             }
                             if (Keyboard.getEventKey() == gameSettings.keyBindInventory.keyCode) {
@@ -911,8 +915,6 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                         if (Keyboard.getEventKey() == gameSettings.keyBindToggleFog.keyCode) {
                             gameSettings.setOptionValue(EnumOptions.RENDER_DISTANCE, !Keyboard.isKeyDown(42) && !Keyboard.isKeyDown(54) ? 1 : -1);
                         }
-
-                        Titanic.getInstance().getEventManager().handleEvent(new KeyboardEvent(Keyboard.getEventKey()));
                     }
                 }
             } while (true);

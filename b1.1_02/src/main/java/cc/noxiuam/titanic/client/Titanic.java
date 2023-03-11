@@ -4,9 +4,8 @@ import cc.noxiuam.titanic.bridge.Bridge;
 import cc.noxiuam.titanic.client.command.CommandManager;
 import cc.noxiuam.titanic.client.module.ModuleManager;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
-import cc.noxiuam.titanic.client.ui.HudLayoutEditor;
+import cc.noxiuam.titanic.client.ui.impl.editor.HudLayoutEditor;
 import cc.noxiuam.titanic.client.util.Logger;
-import cc.noxiuam.titanic.event.AbstractEvent;
 import cc.noxiuam.titanic.event.EventManager;
 
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;

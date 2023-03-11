@@ -3,6 +3,7 @@ package cc.noxiuam.titanic.client.ui.util;
 import cc.noxiuam.titanic.client.Titanic;
 import lombok.experimental.UtilityClass;
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 @UtilityClass
@@ -89,6 +90,30 @@ public class RenderUtil {
         GL11.glEnable(3553);
         GL11.glScaled(2, 2, 2);
         GL11.glPopAttrib();
+    }
+
+    public void drawRect(float i, float j, float k, float l, int i1) {
+        float f = (float) (i1 >> 24 & 0xff) / 255F;
+        float f1 = (float) (i1 >> 16 & 0xff) / 255F;
+        float f2 = (float) (i1 >> 8 & 0xff) / 255F;
+        float f3 = (float) (i1 & 0xff) / 255F;
+        Tessellator tessellator = Tessellator.instance;
+        GL11.glEnable(3042 /*GL_BLEND*/);
+        GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
+        GL11.glBlendFunc(770, 771);
+        GL11.glColor4f(f1, f2, f3, f);
+        tessellator.startDrawingQuads();
+        tessellator.addVertex(i, l, 0.0D);
+        tessellator.addVertex(k, l, 0.0D);
+        tessellator.addVertex(k, j, 0.0D);
+        tessellator.addVertex(i, j, 0.0D);
+        tessellator.draw();
+        GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+        GL11.glDisable(3042 /*GL_BLEND*/);
+    }
+
+    public void startScissorBox(int x, int y, int width, int height) {
+        GL11.glScissor(x, y, width, height);
     }
 
 }
