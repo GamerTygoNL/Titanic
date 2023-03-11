@@ -5,6 +5,7 @@ import cc.noxiuam.titanic.client.module.data.AbstractSetting;
 import cc.noxiuam.titanic.event.AbstractEvent;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.client.Minecraft;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,6 +17,8 @@ import java.util.function.Consumer;
 @Setter
 @Accessors(fluent = true)
 public abstract class AbstractModule {
+
+    protected final Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
 
     private final List<AbstractSetting<?>> settings;
 

@@ -1,8 +1,9 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.client.Titanic;
-import cc.noxiuam.titanic.event.impl.FovChangeEvent;
+import cc.noxiuam.titanic.event.impl.perspective.FovChangeEvent;
 import cc.noxiuam.titanic.event.impl.gui.DrawGameOverlayEvent;
+import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -147,7 +148,10 @@ public class EntityRenderer {
     }
 
     private void setupViewBobbing(float f) {
-        if (mc.gameSettings.thirdPersonView) {
+        ViewBobbingSetupEvent event = new ViewBobbingSetupEvent();
+        Titanic.getInstance().getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
             return;
         } else {
             EntityPlayerSP entityplayersp = mc.thePlayer;

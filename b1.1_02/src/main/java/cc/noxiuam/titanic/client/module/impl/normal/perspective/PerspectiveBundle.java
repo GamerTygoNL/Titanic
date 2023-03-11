@@ -5,7 +5,8 @@ import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.impl.KeybindSetting;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
-import cc.noxiuam.titanic.event.impl.FovChangeEvent;
+import cc.noxiuam.titanic.event.impl.perspective.FovChangeEvent;
+import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -24,6 +25,14 @@ public class PerspectiveBundle extends AbstractModule {
         );
         this.addEvent(FovChangeEvent.class, this::getModernFovModifier);
         this.addEvent(KeyboardEvent.class, this::updateCurrentPerspective);
+        this.addEvent(ViewBobbingSetupEvent.class, this::setupViewBobbing);
+    }
+
+    private void setupViewBobbing(ViewBobbingSetupEvent event) {
+        if (this.viewBobbingInThirdPerson.value()
+                || mc.gameSettings.thirdPersonView) {
+            event.cancel();
+        }
     }
 
     private void getModernFovModifier(FovChangeEvent event) {
@@ -39,8 +48,6 @@ public class PerspectiveBundle extends AbstractModule {
     }
 
     private void updateCurrentPerspective(KeyboardEvent event) {
-        Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
-
         if (event.getKey() == switchPerspectiveKey.value()) {
             if (currentPerspective == PerspectiveView.FIRST) {
                 currentPerspective = PerspectiveView.SECOND;
