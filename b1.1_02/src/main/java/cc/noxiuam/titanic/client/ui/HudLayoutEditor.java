@@ -9,7 +9,7 @@ import net.minecraft.src.GuiScreen;
 
 public class HudLayoutEditor extends GuiScreen {
 
-    private final RoundedIconButton modsButton = new RoundedIconButton("/gui/pencil.png");
+    private final RoundedIconButton modsButton = new RoundedIconButton("/titanic/pencil.png");
 
     private final Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
 
