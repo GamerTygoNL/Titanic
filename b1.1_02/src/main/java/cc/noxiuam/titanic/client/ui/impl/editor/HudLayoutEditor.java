@@ -5,6 +5,7 @@ import cc.noxiuam.titanic.client.ui.impl.GuiScreenWrapper;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
 import cc.noxiuam.titanic.client.ui.util.FontUtil;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
+import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 import net.minecraft.client.Minecraft;
 
 public class HudLayoutEditor extends GuiScreenWrapper {
@@ -40,6 +41,7 @@ public class HudLayoutEditor extends GuiScreenWrapper {
     @Override
     protected void mouseClicked(int i, int j, int k) {
         if (this.modsButton.mouseInside(i, j)) {
+            SoundUtil.playClick();
             mc.displayGuiScreen(new ModSettingsEditor());
         }
     }
