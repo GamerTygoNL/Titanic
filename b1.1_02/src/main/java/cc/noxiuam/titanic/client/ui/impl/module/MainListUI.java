@@ -28,7 +28,7 @@ public class MainListUI extends AbstractComponent {
                 this.x + this.width,
                 this.y + this.height - 1.0f,
                 5.0f,
-                0x40000000
+                0x80000000
         );
 
         moduleListContainer.draw(x, y);

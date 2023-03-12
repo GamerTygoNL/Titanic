@@ -112,8 +112,11 @@ public class RenderUtil {
         GL11.glDisable(3042 /*GL_BLEND*/);
     }
 
-    public void startScissorBox(int x, int y, int width, int height) {
-        GL11.glScissor(x, y, width, height);
+    public void startScissorBox(int x, int y, int width, int height, float scaledWidth, int scaledHeight) {
+        int sY = height - y;
+        int sX = width - x;
+        int n8 = scaledHeight - height;
+        GL11.glScissor((int) ((float) x * scaledWidth), (int) ((float) n8 * scaledWidth), (int) ((float) sX * scaledWidth), (int) ((float) sY * scaledWidth));
     }
 
 }

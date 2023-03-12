@@ -304,7 +304,9 @@ public class EntityRenderer {
         int i1 = j - (Mouse.getY() * j) / mc.displayHeight - 1;
         if (mc.theWorld != null) {
             renderWorld(f);
-            mc.ingameGUI.renderGameOverlay(f, mc.currentScreen != null, k, i1);
+            if (!Keyboard.isKeyDown(59)) {
+                mc.ingameGUI.renderGameOverlay(f, mc.currentScreen != null, k, i1);
+            }
         } else {
             GL11.glViewport(0, 0, mc.displayWidth, mc.displayHeight);
             GL11.glClearColor(0.0F, 0.0F, 0.0F, 0.0F);

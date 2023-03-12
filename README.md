@@ -13,9 +13,10 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] General designing process
 - [x] Create a base for simple features, will prob use a modified version of [Settings](https://github.com/Noxiuam/Settings)
 - [ ] Create a way to detect JBanned users, notify them if they are banned
-- [ ] Create the UI framework with different paths for each menu (it will work similarly to how endpoints work in express servers)
-- [ ] Implementing quality of life features such as a brightness slider & fixes for crashes
+- [x] Create the UI framework with different paths for each menu (it will work similarly to how endpoints work in express servers)
+- [ ] Implementing quality of life features
 - [x] Implement a basic cosmetic system for capes only, wings and emotes will come at a later time
+- [ ] Take suggestions from everyone in the community on what should get added to the client
 - [ ] Bukkit API to allow servers to disable certain features on the server
 
 ### Bug Fixes Roadmap
