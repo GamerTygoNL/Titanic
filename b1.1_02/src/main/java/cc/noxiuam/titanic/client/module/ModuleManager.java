@@ -4,7 +4,7 @@ import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerModelFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerAssetFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.SavingLevelFix;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatBundle;
-import cc.noxiuam.titanic.client.module.impl.normal.overlay.BetaOverlay;
+import cc.noxiuam.titanic.client.module.impl.normal.overlay.ModernOverlay;
 import cc.noxiuam.titanic.client.module.impl.normal.perspective.PerspectiveBundle;
 import lombok.Getter;
 
@@ -27,7 +27,7 @@ public class ModuleManager {
         // qol mods
         this.mods.add(chatBundle = new ChatBundle());
         this.mods.add(new PerspectiveBundle());
-        this.mods.add(new BetaOverlay());
+        this.mods.add(new ModernOverlay());
 
         for (AbstractModule module : mods) {
             if (module.enabledByDefault) {

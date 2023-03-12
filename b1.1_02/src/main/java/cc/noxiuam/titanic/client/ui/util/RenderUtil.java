@@ -3,8 +3,11 @@ package cc.noxiuam.titanic.client.ui.util;
 import cc.noxiuam.titanic.client.Titanic;
 import lombok.experimental.UtilityClass;
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.MathHelper;
 import net.minecraft.src.Tessellator;
 import org.lwjgl.opengl.GL11;
+
+import static org.lwjgl.opengl.GL11.*;
 
 @UtilityClass
 public class RenderUtil {
@@ -53,6 +56,29 @@ public class RenderUtil {
         GL11.glDisable(3042);
     }
 
+    public void drawOval(float xPosition, float yPosition, float xRadius, float yRadius, float thickness, int color) {
+        GL11.glPushMatrix();
+        setColor(color);
+        GL11.glEnable(2848);
+        GL11.glDisable(3553);
+        GL11.glEnable(2848);
+        GL11.glEnable(3042);
+        GL11.glLineWidth(thickness);
+        GL11.glBegin(2);
+        for (int i = 0; i < 70; i++) {
+            int x = (int) (xRadius * MathHelper.cos((int) (i * 0.08975979010256552D)));
+            int y = (int) (yRadius * MathHelper.sin((int) (i * 0.08975979010256552D)));
+            GL11.glVertex2f(xPosition + x, yPosition + y);
+        }
+        GL11.glEnd();
+        GL11.glDisable(2848);
+        GL11.glEnable(3553);
+        GL11.glPopMatrix();
+        GL11.glLineWidth(2.0F);
+//        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//        GL11.glBindTexture(0,);
+    }
+
     public void drawRoundedRect(double x, double y, double width, double height, double radius, int color) {
         int n2;
         float f = (float)(color >> 24 & 0xFF) / (float)255;
@@ -92,6 +118,48 @@ public class RenderUtil {
         GL11.glPopAttrib();
     }
 
+    public void drawRoundedOutline(float x, float y, float width, float height, float radius, float lineWidth, int color) {
+        GL11.glPushAttrib(0);
+        GL11.glScalef(0.5f, 0.5f, 0.5f);
+
+        x *= 2.0D;
+        y *= 2.0D;
+        width *= 2.0D;
+        height *= 2.0D;
+
+        GL11.glEnable(GL_BLEND);
+        GL11.glDisable(GL_TEXTURE_2D);
+        setColor(color);
+        GL11.glEnable(GL_LINE_SMOOTH);
+        GL11.glLineWidth(lineWidth);
+        GL11.glBegin(GL_LINE_LOOP);
+
+        int i;
+        for (i = 0; i <= 90; i += 3) {
+            glVertex2d(x + radius + Math.sin(i * Math.PI / 180.0D) * radius * -1.0D, y + radius + Math.cos(i * Math.PI / 180.0D) * radius * -1.0D);
+        }
+        for (i = 90; i <= 180; i += 3) {
+            glVertex2d(x + radius + Math.sin(i * Math.PI / 180.0D) * radius * -1.0D, height - radius + Math.cos(i * Math.PI / 180.0D) * radius * -1.0D);
+        }
+        for (i = 0; i <= 90; i += 3) {
+            glVertex2d(width - radius + Math.sin(i * Math.PI / 180.0D) * radius, height - radius + Math.cos(i * Math.PI / 180.0D) * radius);
+        }
+        for (i = 90; i <= 180; i += 3) {
+            glVertex2d(width - radius + Math.sin(i * Math.PI / 180.0D) * radius, y + radius + Math.cos(i * Math.PI / 180.0D) * radius);
+        }
+
+        GL11.glEnd();
+        GL11.glEnable(GL_TEXTURE_2D);
+        GL11.glDisable(GL_BLEND);
+        GL11.glDisable(GL_LINE_SMOOTH);
+        GL11.glDisable(GL_BLEND);
+        GL11.glEnable(GL_TEXTURE_2D);
+        GL11.glScalef(2.0f, 2.0f, 2.0f);
+        GL11.glPopAttrib();
+        GL11.glLineWidth(1);
+        setColor(color);
+    }
+
     public void drawRect(float i, float j, float k, float l, int i1) {
         float f = (float) (i1 >> 24 & 0xff) / 255F;
         float f1 = (float) (i1 >> 16 & 0xff) / 255F;
@@ -117,6 +185,15 @@ public class RenderUtil {
         int sX = width - x;
         int n8 = scaledHeight - height;
         GL11.glScissor((int) ((float) x * scaledWidth), (int) ((float) n8 * scaledWidth), (int) ((float) sX * scaledWidth), (int) ((float) sY * scaledWidth));
+    }
+
+    public void setColor(int color) {
+        float a = (color >> 24 & 0xFF) / 255.0F;
+        float r = (color >> 16 & 0xFF) / 255.0F;
+        float g = (color >> 8 & 0xFF) / 255.0F;
+        float b = (color & 0xFF) / 255.0F;
+
+        glColor4f(r, g, b, a);
     }
 
 }

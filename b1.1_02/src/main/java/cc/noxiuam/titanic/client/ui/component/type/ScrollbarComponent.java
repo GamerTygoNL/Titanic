@@ -119,12 +119,17 @@ public class ScrollbarComponent extends AbstractComponent {
                 this.position = 0.0f;
                 this.internalScrollAmount = 0.0;
             }
-            RenderUtil.drawRect(this.x, this.y, this.x + this.width, this.y + this.height, -13158601);
-            RenderUtil.drawRect(this.x, this.y - f8, this.x + this.width, this.y + f7 - f8, hovering && (bl3 || Mouse.isButtonDown(0) && this.buttonHeld) ? -4180940 : -52429);
+            RenderUtil.drawRect(this.x, this.y, this.x + this.width, this.y + this.height, 0x80000000);
+            RenderUtil.drawRect(this.x, this.y - f8, this.x + this.width, this.y + f7 - f8, hovering && (bl3 || Mouse.isButtonDown(0) && this.buttonHeld) ? 0x9000C2FF : 0xFF00C2FF);
         }
         if (!bl2 && this.position != 0.0f) {
             this.position = 0.0f;
         }
+    }
+
+    @Override
+    public void mouseClicked(float x, float y) {
+        this.buttonHeld = true;
     }
 
     @Override

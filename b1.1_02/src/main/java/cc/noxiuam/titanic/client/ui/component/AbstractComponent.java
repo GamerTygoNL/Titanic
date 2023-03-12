@@ -1,8 +1,10 @@
 package cc.noxiuam.titanic.client.ui.component;
 
 import cc.noxiuam.titanic.client.Titanic;
+import lombok.Getter;
 import net.minecraft.client.Minecraft;
 
+@Getter
 public abstract class AbstractComponent {
 
     protected final Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();

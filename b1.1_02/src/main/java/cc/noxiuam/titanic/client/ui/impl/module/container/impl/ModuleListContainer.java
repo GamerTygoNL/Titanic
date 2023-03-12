@@ -1,31 +1,46 @@
 package cc.noxiuam.titanic.client.ui.impl.module.container.impl;
 
 import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
+import cc.noxiuam.titanic.client.ui.component.type.footer.FooterContainer;
 import cc.noxiuam.titanic.client.ui.component.type.module.ModulePreviewContainer;
 import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
+import lombok.Getter;
 import lombok.Setter;
 
 public class ModuleListContainer extends AbstractContainer {
 
-    private final ModulePreviewContainer previewContainer = new ModulePreviewContainer();
-    @Setter private AbstractComponent currentElement = previewContainer;
+    private final FooterContainer footer = new FooterContainer();
+
+    @Getter private final ModulePreviewContainer previewContainer = new ModulePreviewContainer();
+    @Setter private AbstractComponent currentComponent;
 
     public ModuleListContainer() {
         super("/");
-        this.currentElement = previewContainer;
+        this.currentComponent = previewContainer;
     }
 
     @Override
     public void draw(float x, float y) {
-        this.currentElement.position(this.x, this.y);
-        this.currentElement.size(this.width, this.height);
-        this.currentElement.draw(x, y);
+        this.currentComponent.position(this.x, this.y);
+        this.currentComponent.size(this.width, this.height);
+        this.currentComponent.draw(x, y);
+
+        this.footer.position(this.x, this.y + 10);
+        this.footer.size(this.width, this.height);
+        this.footer.draw(x, y);
+    }
+
+    @Override
+    public void handleElementMouse() {
+        this.currentComponent.handleElementMouse();
     }
 
     @Override
     public void mouseClicked(float x, float y) {
-        if (this.currentElement.mouseInside(x, y)) {
-            this.currentElement.mouseClicked(x, y);
+        this.footer.mouseClicked(x, y);
+
+        if (this.currentComponent.mouseInside(x, y)) {
+            this.currentComponent.mouseClicked(x, y);
         }
     }
 

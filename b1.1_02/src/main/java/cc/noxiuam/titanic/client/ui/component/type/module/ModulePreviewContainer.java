@@ -29,7 +29,6 @@ public class ModulePreviewContainer extends AbstractContainer {
 
     @Override
     public void draw(float x, float y) {
-
         ScaledResolution scaledResolution = new ScaledResolution((int) this.width, (int) this.height);
         ScaledResolution mcRes = new ScaledResolution(mc.displayWidth, mc.displayHeight);
 
@@ -46,8 +45,8 @@ public class ModulePreviewContainer extends AbstractContainer {
         }
 
         float defaultPos = 112.0f;
-        this.scrollbar.position(this.x + width - 6.0f, this.y + 20.0f);
-        this.scrollbar.size(4.0f, height - 20.0f);
+        this.scrollbar.position(this.x + this.width + 3.0F, this.y);
+        this.scrollbar.size(4.0f, this.height - 20.0F);
         this.scrollbar.setScrollAmount(previewComponents.size() == 0 ? defaultPos + 4.0f : 4.0f + defaultPos + (defaultPos + 8.0f) * (float)previewComponents.size());
 
         this.scrollbar.drawScrollable(x, y, true);
@@ -71,7 +70,17 @@ public class ModulePreviewContainer extends AbstractContainer {
     }
 
     @Override
+    public void handleElementMouse() {
+        this.scrollbar.handleElementMouse();
+        super.handleElementMouse();
+    }
+
+    @Override
     public void mouseClicked(float x, float y) {
+        if (scrollbar.mouseInside(x, y)) {
+            scrollbar.mouseClicked(x, y);
+        }
+
         for (ModulePreviewComponent previewComponent : previewComponents) {
             if (previewComponent.mouseInside(x, y)) {
                 if (previewComponent.getSettingsButton().mouseInside(x, y)) {

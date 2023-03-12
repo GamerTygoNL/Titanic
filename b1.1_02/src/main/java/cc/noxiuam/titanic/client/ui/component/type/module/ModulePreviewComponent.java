@@ -21,10 +21,9 @@ public class ModulePreviewComponent extends AbstractComponent {
             4.5F
     );
 
-    private final ColorFade backgroundColor = new ColorFade(
-            0x80000000,
-            0xBF000000
-    );
+    private final ColorFade outlineColor = new ColorFade(0x00000000, 0xCCC2C2C2);
+    private final ColorFade backgroundColor = new ColorFade(0x80000000, 0xBF000000);
+    private final ColorFade enabledOutline = new ColorFade(0x00000000, 0xFF00C2FF);
 
     private final AbstractModule module;
 
@@ -33,6 +32,18 @@ public class ModulePreviewComponent extends AbstractComponent {
 
         settingsButton.size(15, 15);
         settingsButton.position(this.x + width - 16, this.y);
+
+        RenderUtil.drawRoundedOutline(
+                this.x,
+                this.y,
+                this.x + this.width,
+                this.y + this.height,
+                5.0F,
+                3.0F,
+                module.enabled()
+                        ? enabledOutline.getColor(true).getRGB()
+                        : outlineColor.getColor(mouseInside(x, y)).getRGB()
+        );
 
         RenderUtil.drawRoundedRect(
                 this.x,
@@ -43,7 +54,7 @@ public class ModulePreviewComponent extends AbstractComponent {
                 backgroundColor.getColor(mouseInside(x, y)).getRGB()
         );
 
-        //settingsButton.draw(x, y);
+        settingsButton.draw(x, y);
 
         this.mc.fontRenderer.drawStringWithShadow(module.name(), (int) (this.x + 5), (int) this.y + 4, module.enabled() ? -1 : 0xFFADADAD);
     }
