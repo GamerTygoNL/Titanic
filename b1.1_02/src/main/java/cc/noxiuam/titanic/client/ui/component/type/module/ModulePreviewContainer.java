@@ -33,6 +33,7 @@ public class ModulePreviewContainer extends AbstractContainer {
     public void draw(float x, float y) {
 
         ScaledResolution scaledResolution = new ScaledResolution((int) this.width, (int) this.height);
+        ScaledResolution mcRes = new ScaledResolution(mc.displayWidth, mc.displayHeight);
 
         float scale = scaledResolution.scaleFactor / 2.0F;
 
@@ -62,7 +63,7 @@ public class ModulePreviewContainer extends AbstractContainer {
                 (int) (this.x + this.width),
                 (int) (this.y + this.height),
                 scaledWidth / 2 + mc.displayWidth,
-                (int) (scaledHeight / 2 + (this.y + this.height)),
+                (int) (mc.displayHeight + (this.height - 30) * mcRes.scaleFactor),
                 (float) scaledResolution.scaleFactor * scale,
                 scaledHeight
         );
