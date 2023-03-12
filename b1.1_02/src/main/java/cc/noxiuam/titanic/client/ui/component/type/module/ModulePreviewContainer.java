@@ -61,8 +61,8 @@ public class ModulePreviewContainer extends AbstractContainer {
         RenderUtil.startScissorBox(
                 (int) (this.x + this.width),
                 (int) (this.y + this.height),
-                (int) (scaledWidth / 2 + this.width),
-                scaledHeight - 90,
+                scaledWidth / 2 + mc.displayWidth,
+                (int) (scaledHeight / 2 + (this.y + this.height)),
                 (float) scaledResolution.scaleFactor * scale,
                 scaledHeight
         );
