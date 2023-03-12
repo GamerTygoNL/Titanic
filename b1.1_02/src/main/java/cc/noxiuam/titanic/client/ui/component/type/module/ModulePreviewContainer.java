@@ -23,9 +23,7 @@ public class ModulePreviewContainer extends AbstractContainer {
 
         for (AbstractModule module : Titanic.getInstance().getModuleManager().getMods()) {
             if (module instanceof AbstractFixModule) continue;
-            for (int i = 0; i < 5; i++) {
-                previewComponents.add(new ModulePreviewComponent(module));
-            }
+            previewComponents.add(new ModulePreviewComponent(module));
         }
     }
 
@@ -55,10 +53,6 @@ public class ModulePreviewContainer extends AbstractContainer {
         this.scrollbar.drawScrollable(x, y, true);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
 
-        for (ModulePreviewComponent previewComponent : previewComponents) {
-            previewComponent.draw(x, y);
-        }
-
         RenderUtil.startScissorBox(
                 (int) (this.x + this.width),
                 (int) (this.y + this.height),
@@ -68,9 +62,12 @@ public class ModulePreviewContainer extends AbstractContainer {
                 scaledHeight
         );
 
+        for (ModulePreviewComponent previewComponent : previewComponents) {
+            previewComponent.draw(x, y);
+        }
+
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
         this.scrollbar.draw(x, y);
-
     }
 
     @Override
