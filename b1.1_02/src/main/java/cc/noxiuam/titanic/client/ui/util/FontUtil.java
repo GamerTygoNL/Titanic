@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.ui.util;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import lombok.experimental.UtilityClass;
 import net.minecraft.client.Minecraft;
 

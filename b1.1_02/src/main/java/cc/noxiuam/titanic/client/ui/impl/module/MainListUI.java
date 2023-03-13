@@ -35,12 +35,6 @@ public class MainListUI extends AbstractComponent {
     }
 
     @Override
-    public void handleElementMouse() {
-        this.moduleListContainer.handleElementMouse();
-        super.handleElementMouse();
-    }
-
-    @Override
     public void mouseClicked(float x, float y) {
         super.mouseClicked(x, y);
         this.moduleListContainer.mouseClicked(x, y);

@@ -1,7 +1,8 @@
-package cc.noxiuam.titanic.client;
+package cc.noxiuam.titanic;
 
 import cc.noxiuam.titanic.bridge.Bridge;
 import cc.noxiuam.titanic.client.command.CommandManager;
+import cc.noxiuam.titanic.client.config.ConfigManager;
 import cc.noxiuam.titanic.client.module.ModuleManager;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
 import cc.noxiuam.titanic.client.ui.impl.editor.HudLayoutEditor;
@@ -24,29 +25,31 @@ public class Titanic {
 
     private final Bridge bridge;
     private final EventManager eventManager;
+    private final ConfigManager configManager;
     private final ProfileManager profileManager;
     private final ModuleManager moduleManager;
 
     public Titanic(Minecraft mc) {
         instance = this;
-
         Logger logger = new Logger("Initialization");
-        logger.info("Created Logger");
 
         eventManager = new EventManager();
-        logger.info("Created Event Manager");
+        logger.info("Initialized Event Manager");
+
+        configManager = new ConfigManager();
+        logger.info("Initialized Config Manager");
 
         (bridge = new Bridge()).setupMinecraftBridge(mc);
-        logger.info("Created Bridge");
+        logger.info("Initialized Bridge");
 
         profileManager = new ProfileManager();
-        logger.info("Created Profile Manager");
+        logger.info("Initialized Profile Manager");
 
         moduleManager = new ModuleManager();
-        logger.info("Created Module Manager");
+        logger.info("Initialized Module Manager");
 
         new CommandManager();
-        logger.info("Created Command Manager");
+        logger.info("Initialized Command Manager");
 
         eventManager.addEvent(KeyboardEvent.class, this::handleKeyboard);
     }

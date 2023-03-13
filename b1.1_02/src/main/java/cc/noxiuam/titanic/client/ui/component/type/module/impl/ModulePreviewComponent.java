@@ -1,8 +1,9 @@
-package cc.noxiuam.titanic.client.ui.component.type.module;
+package cc.noxiuam.titanic.client.ui.component.type.module.impl;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
+import cc.noxiuam.titanic.client.ui.component.type.module.ModulePreviewContainer;
 import cc.noxiuam.titanic.client.ui.fade.impl.ColorFade;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
 import lombok.AllArgsConstructor;
@@ -25,11 +26,11 @@ public class ModulePreviewComponent extends AbstractComponent {
     private final ColorFade backgroundColor = new ColorFade(0x80000000, 0xBF000000);
     private final ColorFade enabledOutline = new ColorFade(0x00000000, 0xFF00C2FF);
 
+    private final ModulePreviewContainer container;
     private final AbstractModule module;
 
     @Override
     public void draw(float x, float y) {
-
         settingsButton.size(15, 15);
         settingsButton.position(this.x + width - 16, this.y);
 
@@ -42,7 +43,7 @@ public class ModulePreviewComponent extends AbstractComponent {
                 3.0F,
                 module.enabled()
                         ? enabledOutline.getColor(true).getRGB()
-                        : outlineColor.getColor(mouseInside(x, y)).getRGB()
+                        : outlineColor.getColor(mouseInside((int) x, (int) y) && this.container.mouseInside(x, y)).getRGB()
         );
 
         RenderUtil.drawRoundedRect(
@@ -51,11 +52,10 @@ public class ModulePreviewComponent extends AbstractComponent {
                 this.x + this.width,
                 this.y + this.height,
                 5.0F,
-                backgroundColor.getColor(mouseInside(x, y)).getRGB()
+                backgroundColor.getColor(mouseInside((int) x, (int) y) && this.container.mouseInside(x, y)).getRGB()
         );
 
         settingsButton.draw(x, y);
-
         this.mc.fontRenderer.drawStringWithShadow(module.name(), (int) (this.x + 5), (int) this.y + 4, module.enabled() ? -1 : 0xFFADADAD);
     }
 

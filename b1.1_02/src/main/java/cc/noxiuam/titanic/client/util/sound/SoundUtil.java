@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.util.sound;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

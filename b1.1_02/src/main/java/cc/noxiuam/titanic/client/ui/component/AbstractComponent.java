@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.ui.component;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 
@@ -13,8 +13,6 @@ public abstract class AbstractComponent {
     protected float y;
     protected float width;
     protected float height;
-
-    public int yOffset;
 
     /**
      * Draws the component itself, very important!!!
@@ -67,5 +65,4 @@ public abstract class AbstractComponent {
                 && mouseY < y + height;
     }
 
-    public void handleElementMouse() {}
 }

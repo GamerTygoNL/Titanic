@@ -1,6 +1,5 @@
 package cc.noxiuam.titanic.client.module.impl.fix.impl;
 
-import cc.noxiuam.titanic.client.Titanic;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.event.impl.model.CapeRenderEvent;
 import cc.noxiuam.titanic.event.impl.model.PlayerModelRenderEvent;

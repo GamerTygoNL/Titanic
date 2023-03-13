@@ -20,7 +20,7 @@ public class ChatBundle extends AbstractModule {
         super("chatBundle", "Chat", false);
         initSettings(
                 chatHistory = new BooleanSetting("chatHistory", "Own Message History", false),
-                chatBackground = new BooleanSetting("chatBackground", "Chat Background", true)
+                chatBackground = new BooleanSetting("chatBackground", "Chat Background", false)
         );
     }
 

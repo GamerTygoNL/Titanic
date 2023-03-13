@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.module;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.module.data.AbstractSetting;
 import cc.noxiuam.titanic.event.AbstractEvent;
 import lombok.Getter;

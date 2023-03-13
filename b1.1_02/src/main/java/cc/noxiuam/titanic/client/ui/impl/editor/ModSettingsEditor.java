@@ -23,12 +23,6 @@ public class ModSettingsEditor extends GuiScreenWrapper {
     }
 
     @Override
-    public void handleMouseInput() {
-        this.moduleList.handleElementMouse();
-        super.handleMouseInput();
-    }
-
-    @Override
     public void onMouseClick(int x, int y, int button) {
         super.onMouseClick(x, y, button);
         this.moduleList.mouseClicked(x, y);

@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.network.profile;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.util.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

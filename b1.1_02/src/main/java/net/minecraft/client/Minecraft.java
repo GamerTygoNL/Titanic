@@ -1,7 +1,7 @@
 package net.minecraft.client;
 
 import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import net.minecraft.src.*;

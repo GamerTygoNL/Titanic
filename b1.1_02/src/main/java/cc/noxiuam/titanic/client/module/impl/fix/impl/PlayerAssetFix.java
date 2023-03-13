@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.module.impl.fix.impl;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
 import cc.noxiuam.titanic.client.util.http.HttpUtil;

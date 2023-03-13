@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.event.impl.model.CapeRenderEvent;
 import org.lwjgl.opengl.GL11;
 

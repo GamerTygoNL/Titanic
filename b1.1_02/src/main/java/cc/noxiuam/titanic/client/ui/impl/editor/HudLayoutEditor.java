@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.ui.impl.editor;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.ui.impl.GuiScreenWrapper;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
 import cc.noxiuam.titanic.client.ui.util.FontUtil;

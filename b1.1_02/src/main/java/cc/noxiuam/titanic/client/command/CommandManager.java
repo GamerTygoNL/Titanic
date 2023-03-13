@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.command;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatBundle;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.event.impl.chat.ChatSendEvent;

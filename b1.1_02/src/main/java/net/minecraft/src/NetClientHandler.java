@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.event.impl.chat.ChatReceivedEvent;
 import net.minecraft.client.Minecraft;
 
