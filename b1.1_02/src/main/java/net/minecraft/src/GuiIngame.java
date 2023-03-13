@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -135,7 +137,11 @@ public class GuiIngame extends Gui {
 
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-        if (Keyboard.isKeyDown(61)) {
+
+        DebugDrawEvent debugDrawEvent = new DebugDrawEvent();
+        Titanic.getInstance().getEventManager().handleEvent(debugDrawEvent);
+
+        if (Keyboard.isKeyDown(61) || debugDrawEvent.isCancelled()) {
             fontrenderer.drawStringWithShadow("Minecraft Beta 1.1_02 (" + mc.debug + ")", 2, 2, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6241_m(), 2, 12, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6262_n(), 2, 22, 0xffffff);
@@ -204,7 +210,10 @@ public class GuiIngame extends Gui {
                 byte byte1 = 2;
                 int j6 = -j4 * 9;
                 String s1 = ((ChatLine) chatMessageList.get(j4)).message;
-                drawRect(byte1, j6 - 1, byte1 + 320, j6 + 8, i6 / 2 << 24);
+                if (Titanic.getInstance().getModuleManager().getChatBundle().getChatBackground().value()) {
+                    drawRect(byte1, j6 - 1, byte1 + 320, j6 + 8, i6 / 2 << 24);
+                }
+
                 GL11.glEnable(3042 /*GL_BLEND*/);
                 fontrenderer.drawStringWithShadow(s1, byte1, j6, 0xffffff + (i6 << 24));
             }

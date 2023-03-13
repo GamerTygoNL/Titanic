@@ -137,29 +137,34 @@ public class FontRenderer {
         buffer.clear();
         GL11.glPushMatrix();
         GL11.glTranslatef(i, j, 0.0F);
-        for (int i1 = 0; i1 < s.length(); i1++) {
-            for (; s.charAt(i1) == '\247' && s.length() > i1 + 1; i1 += 2) {
-                int j1 = "0123456789abcdef".indexOf(s.toLowerCase().charAt(i1 + 1));
-                if (j1 < 0 || j1 > 15) {
-                    j1 = 15;
+
+        try {
+            for (int i1 = 0; i1 < s.length(); i1++) {
+                for (; s.charAt(i1) == '\247' && s.length() > i1 + 1; i1 += 2) {
+                    int j1 = "0123456789abcdef".indexOf(s.toLowerCase().charAt(i1 + 1));
+                    if (j1 < 0 || j1 > 15) {
+                        j1 = 15;
+                    }
+                    buffer.put(fontDisplayLists + 256 + j1 + (flag ? 16 : 0));
+                    if (buffer.remaining() == 0) {
+                        buffer.flip();
+                        GL11.glCallLists(buffer);
+                        buffer.clear();
+                    }
                 }
-                buffer.put(fontDisplayLists + 256 + j1 + (flag ? 16 : 0));
+
+                int k1 = FontAllowedCharacters.field_20157_a.indexOf(s.charAt(i1));
+                if (k1 >= 0) {
+                    buffer.put(fontDisplayLists + k1 + 32);
+                }
                 if (buffer.remaining() == 0) {
                     buffer.flip();
                     GL11.glCallLists(buffer);
                     buffer.clear();
                 }
             }
-
-            int k1 = FontAllowedCharacters.field_20157_a.indexOf(s.charAt(i1));
-            if (k1 >= 0) {
-                buffer.put(fontDisplayLists + k1 + 32);
-            }
-            if (buffer.remaining() == 0) {
-                buffer.flip();
-                GL11.glCallLists(buffer);
-                buffer.clear();
-            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
 
         buffer.flip();

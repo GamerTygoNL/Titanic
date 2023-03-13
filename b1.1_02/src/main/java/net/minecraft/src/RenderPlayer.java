@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.player.model.CapeRenderEvent;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPlayer extends RenderLiving {
@@ -176,6 +178,14 @@ public class RenderPlayer extends RenderLiving {
             }
             float f12 = entityplayer.field_775_e + (entityplayer.field_774_f - entityplayer.field_775_e) * f;
             f9 += MathHelper.sin((entityplayer.prevDistanceWalkedModified + (entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified) * f) * 6F) * 32F * f12;
+
+            CapeRenderEvent event = new CapeRenderEvent(entityplayer, f9);
+            Titanic.getInstance().getEventManager().handleEvent(event);
+
+            if (event.isCancelled()) {
+                f9 = event.value;
+            }
+
             GL11.glRotatef(6F + f10 / 2.0F + f9, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(f11 / 2.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(-f11 / 2.0F, 0.0F, 1.0F, 0.0F);

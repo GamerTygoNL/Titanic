@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.chat.ChatSendEvent;
 import net.minecraft.client.Minecraft;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
@@ -113,6 +115,14 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     }
 
     public void sendChatMessage(String s) {
+
+        ChatSendEvent event = new ChatSendEvent(s);
+        Titanic.getInstance().getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         field_797_bg.addToSendQueue(new Packet3Chat(s));
     }
 

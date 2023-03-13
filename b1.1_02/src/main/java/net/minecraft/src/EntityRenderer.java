@@ -1,5 +1,8 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
+import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -144,7 +147,10 @@ public class EntityRenderer {
     }
 
     private void setupViewBobbing(float f) {
-        if (mc.gameSettings.thirdPersonView) {
+        ViewBobbingSetupEvent event = new ViewBobbingSetupEvent();
+        Titanic.getInstance().getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
             return;
         } else {
             EntityPlayerSP entityplayersp = mc.thePlayer;
@@ -173,6 +179,14 @@ public class EntityRenderer {
                 f2 += 180F;
                 d3 += 2D;
             }
+
+            CameraChangeEvent event = new CameraChangeEvent(f2);
+            Titanic.getInstance().getEventManager().handleEvent(event);
+
+            if (event.isCancelled()) {
+                f2 = event.getF2();
+            }
+
             double d4 = (double) (-MathHelper.sin((f1 / 180F) * 3.141593F) * MathHelper.cos((f2 / 180F) * 3.141593F)) * d3;
             double d5 = (double) (MathHelper.cos((f1 / 180F) * 3.141593F) * MathHelper.cos((f2 / 180F) * 3.141593F)) * d3;
             double d6 = (double) (-MathHelper.sin((f2 / 180F) * 3.141593F)) * d3;
@@ -247,7 +261,7 @@ public class EntityRenderer {
         if (mc.gameSettings.viewBobbing) {
             setupViewBobbing(f);
         }
-        if (!mc.gameSettings.thirdPersonView && !Keyboard.isKeyDown(59)) {
+        if (!mc.gameSettings.thirdPersonView) {
             itemRenderer.renderItemInFirstPerson(f);
         }
         GL11.glPopMatrix();

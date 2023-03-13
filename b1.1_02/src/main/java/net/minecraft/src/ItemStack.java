@@ -140,7 +140,7 @@ public final class ItemStack {
         return new ItemStack(itemID, stackSize, itemDamage);
     }
 
-    private boolean func_20108_a(ItemStack itemstack) {
+    public boolean func_20108_a(ItemStack itemstack) {
         if (stackSize != itemstack.stackSize) {
             return false;
         }

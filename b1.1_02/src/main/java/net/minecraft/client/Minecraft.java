@@ -1,7 +1,10 @@
 package net.minecraft.client;
 
 import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
-import cc.noxiuam.titanic.client.Titanic;
+import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.TickEvent;
+import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import net.minecraft.src.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -53,7 +56,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
     public boolean field_6289_L;
     public boolean isFancyGraphics;
     protected MinecraftApplet mcApplet;
-    boolean isTakingScreenshot;
+    public boolean isTakingScreenshot;
     long prevFrameTime;
     long systemTime;
     private boolean mainFrame;
@@ -269,7 +272,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
         try {
             Controllers.create();
         } catch (Exception exception) {
-            exception.printStackTrace();
+            //exception.printStackTrace();
         }
         new Titanic(this);
         checkGLError("Pre startup");
@@ -490,7 +493,11 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                     }
                     Thread.sleep(10L);
                 }
-                if (Keyboard.isKeyDown(61)) {
+
+                DebugDrawEvent debugDrawEvent = new DebugDrawEvent();
+                Titanic.getInstance().getEventManager().handleEvent(debugDrawEvent);
+
+                if (Keyboard.isKeyDown(61) || debugDrawEvent.isCancelled()) {
                     displayDebugInfo(l2);
                 } else {
                     prevFrameTime = System.nanoTime();
@@ -821,6 +828,10 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
         if (currentScreen == null && thePlayer != null && thePlayer.health <= 0) {
             displayGuiScreen(null);
         }
+
+        TickEvent tickEvent = new TickEvent();
+        Titanic.getInstance().getEventManager().handleEvent(tickEvent);
+
         if (currentScreen != null) {
             field_6302_aa = ticksRan + 10000;
         }
@@ -883,7 +894,11 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                             if (Keyboard.getEventKey() == 31 && Keyboard.isKeyDown(61)) {
                                 forceReload();
                             }
-                            if (Keyboard.getEventKey() == 63) {
+
+                            KeyboardEvent event = new KeyboardEvent(Keyboard.getEventKey());
+                            Titanic.getInstance().getEventManager().handleEvent(event);
+
+                            if (Keyboard.getEventKey() == 63 && !event.isCancelled()) {
                                 gameSettings.thirdPersonView = !gameSettings.thirdPersonView;
                             }
                             if (Keyboard.getEventKey() == gameSettings.keyBindInventory.keyCode) {
@@ -893,7 +908,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                                 thePlayer.func_20060_w();
                             }
                             if (isMultiplayerWorld() && Keyboard.getEventKey() == gameSettings.keyBindChat.keyCode) {
-                                displayGuiScreen(new GuiChat());
+                                displayGuiScreen(new GuiChat(false));
                             }
                         }
                         for (int i = 0; i < 9; i++) {
