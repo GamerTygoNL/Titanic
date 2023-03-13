@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Titanic;
-import cc.noxiuam.titanic.event.impl.model.PlayerModelRenderEvent;
+import cc.noxiuam.titanic.event.impl.player.model.PlayerModelRenderEvent;
 
 public class ModelBiped extends ModelBase {
 

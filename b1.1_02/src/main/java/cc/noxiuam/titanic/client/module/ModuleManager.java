@@ -1,5 +1,6 @@
 package cc.noxiuam.titanic.client.module;
 
+import cc.noxiuam.titanic.client.module.impl.fix.impl.ChunkLoadingFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerModelFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerAssetFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.SavingLevelFix;
@@ -25,6 +26,7 @@ public class ModuleManager {
         this.mods.add(new PlayerAssetFix());
         this.mods.add(new PlayerModelFix());
         this.mods.add(new SavingLevelFix());
+        this.mods.add(new ChunkLoadingFix());
 
         // qol mods
         this.mods.add(chatBundle = new ChatBundle());

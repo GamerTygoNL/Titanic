@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
 import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.TickEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import net.minecraft.src.*;
@@ -827,6 +828,10 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
         if (currentScreen == null && thePlayer != null && thePlayer.health <= 0) {
             displayGuiScreen(null);
         }
+
+        TickEvent tickEvent = new TickEvent();
+        Titanic.getInstance().getEventManager().handleEvent(tickEvent);
+
         if (currentScreen != null) {
             field_6302_aa = ticksRan + 10000;
         }

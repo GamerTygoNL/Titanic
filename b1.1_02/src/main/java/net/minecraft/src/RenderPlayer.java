@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Titanic;
-import cc.noxiuam.titanic.event.impl.model.CapeRenderEvent;
+import cc.noxiuam.titanic.event.impl.player.model.CapeRenderEvent;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPlayer extends RenderLiving {
