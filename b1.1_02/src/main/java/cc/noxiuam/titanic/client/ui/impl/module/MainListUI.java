@@ -35,6 +35,11 @@ public class MainListUI extends AbstractComponent {
     }
 
     @Override
+    public void keyTyped(char character, int key) {
+        this.moduleListContainer.keyTyped(character, key);
+    }
+
+    @Override
     public void mouseClicked(float x, float y) {
         super.mouseClicked(x, y);
         this.moduleListContainer.mouseClicked(x, y);

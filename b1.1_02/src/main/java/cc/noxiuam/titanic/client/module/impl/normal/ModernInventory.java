@@ -39,14 +39,15 @@ public class ModernInventory extends AbstractModule {
     public ModernInventory() {
         super("modernInventory", "Modern Inventory", false);
         this.addEvent(SlotChangeEvent.class, this::onSlotChange);
-        this.writeConfig();
+        this.writeModuleConfig();
     }
 
     private void onSlotChange(SlotChangeEvent event) {
         event.cancel();
     }
 
-    private void writeConfig() {
+    @Override
+    public void writeModuleConfig() {
         if (!Titanic.getInstance().getConfigManager().isSetup()) {
             return;
         }
@@ -139,7 +140,7 @@ public class ModernInventory extends AbstractModule {
 
     public void handleClickOnSlot(int i, int j, Minecraft mc, CraftingInventoryCB inventoryCB) {
         if (!wroteConfig) {
-            writeConfig();
+            this.writeModuleConfig();
         }
 
         if (mc.thePlayer != null) {

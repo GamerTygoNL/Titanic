@@ -22,10 +22,13 @@ public class CommandManager {
     private void onChatMessage(ChatSendEvent event) {
         String msg = event.getMessage();
         String[] args = msg.split(" ");
+
         ChatBundle chatBundle = Titanic.getInstance().getModuleManager().getChatBundle();
 
-        chatBundle.getChatMessageHistory().add(msg);
-        chatBundle.chatMessageIndex = chatBundle.getChatMessageHistory().size();
+        if (msg.length() != 0) {
+            chatBundle.getChatMessageHistory().add(msg);
+            chatBundle.chatMessageIndex = chatBundle.getChatMessageHistory().size();
+        }
 
         if (args.length > 0 && args[0].startsWith(".")) {
             this.findAndExecuteCommmand(args);

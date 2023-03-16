@@ -9,6 +9,7 @@ import cc.noxiuam.titanic.client.ui.impl.editor.HudLayoutEditor;
 import cc.noxiuam.titanic.client.util.Logger;
 import cc.noxiuam.titanic.event.EventManager;
 
+import cc.noxiuam.titanic.event.impl.chat.ChatReceivedEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
@@ -48,10 +49,17 @@ public class Titanic {
         moduleManager = new ModuleManager();
         logger.info("Initialized Module Manager");
 
+        configManager.readConfigs();
+        logger.info("Reading Module Configuration Files");
+
         new CommandManager();
         logger.info("Initialized Command Manager");
 
         eventManager.addEvent(KeyboardEvent.class, this::handleKeyboard);
+        eventManager.addEvent(ChatReceivedEvent.class, chatReceivedEvent -> new Logger("Chat").info(chatReceivedEvent.getMessage()));
+
+        Thread shutdownThread = new Thread(configManager::saveConfigs);
+        Runtime.getRuntime().addShutdownHook(shutdownThread);
     }
 
     private void handleKeyboard(KeyboardEvent event) {

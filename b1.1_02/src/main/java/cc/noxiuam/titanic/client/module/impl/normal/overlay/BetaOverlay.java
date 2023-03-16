@@ -1,7 +1,7 @@
 package cc.noxiuam.titanic.client.module.impl.normal.overlay;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
-import cc.noxiuam.titanic.client.module.data.impl.KeybindSetting;
+import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import org.lwjgl.input.Keyboard;
@@ -9,14 +9,14 @@ import org.lwjgl.input.Keyboard;
 /**
  * Makes it so the debug info is togglable instead of holding the key down.
  */
-public class ModernOverlay extends AbstractModule {
+public class BetaOverlay extends AbstractModule {
 
     public boolean showDebugInfo = false;
 
     private final KeybindSetting debugKeybind;
 
-    public ModernOverlay() {
-        super("modernOverlay", "Modern Overlay", true);
+    public BetaOverlay() {
+        super("betaOverlay", "Overlay", true);
 
         initSettings(
                 debugKeybind = new KeybindSetting("debugKeybind", "Toggle Debug Info", Keyboard.KEY_F3)

@@ -2,6 +2,8 @@ package net.minecraft.src;
 
 import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
+import cc.noxiuam.titanic.event.impl.gui.GuiDrawEvent;
+import cc.noxiuam.titanic.event.impl.gui.chat.ChatBackgroundDrawEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -160,6 +162,10 @@ public class GuiIngame extends Gui {
         } else {
             fontrenderer.drawStringWithShadow("Minecraft Beta 1.1_02", 2, 2, 0xffffff);
         }
+
+        GuiDrawEvent guiDrawEvent = new GuiDrawEvent(scaledresolution);
+        Titanic.getInstance().getEventManager().handleEvent(guiDrawEvent);
+
         if (field_9419_j > 0) {
             float f2 = (float) field_9419_j - f;
             int i3 = (int) ((f2 * 256F) / 20F);
@@ -210,7 +216,11 @@ public class GuiIngame extends Gui {
                 byte byte1 = 2;
                 int j6 = -j4 * 9;
                 String s1 = ((ChatLine) chatMessageList.get(j4)).message;
-                if (Titanic.getInstance().getModuleManager().getChatBundle().getChatBackground().value()) {
+
+                ChatBackgroundDrawEvent chatBackgroundDrawEvent = new ChatBackgroundDrawEvent();
+                Titanic.getInstance().getEventManager().handleEvent(chatBackgroundDrawEvent);
+
+                if (!chatBackgroundDrawEvent.isCancelled()) {
                     drawRect(byte1, j6 - 1, byte1 + 320, j6 + 8, i6 / 2 << 24);
                 }
 

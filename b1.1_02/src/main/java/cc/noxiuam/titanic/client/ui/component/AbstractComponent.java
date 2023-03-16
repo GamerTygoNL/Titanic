@@ -53,6 +53,14 @@ public abstract class AbstractComponent {
     public void mouseClicked(float x, float y) {}
 
     /**
+     * Called when the user's keyboard is used.
+     *
+     * @param character - Pressed key's char
+     * @param key - Pressed key's int
+     */
+    public void keyTyped(char character, int key) {}
+
+    /**
      * Checks to see if the user's mouse is inside the component.
      *
      * @param mouseX The mouse's current X position.

@@ -55,7 +55,10 @@ public class ModulePreviewComponent extends AbstractComponent {
                 backgroundColor.getColor(mouseInside((int) x, (int) y) && this.container.mouseInside(x, y)).getRGB()
         );
 
-        settingsButton.draw(x, y);
+        if (module.settings().size() > 0) {
+            settingsButton.draw(x, y);
+        }
+
         this.mc.fontRenderer.drawStringWithShadow(module.name(), (int) (this.x + 5), (int) this.y + 4, module.enabled() ? -1 : 0xFFADADAD);
     }
 

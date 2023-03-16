@@ -16,8 +16,8 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Create the UI framework with different paths for each menu (it will work similarly to how endpoints work in express servers)
 - [x] Implement a basic cosmetic system for capes only, wings and emotes will come at a later time
 - [ ] Bukkit API to allow servers to disable certain features on the server
-- [ ] A menu to modify settings
-- [ ] Make settings and mod states save via a mod config
+- [x] A menu to modify settings
+- [x] Make settings and mod states save via a mod config
 
 ## Bug Fixes
 - [ ] Fix chunk crash when loading them too fast
@@ -39,7 +39,8 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Copy & Pasting
 - [ ] Strip chat colors entirely
 - [ ] Make the chat a draggable HUD mod
-- [ ] Background Toggling
+- [x] Background Toggling
+- [x] Message History
 
 ### Game Overlay
 - [x] Toggle F3 instead of holding

@@ -9,9 +9,10 @@ import lombok.Setter;
 
 public class ModuleListContainer extends AbstractContainer {
 
-    private final FooterContainer footer = new FooterContainer(this);
+    private final FooterContainer footer = new FooterContainer();
 
-    @Getter private final ModulePreviewContainer previewContainer = new ModulePreviewContainer();
+    @Getter private final ModulePreviewContainer previewContainer = new ModulePreviewContainer(this);
+
     @Setter private AbstractComponent currentComponent;
 
     public ModuleListContainer() {
@@ -25,14 +26,24 @@ public class ModuleListContainer extends AbstractContainer {
         this.currentComponent.size(this.width, this.height);
         this.currentComponent.draw(x, y);
 
-        this.footer.position(this.x, this.y + 10);
-        this.footer.size(this.width, this.height);
-        this.footer.draw(x, y);
+        if (currentComponent == previewContainer) {
+            this.footer.position(this.x, this.y + 10);
+            this.footer.size(this.width, this.height);
+            this.footer.draw(x, y);
+        }
+    }
+
+    @Override
+    public void keyTyped(char character, int key) {
+        currentComponent.keyTyped(character, key);
     }
 
     @Override
     public void mouseClicked(float x, float y) {
-        this.footer.mouseClicked(x, y);
+        if (currentComponent == previewContainer) {
+            this.footer.mouseClicked(x, y);
+        }
+
         this.currentComponent.mouseClicked(x, y);
     }
 

@@ -23,6 +23,12 @@ public class ModSettingsEditor extends GuiScreenWrapper {
     }
 
     @Override
+    protected void keyTyped(char c, int i) {
+        super.keyTyped(c, i);
+        this.moduleList.keyTyped(c, i);
+    }
+
+    @Override
     public void onMouseClick(int x, int y, int button) {
         super.onMouseClick(x, y, button);
         this.moduleList.mouseClicked(x, y);

@@ -1,5 +1,8 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.gui.chat.ChatBackgroundDrawEvent;
+import cc.noxiuam.titanic.event.impl.gui.chat.PreChatMessageUpdateEvent;
 import org.lwjgl.input.Keyboard;
 
 public class GuiChat extends GuiScreen {
@@ -54,10 +57,23 @@ public class GuiChat extends GuiScreen {
         if (field_20082_i.indexOf(c) >= 0 && message.length() < 100) {
             message += c;
         }
+
+        PreChatMessageUpdateEvent event = new PreChatMessageUpdateEvent(i, message);
+        Titanic.getInstance().getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            message = event.getMessage();
+        }
     }
 
     public void drawScreen(int i, int j, float f) {
-        drawRect(2, height - 14, width - 2, height - 2, 0x80000000);
+
+        ChatBackgroundDrawEvent chatBackgroundDrawEvent = new ChatBackgroundDrawEvent();
+        Titanic.getInstance().getEventManager().handleEvent(chatBackgroundDrawEvent);
+
+        if (!chatBackgroundDrawEvent.isCancelled()) {
+            drawRect(2, height - 14, width - 2, height - 2, 0x80000000);
+        }
         drawString(fontRenderer, (new StringBuilder()).append("> ").append(message).append((updateCounter / 6) % 2 != 0 ? "" : "_").toString(), 4, height - 12, 0xe0e0e0);
     }
 

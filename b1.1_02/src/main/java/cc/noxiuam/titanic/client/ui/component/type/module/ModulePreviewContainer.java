@@ -3,9 +3,11 @@ package cc.noxiuam.titanic.client.ui.component.type.module;
 import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
+import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
 import cc.noxiuam.titanic.client.ui.component.type.module.impl.ModulePreviewComponent;
 import cc.noxiuam.titanic.client.ui.component.type.module.data.ModulePage;
 import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
+import cc.noxiuam.titanic.client.ui.impl.module.container.impl.ModuleListContainer;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 import lombok.Getter;
 
@@ -14,16 +16,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ModulePreviewContainer extends AbstractContainer {
 
-    @Getter private final List<ModulePage> modulePages = new CopyOnWriteArrayList<>();
+    @Getter private final ModuleListContainer container;
 
-    private final List<AbstractModule> queuedModules = new CopyOnWriteArrayList<>();
+    @Getter private final List<ModulePage> modulePages = new CopyOnWriteArrayList<>();
+    @Getter private final List<AbstractModule> queuedModules = new CopyOnWriteArrayList<>();
 
     public int pageNumber = 0;
 
-    public ModulePreviewContainer() {
-        super("/mods");
-        List<AbstractModule> mods = Titanic.getInstance().getModuleManager().getMods();
+    private final RoundedTextButton leftButton = new RoundedTextButton("<");
+    private final RoundedTextButton rightButton = new RoundedTextButton(">");
 
+    public ModulePreviewContainer(ModuleListContainer container) {
+        super("/mods");
+        this.container = container;
+
+        List<AbstractModule> mods = Titanic.getInstance().getModuleManager().getMods();
         mods.removeIf(mod -> mod instanceof AbstractFixModule);
 
         for (float i = 0; i < mods.size() / 5F; i++) {
@@ -31,9 +38,8 @@ public class ModulePreviewContainer extends AbstractContainer {
         }
 
         for (AbstractModule module : mods) {
-            if (module instanceof AbstractFixModule) continue;
-
             for (ModulePage modulePage : this.modulePages) {
+                if (module instanceof AbstractFixModule) continue;
                 if (queuedModules.contains(module)) {
                     continue;
                 }
@@ -60,20 +66,46 @@ public class ModulePreviewContainer extends AbstractContainer {
         for (ModulePreviewComponent previewComponent : this.modulePages.get(pageNumber).getPreviewComponents()) {
             previewComponent.draw(x, y);
         }
+
+        boolean showPageButtons = modulePages.size() > 1;
+
+        if (showPageButtons) {
+            this.leftButton.position(this.x + this.width / 2.165F - 12, this.y + this.height + 12);
+            this.leftButton.size(15, 15);
+            this.leftButton.draw(x, y);
+
+            this.rightButton.position(this.x + this.width / 2.165F + 12, this.y + this.height + 12);
+            this.rightButton.size(15, 15);
+            this.rightButton.draw(x, y);
+        }
     }
 
     @Override
     public void mouseClicked(float x, float y) {
+        boolean showPageButtons = modulePages.size() > 1;
 
         for (ModulePreviewComponent previewComponent : this.modulePages.get(pageNumber).getPreviewComponents()) {
             if (previewComponent.mouseInside((int) x, (int) y)) {
-                if (previewComponent.getSettingsButton().mouseInside(x, y)) {
-                    // TODO: Settings menu
+                if (previewComponent.getSettingsButton().mouseInside(x, y)
+                        && previewComponent.getModule().settings().size() > 0) {
+                    SoundUtil.playClick();
+                    container.setCurrentComponent(
+                            new ModuleSettingsComponent(previewComponent.getModule())
+                    );
                     return;
                 }
+
                 SoundUtil.playClick();
                 previewComponent.getModule().toggle();
             }
+        }
+
+        if (showPageButtons && this.leftButton.mouseInside(x, y) && pageNumber > 0) {
+            SoundUtil.playClick();
+            pageNumber--;
+        } else if (showPageButtons && this.rightButton.mouseInside(x, y) && pageNumber + 1 < modulePages.size()) {
+            SoundUtil.playClick();
+            pageNumber++;
         }
     }
 

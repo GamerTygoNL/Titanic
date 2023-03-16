@@ -147,10 +147,14 @@ public class EntityRenderer {
     }
 
     private void setupViewBobbing(float f) {
-        ViewBobbingSetupEvent event = new ViewBobbingSetupEvent();
+        ViewBobbingSetupEvent event = new ViewBobbingSetupEvent(f);
         Titanic.getInstance().getEventManager().handleEvent(event);
 
         if (event.isCancelled()) {
+            return;
+        }
+
+        if (mc.gameSettings.thirdPersonView) {
             return;
         } else {
             EntityPlayerSP entityplayersp = mc.thePlayer;

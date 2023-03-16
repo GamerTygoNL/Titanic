@@ -1,11 +1,13 @@
 package cc.noxiuam.titanic.client.module.impl.normal.perspective;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
-import cc.noxiuam.titanic.client.module.data.impl.BooleanSetting;
-import cc.noxiuam.titanic.client.module.data.impl.KeybindSetting;
+import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
+import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
+import net.minecraft.src.EntityPlayerSP;
+import net.minecraft.src.MathHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -23,14 +25,29 @@ public class PerspectiveBundle extends AbstractModule {
         );
         this.addEvent(CameraChangeEvent.class, this::getModernCamera);
         this.addEvent(KeyboardEvent.class, this::updateCurrentPerspective);
-        this.addEvent(ViewBobbingSetupEvent.class, this::setupViewBobbing);
+        this.addEvent(ViewBobbingSetupEvent.class, this::onViewBob);
     }
 
-    private void setupViewBobbing(ViewBobbingSetupEvent event) {
-        if (this.viewBobbingInThirdPerson.value()
-                || mc.gameSettings.thirdPersonView) {
-            event.cancel();
+    private void onViewBob(ViewBobbingSetupEvent event) {
+        event.cancel();
+        setupViewBobbing(event.getValue());
+    }
+
+    private void setupViewBobbing(float f) {
+
+        if (!this.viewBobbingInThirdPerson.value() && mc.gameSettings.thirdPersonView) {
+            return;
         }
+
+        EntityPlayerSP player = mc.thePlayer;
+        float distanceWalked = player.distanceWalkedModified - player.prevDistanceWalkedModified;
+        float multipliedWalked = player.distanceWalkedModified + distanceWalked * f;
+        float f2 = player.field_775_e + (player.field_774_f - player.field_775_e) * f;
+        float f3 = player.field_9329_Q + (player.field_9328_R - player.field_9329_Q) * f;
+        GL11.glTranslatef(MathHelper.sin(multipliedWalked * 3.141593F) * f2 * 0.5F, -Math.abs(MathHelper.cos(multipliedWalked * 3.141593F) * f2), 0.0F);
+        GL11.glRotatef(MathHelper.sin(multipliedWalked * 3.141593F) * f2 * 3F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(Math.abs(MathHelper.cos(multipliedWalked * 3.141593F + 0.2F) * f2) * 5F, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(f3, 1.0F, 0.0F, 0.0F);
     }
 
     private void getModernCamera(CameraChangeEvent event) {

@@ -1,7 +1,7 @@
 package cc.noxiuam.titanic.client.module;
 
 import cc.noxiuam.titanic.Titanic;
-import cc.noxiuam.titanic.client.module.data.AbstractSetting;
+import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.event.AbstractEvent;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,7 +47,7 @@ public abstract class AbstractModule {
         this.activeEvents.put(eventClass, consumer);
     }
 
-    protected void addAllEvents() {
+    public void addAllEvents() {
         for (Map.Entry<Class<? extends AbstractEvent>, Consumer> entry : this.activeEvents.entrySet()) {
             Titanic.getInstance()
                     .getEventManager()
@@ -107,5 +107,10 @@ public abstract class AbstractModule {
     public void initSettings(AbstractSetting<?>... settings) {
         Collections.addAll(this.settings, settings);
     }
+
+    /**
+     * In the event we need to write special configs for 3rd party mods.
+     */
+    public void writeModuleConfig() { }
 
 }
