@@ -27,8 +27,10 @@ public abstract class AbstractMovableModule extends AbstractModule {
     }
 
     public void setPosition(float newX, float newY) {
-        this.x = newX;
-        this.y = newY;
+        ScaledResolution res = new ScaledResolution(this.mc.displayWidth, this.mc.displayHeight);
+
+        this.x = (newX/* / res.getScaledWidth()*/);
+        this.y = (newY/* / res.getScaledHeight()*/);
     }
 
     public void setSize(float newWidth, float newHeight) {
@@ -49,20 +51,16 @@ public abstract class AbstractMovableModule extends AbstractModule {
     public float[] getScaledPoints(ScaledResolution res, boolean useActualTranslation) {
         float x = 0.0f;
         float y = 0.0f;
-        float scaledWidth = this.width * this.masterScale();
-        float scaledHeight = this.height * this.masterScale();
+        float scaledWidth = this.width;
+        float scaledHeight = this.height;
 
         x = 2.0f;
         y = (float) (res.getScaledHeight() / 2) - scaledHeight / 2.0f;
 
         return new float[] {
-                (x + (useActualTranslation ? this.x : 0.0f)) / this.masterScale(),
-                (y + (useActualTranslation ? this.y : 0.0f)) / this.masterScale()
+                (x + (useActualTranslation ? this.x : 0.0f)),
+                (y + (useActualTranslation ? this.y : 0.0f))
         };
-    }
-
-    public float masterScale() {
-        return 1.0F;
     }
 
 }

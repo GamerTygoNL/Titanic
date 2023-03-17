@@ -56,27 +56,12 @@ public class RenderUtil {
         GL11.glDisable(3042);
     }
 
-    public void drawOval(float xPosition, float yPosition, float xRadius, float yRadius, float thickness, int color) {
-        GL11.glPushMatrix();
-        setColor(color);
-        GL11.glEnable(2848);
-        GL11.glDisable(3553);
-        GL11.glEnable(2848);
-        GL11.glEnable(3042);
-        GL11.glLineWidth(thickness);
-        GL11.glBegin(2);
-        for (int i = 0; i < 70; i++) {
-            int x = (int) (xRadius * MathHelper.cos((int) (i * 0.08975979010256552D)));
-            int y = (int) (yRadius * MathHelper.sin((int) (i * 0.08975979010256552D)));
-            GL11.glVertex2f(xPosition + x, yPosition + y);
-        }
-        GL11.glEnd();
-        GL11.glDisable(2848);
-        GL11.glEnable(3553);
-        GL11.glPopMatrix();
-        GL11.glLineWidth(2.0F);
-//        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-//        GL11.glBindTexture(0,);
+    public void drawRectWithOutline(float f, float f2, float f3, float f4, float f5, int n, int n2) {
+        drawRect(f + f5, f2 + f5, f3 - f5, f4 - f5, n2);
+        drawRect(f, f2 + f5, f + f5, f4 - f5, n);
+        drawRect(f3 - f5, f2 + f5, f3, f4 - f5, n);
+        drawRect(f, f2, f3, f2 + f5, n);
+        drawRect(f, f4 - f5, f3, f4, n);
     }
 
     public void drawRoundedRect(double x, double y, double width, double height, double radius, int color) {
