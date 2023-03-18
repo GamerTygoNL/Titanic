@@ -47,9 +47,10 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Nether Portal overlay/sounds
 - [ ] A way to toggle fire in first person or lower its position
 
-### Time Changer
+### World Editor
 - [ ] Static time options: Morning, Noon, Evening, Midnight
 - [ ] Brightness slider
+- [ ] Render Distance slider
 
 ### Perspective
 - [x] 3rd Person View Bobbing
