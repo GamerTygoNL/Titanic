@@ -79,7 +79,6 @@ public class HudLayoutEditor extends GuiScreenWrapper {
 
                     this.prevX = module.x() - x;
                     this.prevY = module.y() - y;
-
                 }
             }
         }
@@ -133,24 +132,6 @@ public class HudLayoutEditor extends GuiScreenWrapper {
             this.prevY = module.y() - mouseY;
 
         }
-    }
-
-    private float getXTranslation(AbstractModule cBModule, float f, float[] arrf, float f2) {
-        if (f + arrf[0] < 3f) {
-            f = -arrf[0] + 3f;
-        } else if (f + arrf[0] + f2 > (this.width - 3f)) {
-            f = (int)((float)this.width - arrf[0] - f2 - 3f);
-        }
-        return f;
-    }
-
-    private float getYTranslation(AbstractModule cBModule, float f, float[] arrf, float f2) {
-        if (f + arrf[1] < 2f) {
-            f = -arrf[1] + 2f;
-        } else if (f + arrf[1] + f2 > (this.height - 2f)) {
-            f = (int)((float)this.height - arrf[1] - f2 - 2f);
-        }
-        return f;
     }
 
 }
