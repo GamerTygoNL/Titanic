@@ -27,10 +27,8 @@ public abstract class AbstractMovableModule extends AbstractModule {
     }
 
     public void setPosition(float newX, float newY) {
-        ScaledResolution res = new ScaledResolution(this.mc.displayWidth, this.mc.displayHeight);
-
-        this.x = (newX/* / res.getScaledWidth()*/);
-        this.y = (newY/* / res.getScaledHeight()*/);
+        this.x = newX;
+        this.y = newY;
     }
 
     public void setSize(float newWidth, float newHeight) {
@@ -48,19 +46,11 @@ public abstract class AbstractMovableModule extends AbstractModule {
         GL11.glTranslatef(this.x / scale, this.y / scale, 0.0f);
     }
 
-    public float[] getScaledPoints(ScaledResolution res, boolean useActualTranslation) {
-        float x = 0.0f;
-        float y = 0.0f;
-        float scaledWidth = this.width;
-        float scaledHeight = this.height;
-
-        x = 2.0f;
-        y = (float) (res.getScaledHeight() / 2) - scaledHeight / 2.0f;
-
-        return new float[] {
-                (x + (useActualTranslation ? this.x : 0.0f)),
-                (y + (useActualTranslation ? this.y : 0.0f))
-        };
+    public boolean mouseInside(float mouseX, float mouseY) {
+        return mouseX > this.x
+                && mouseX < this.x + this.width
+                && mouseY > this.y
+                && mouseY < this.y + this.height;
     }
 
 }

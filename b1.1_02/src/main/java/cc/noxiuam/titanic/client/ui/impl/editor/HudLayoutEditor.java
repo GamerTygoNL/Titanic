@@ -47,7 +47,7 @@ public class HudLayoutEditor extends GuiScreenWrapper {
         for (AbstractModule module : Titanic.getInstance().getModuleManager().getMods()) {
             if (module instanceof AbstractMovableModule) {
                 hudModules.add((AbstractMovableModule) module);
-                ((AbstractMovableModule) module).setPosition(50, 50);
+                ((AbstractMovableModule) module).setPosition(10, 10);
                 hudModuleComponents.add(new HUDModuleComponent((AbstractMovableModule) module));
             }
         }
@@ -68,29 +68,19 @@ public class HudLayoutEditor extends GuiScreenWrapper {
 
         ScaledResolution scaledResolution = new ScaledResolution(this.mc.displayWidth, this.mc.displayHeight);
 
-        for (HUDModuleComponent component : this.hudModuleComponents) {
-            if (component.mouseInside(x, y) && Mouse.isButtonDown(0)) {
-                this.dragModule(component.getModule(), x, y, scaledResolution);
-            }
+        for (AbstractMovableModule module : this.hudModules) {
+            if (module.mouseInside(x, y)) {
+                if (Mouse.isButtonDown(0)) {
 
-            component.draw(x, y);
-        }
+                    float dragX = (float) x;
+                    float dragY = (float) y;
 
-        if (this.mouseX != -1) {
-            if (Mouse.isButtonDown(0) && selectedModule == null) {
-                if (this.mouseX != x && this.mouseY != y) {
-                    RenderUtil.drawRectWithOutline(
-                            this.mouseX,
-                            this.mouseY,
-                            x,
-                            y,
-                            0.49f,
-                            0xFF00C2FF,
-                            0x7000C2FF);
+                    module.setPosition(dragX, dragY);
+
+                    this.prevX = module.x() - x;
+                    this.prevY = module.y() - y;
+
                 }
-            } else {
-                this.mouseX = -1;
-                this.mouseY = -1;
             }
         }
 
@@ -127,19 +117,22 @@ public class HudLayoutEditor extends GuiScreenWrapper {
         }
     }
 
-    private void dragModule(AbstractMovableModule module, int mouseX, int mouseY, ScaledResolution scaledResolution) {
+    private void dragModule(HUDModuleComponent moduleComponent, AbstractMovableModule module, int mouseX, int mouseY) {
         if (!module.enabled()) {
             return;
         }
 
-        float f4 = (float) mouseX - this.prevX;
-        float f5 = (float) mouseY - this.prevY;
+        if (Mouse.isButtonDown(0)) {
 
-        float[] scaledPoints = module.getScaledPoints(scaledResolution, false);
-        f4 = this.getXTranslation(module, f4, scaledPoints, (float)((int)(module.width())));
-        f5 = this.getYTranslation(module, f5, scaledPoints, (float)((int)(module.height())));
+            float dragX = (float) mouseX + this.prevX;
+            float dragY = (float) mouseY + this.prevY;
 
-        module.setPosition(f4, f5);
+            module.setPosition(dragX, dragY);
+
+            this.prevX = module.x() - mouseX;
+            this.prevY = module.y() - mouseY;
+
+        }
     }
 
     private float getXTranslation(AbstractModule cBModule, float f, float[] arrf, float f2) {

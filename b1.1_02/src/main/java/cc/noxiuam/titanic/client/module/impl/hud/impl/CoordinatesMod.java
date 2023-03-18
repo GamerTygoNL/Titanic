@@ -29,7 +29,7 @@ public class CoordinatesMod extends AbstractMovableModule {
 
         String position = "X: " + playerX + " Y: " + playerY + " Z: " + playerZ;
 
-        RenderUtil.drawRect(this.x(), this.y(), 100, this.height(), 0x6F000000);
+        RenderUtil.drawRect(this.x(), this.y(), 125, 25, 0x6F000000);
         FontUtil.drawCenteredString(position, (int) (this.x() + this.width() / 2F) + 1, (int) this.y() + 4, -1);
 
         GL11.glPopMatrix();

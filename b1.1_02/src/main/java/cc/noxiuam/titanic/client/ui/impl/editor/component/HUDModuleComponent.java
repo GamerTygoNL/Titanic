@@ -17,28 +17,18 @@ public class HUDModuleComponent extends AbstractComponent {
 
     @Override
     public void draw(float x, float y) {
-        this.position(this.module.x() - 1, this.module.y() - 1);
-        this.size(this.module.x() + this.module.width() + 2.5F, this.module.y() + this.module.height() + 1);
+         this.position(this.module.x() - 1, this.module.y() - 1);
+        this.size(this.module.width(), this.module.height());
 
-        RenderUtil.drawRoundedOutline(
-                this.module.x() - 1,
-                this.module.y() - 1,
-                this.module.width() + 2.5F,
-                this.module.height() + this.module.y() + 1,
-                0,
-                3,
-                OUTLINE_COLOR
+        RenderUtil.drawRectWithOutline(
+                0.0F,
+                0.0F,
+                this.module.width(),
+                this.module.height(),
+                0.49f,
+                OUTLINE_COLOR,
+                HOVER_COLOR
         );
-
-        if (mouseInside(x, y)) {
-            RenderUtil.drawRect(
-                    this.module.x() - 1,
-                    this.module.y() - 1,
-                    this.module.width() + 2.5F,
-                    this.module.height() + this.module.y() + 1,
-                    HOVER_COLOR
-            );
-        }
     }
 
 }
