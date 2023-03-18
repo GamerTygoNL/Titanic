@@ -36,16 +36,6 @@ public abstract class AbstractMovableModule extends AbstractModule {
         this.height = newHeight;
     }
 
-    public void scaleAndTranslate() {
-        float scaledX = 0.0f;
-        float scaledY = 0.0f;
-        float scale = /*(Float) this.scale.getValue()*/ 1.0F;
-        GL11.glScalef(scale, scale, scale);
-
-        GL11.glTranslatef(scaledX / scale, scaledY / scale, 0.0f);
-        GL11.glTranslatef(this.x / scale, this.y / scale, 0.0f);
-    }
-
     public boolean mouseInside(float mouseX, float mouseY) {
         return mouseX > this.x
                 && mouseX < this.x + this.width
