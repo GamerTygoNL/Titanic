@@ -381,7 +381,12 @@ public class RenderGlobal
             field_1452_g = entityplayer.posY;
             field_1451_h = entityplayer.posZ;
             func_956_b(MathHelper.floor_double(entityplayer.posX), MathHelper.floor_double(entityplayer.posY), MathHelper.floor_double(entityplayer.posZ));
-            Arrays.sort(sortedWorldRenderers, new EntitySorter(entityplayer));
+
+            try {
+                Arrays.sort(sortedWorldRenderers, new EntitySorter(entityplayer));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
         }
         int j = 0;
         if (field_1436_w && !mc.gameSettings.anaglyph && i == 0) {
