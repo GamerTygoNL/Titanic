@@ -1,6 +1,8 @@
 # Titanic
 A QOL client for Legacy Minecraft Versions.
 
+![image](img/mods.png)
+
 ## Which versions will this client support?
 The client will support Beta 1.1_02 and Beta 1.7.3.
 
@@ -20,7 +22,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Make settings and mod states save via a mod config
 
 ## Bug Fixes
-- [ ] Fix chunk crash when loading them too fast
+- [x] Fix chunk crash when loading them too fast
 - [ ] Fix chest inventory "chest" text not being capitalized properly
 - [ ] Fix armor models not moving with player swinging animation
 - [x] Fix chat crash when someone sends a bunch of characters
@@ -34,6 +36,23 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Local player tab list mod (players you have loaded since beta has no way of getting new players)
 - [x] Implement screenshot taking with just F2 instead of F1 + F2
 
+### Performance
+- [ ] Toggle crop rendering
+- [ ] Toggle block particle rendering
+- [ ] Entity culling
+- [ ] Block culling
+
+### Perspective
+- [x] 3rd Person View Bobbing
+- [x] Modern Perspective Switching
+- [ ] Camera FOV
+- [ ] Hand FOV
+- 
+### Game Overlay
+- [x] Toggle F3 instead of holding
+- [ ] Nether Portal overlay/sounds
+- [ ] A way to toggle fire in first person or lower its position
+
 ### Chat
 - [ ] Scrolling
 - [ ] Copy & Pasting
@@ -41,22 +60,11 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Make the chat a draggable HUD mod
 - [x] Background Toggling
 - [x] Message History
-
-### Game Overlay
-- [x] Toggle F3 instead of holding
-- [ ] Nether Portal overlay/sounds
-- [ ] A way to toggle fire in first person or lower its position
-
+- 
 ### World Editor
 - [ ] Static time options: Morning, Noon, Evening, Midnight
 - [ ] Brightness slider
 - [ ] Render Distance slider
-
-### Perspective
-- [x] 3rd Person View Bobbing
-- [x] Modern Perspective Switching
-- [ ] Camera FOV
-- [ ] Hand FOV
 
 ### Animations
 - [ ] Sword block hitting (visual only)
