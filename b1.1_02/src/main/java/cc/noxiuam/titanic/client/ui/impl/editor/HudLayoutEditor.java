@@ -43,7 +43,14 @@ public class HudLayoutEditor extends GuiScreenWrapper {
         for (AbstractModule module : Titanic.getInstance().getModuleManager().getMods()) {
             if (module instanceof AbstractMovableModule) {
                 hudModules.add((AbstractMovableModule) module);
-                ((AbstractMovableModule) module).setPosition(10, 10);
+
+                if (((AbstractMovableModule) module).x() < -12) {
+                    ((AbstractMovableModule) module).x(-12);
+                }
+
+                if (((AbstractMovableModule) module).y() < 0) {
+                    ((AbstractMovableModule) module).y(0);
+                }
             }
         }
     }

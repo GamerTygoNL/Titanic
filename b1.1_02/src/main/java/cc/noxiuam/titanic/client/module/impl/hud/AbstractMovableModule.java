@@ -1,12 +1,9 @@
 package cc.noxiuam.titanic.client.module.impl.hud;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
-import cc.noxiuam.titanic.client.module.data.anchor.GuiAnchor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.src.ScaledResolution;
-import org.lwjgl.opengl.GL11;
 
 @Setter
 @Getter

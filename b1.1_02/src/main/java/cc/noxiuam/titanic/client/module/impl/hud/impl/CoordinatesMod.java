@@ -1,6 +1,5 @@
 package cc.noxiuam.titanic.client.module.impl.hud.impl;
 
-import cc.noxiuam.titanic.client.module.data.anchor.GuiAnchor;
 import cc.noxiuam.titanic.client.module.impl.hud.AbstractMovableModule;
 import cc.noxiuam.titanic.client.ui.util.FontUtil;
 import cc.noxiuam.titanic.event.impl.gui.GuiDrawEvent;

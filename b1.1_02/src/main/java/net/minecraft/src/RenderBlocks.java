@@ -687,8 +687,7 @@ public class RenderBlocks {
         return true;
     }
 
-    public void renderTorchAtAngle(Block block, double d, double d1, double d2,
-                                   double d3, double d4) {
+    public void renderTorchAtAngle(Block block, double d, double d1, double d2, double d3, double d4) {
         Tessellator tessellator = Tessellator.instance;
         int i = block.getBlockTextureFromSide(0);
         if (overrideBlockTexture >= 0) {
