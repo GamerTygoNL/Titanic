@@ -47,7 +47,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Modern Perspective Switching
 - [ ] Camera FOV
 - [ ] Hand FOV
-- 
+
 ### Game Overlay
 - [x] Toggle F3 instead of holding
 - [ ] Nether Portal overlay/sounds
@@ -60,7 +60,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Make the chat a draggable HUD mod
 - [x] Background Toggling
 - [x] Message History
-- 
+
 ### World Editor
 - [ ] Static time options: Morning, Noon, Evening, Midnight
 - [ ] Brightness slider
