@@ -30,6 +30,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Fix capes models when sneaking and other stuff
 - [x] Fix player head model when sneaking and unsneaking
 - [x] Remove "Saving level..." when on a server, it doesn't save anything
+- [ ] Dragging HUD mods isn't entirely perfect
 
 ## QOL Suggestions Roadmap
 - [x] ~~Convenient~~ Modern Inventory
@@ -40,7 +41,14 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Toggle crop rendering
 - [ ] Toggle block particle rendering
 - [ ] Entity culling
-- [ ] Block culling
+- [ ] Block culling - Render blocks that only can be seen
+
+### Nametags
+- [ ] Toggle Keybind
+- [ ] Show Own Nametag
+- [ ] Show Nametags in 3rd Person
+- [ ] Text Color
+- [ ] Background Color
 
 ### Perspective
 - [x] 3rd Person View Bobbing
