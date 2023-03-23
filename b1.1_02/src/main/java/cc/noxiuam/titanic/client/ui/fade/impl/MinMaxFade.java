@@ -1,5 +1,6 @@
 package cc.noxiuam.titanic.client.ui.fade.impl;
 
+// @author - CheatBreaker
 public class MinMaxFade extends FloatFade {
 
     public MinMaxFade(long l) {
