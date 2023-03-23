@@ -2,6 +2,7 @@ package cc.noxiuam.titanic.client.ui.fade.impl;
 
 import cc.noxiuam.titanic.client.ui.fade.AbstractFade;
 
+// @author - CheatBreaker
 public class FloatFade extends AbstractFade {
 
     public FloatFade(long duration) {
