@@ -27,8 +27,6 @@ public abstract class EntityPlayer extends EntityLiving {
     public EntityFish fishEntity;
     private int damageRemainder;
 
-    public Profile playerProfile;
-
     public EntityPlayer(World world) {
         super(world);
         inventory = new InventoryPlayer(this);

@@ -1,6 +1,7 @@
 package cc.noxiuam.titanic.client.network.profile;
 
 import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.client.network.cosmetic.Cosmetic;
 import cc.noxiuam.titanic.client.util.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -68,11 +69,17 @@ public class ProfileManager {
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             JsonObject playerObj = new JsonParser().parse(br).getAsJsonObject();
 
-            boolean hasCape = playerObj.get("hasCape").getAsBoolean();
-            String rank = playerObj.get("rank").getAsString().toUpperCase();
+            JsonObject cosmetic = playerObj.get("cosmetic").getAsJsonObject();
+            String cosmeticName = cosmetic.get("name").getAsString();
+            String cosmeticDescription = cosmetic.get("description").getAsString();
+            boolean isCosmeticEquipped = cosmetic.get("equipped").getAsBoolean();
+            String cosmeticType = cosmetic.get("type").getAsString();
+            String cosmeticLocation = cosmetic.get("location").getAsString();
 
-            Profile profile = new Profile(username, hasCape, rank);
+            Cosmetic equippedCosmetic = new Cosmetic(cosmeticName, cosmeticDescription, isCosmeticEquipped, cosmeticType, cosmeticLocation);
+            Profile profile = new Profile(username, equippedCosmetic);
             this.profileCache.add(profile);
+
             connection.disconnect();
         } catch (Exception ignored) { }
     }
@@ -104,7 +111,7 @@ public class ProfileManager {
             }
         }
 
-        return new Profile(target, false, "DEFAULT");
+        return new Profile(target, null);
     }
 
     static class ProfileCacheRefreshThread implements Runnable {

@@ -2,13 +2,14 @@ package cc.noxiuam.titanic.client.module.impl.fix.impl;
 
 import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
+import cc.noxiuam.titanic.client.network.profile.Profile;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
 import cc.noxiuam.titanic.client.util.http.HttpUtil;
 import cc.noxiuam.titanic.event.impl.player.PlayerLoadEvent;
 import net.minecraft.src.EntityPlayer;
 
 /**
- * Fixes the following: Skins, Capes
+ * Fixes/edits the following: Skins, Capes
  */
 public class PlayerAssetFix extends AbstractFixModule {
 
@@ -27,23 +28,25 @@ public class PlayerAssetFix extends AbstractFixModule {
 
         String username = player.field_771_i;
 
+        String spoofedSkinUsername = username;
+
         if (username.equalsIgnoreCase("Noxiuam")) {
-            username = "GitCLI";
+            spoofedSkinUsername = "GitCLI";
         }
 
-        player.field_20047_bv = "https://mc-heads.net/skin/" + username;
+        player.field_20047_bv = "https://mc-heads.net/skin/" + spoofedSkinUsername;
         //player.playerCloakUrl = SkinUtil.getCapeURL(username);
 
-        String retroCape = "http://assets.retromc.org/capes/" + username + ".png";
+        String retroCape = "http://assets.retromc.org/capes/" + spoofedSkinUsername + ".png";
 
         if (HttpUtil.isValidURL(retroCape)) {
             player.field_20067_q = retroCape;
         }
 
         if (profileManager.profileExists(username)) {
-            player.playerProfile = profileManager.getProfile(username);
-            if (player.playerProfile.isHasCape()) {
-                player.field_20067_q = "https://noxiuam.cc/titanic-client/cosmetic/cape/AP_" + player.playerProfile.getRank() + ".png";
+            Profile playerProfile = profileManager.getProfile(username);
+            if (playerProfile.getCosmetic().isEquipped()) {
+                player.field_20067_q = playerProfile.getCosmetic().getLocation();
             }
         }
     }

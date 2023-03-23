@@ -2,3 +2,5 @@ rootProject.name = 'Titanic'
 
 include 'b1.1_02'
 include 'b1.7.3'
+include 'CosmeticWriter'
+

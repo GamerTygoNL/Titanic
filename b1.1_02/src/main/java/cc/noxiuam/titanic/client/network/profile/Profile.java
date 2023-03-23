@@ -1,5 +1,6 @@
 package cc.noxiuam.titanic.client.network.profile;
 
+import cc.noxiuam.titanic.client.network.cosmetic.Cosmetic;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +11,6 @@ import lombok.ToString;
 public class Profile {
 
     private String username;
-    private boolean hasCape;
-    private String rank;
+    private Cosmetic cosmetic;
 
 }
