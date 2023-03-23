@@ -3,8 +3,8 @@ package cc.noxiuam.titanic.client.ui.fade;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+// @author - CheatBreaker
+@Getter @Setter
 public abstract class AbstractFade {
     protected final float color;
     protected long time;
