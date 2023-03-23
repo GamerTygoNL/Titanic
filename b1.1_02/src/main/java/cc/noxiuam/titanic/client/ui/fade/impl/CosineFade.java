@@ -1,5 +1,7 @@
 package cc.noxiuam.titanic.client.ui.fade.impl;
 
+// @author - CheatBreaker
+@Deprecated
 public class CosineFade extends FloatFade {
 
     public CosineFade(long duration) {
