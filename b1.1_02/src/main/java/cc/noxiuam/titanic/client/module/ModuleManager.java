@@ -6,6 +6,7 @@ import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerAssetFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.SavingLevelFix;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.CoordinatesMod;
 import cc.noxiuam.titanic.client.module.impl.normal.ModernInventory;
+import cc.noxiuam.titanic.client.module.impl.normal.chat.AutoLogin;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatBundle;
 import cc.noxiuam.titanic.client.module.impl.normal.overlay.BetaOverlay;
 import cc.noxiuam.titanic.client.module.impl.normal.perspective.PerspectiveBundle;
@@ -25,15 +26,16 @@ public class ModuleManager {
     private final PerspectiveBundle perspectiveBundle;
     private final BetaOverlay betaOverlay;
     private final ModernInventory modernInventory;
+    private final AutoLogin autoLogin;
 
     public ModuleManager() {
-
         // qol mods
-        this.mods.add(coordinatesMod = new CoordinatesMod());
-        this.mods.add(chatBundle = new ChatBundle());
-        this.mods.add(perspectiveBundle = new PerspectiveBundle());
-        this.mods.add(betaOverlay = new BetaOverlay());
-        this.mods.add(modernInventory = new ModernInventory());
+        this.mods.add(this.coordinatesMod = new CoordinatesMod());
+        this.mods.add(this.chatBundle = new ChatBundle());
+        this.mods.add(this.perspectiveBundle = new PerspectiveBundle());
+        this.mods.add(this.betaOverlay = new BetaOverlay());
+        this.mods.add(this.modernInventory = new ModernInventory());
+        this.mods.add(this.autoLogin = new AutoLogin());
 
         // game fixes
         this.mods.add(new PlayerAssetFix());
