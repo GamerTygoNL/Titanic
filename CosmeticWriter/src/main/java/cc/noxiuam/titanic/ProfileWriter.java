@@ -1,5 +1,6 @@
 package cc.noxiuam.titanic;
 
+import cc.noxiuam.titanic.data.cosmetic.Cosmetic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -13,9 +14,7 @@ import java.io.FileWriter;
 public class ProfileWriter {
 
     private final String username;
-    private final String name;
-    private final String desc;
-    private final String location;
+    private final Cosmetic cosmetic;
 
     @SneakyThrows
     public void writeProfile() {
@@ -25,11 +24,11 @@ public class ProfileWriter {
         JsonObject profileObj = new JsonObject();
         JsonObject cosmeticObj = new JsonObject();
 
-        cosmeticObj.addProperty("name", this.name);
-        cosmeticObj.addProperty("description", this.desc);
-        cosmeticObj.addProperty("equipped", true);
-        cosmeticObj.addProperty("type", "cape");
-        cosmeticObj.addProperty("location", this.location);
+        cosmeticObj.addProperty("name", cosmetic.getName());
+        cosmeticObj.addProperty("description", cosmetic.getDescription());
+        cosmeticObj.addProperty("equipped", cosmetic.isEquippedByDefault());
+        cosmeticObj.addProperty("type", cosmetic.getType());
+        cosmeticObj.addProperty("location", cosmetic.getLocation());
 
         profileObj.add("cosmetic", cosmeticObj);
         profileObj.addProperty("rank", "default");
