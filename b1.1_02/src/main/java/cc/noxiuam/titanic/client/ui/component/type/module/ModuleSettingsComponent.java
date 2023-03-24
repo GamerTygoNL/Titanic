@@ -44,9 +44,9 @@ public class ModuleSettingsComponent extends AbstractContainer {
         float componentHeight = 0;
         for (AbstractSettingComponent<?> component : settingComponents) {
             component.size(this.width, this.height);
-            component.position(this.x, this.y + componentHeight + (component == settingComponents.get(0) ? 0 : component.getHeight()));
+            component.position(this.x, this.y + componentHeight);
             component.draw(x, y);
-            componentHeight += 5;
+            componentHeight += component.getHeight() + 5;
         }
 
         this.backButton.position(this.x, this.y + this.height);
