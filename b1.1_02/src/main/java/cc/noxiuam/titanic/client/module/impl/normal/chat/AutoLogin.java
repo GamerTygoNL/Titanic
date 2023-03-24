@@ -20,6 +20,7 @@ public class AutoLogin extends AbstractModule {
                 this.autoUpdatePassword = new BooleanSetting("autoUpdatePassword", "Update Password on Login", true),
                 this.showUpdateMessages = new BooleanSetting("showUpdateMessages", "Show Update Messages", true)
         );
+
         this.addEvent(ChatReceivedEvent.class, event -> {
             if (event.getMessage().equals(ChatColor.COLOR_CHAR + "cPlease log in using /login <password>.")) {
                 this.mc.thePlayer.sendChatMessage("/login " + this.password.value());
