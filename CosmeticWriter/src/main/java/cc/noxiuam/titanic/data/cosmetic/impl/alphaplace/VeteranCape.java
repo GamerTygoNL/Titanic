@@ -1,9 +1,9 @@
 package cc.noxiuam.titanic.data.cosmetic.impl.alphaplace;
 
 import cc.noxiuam.titanic.CosmeticWriter;
-import cc.noxiuam.titanic.data.cosmetic.Cosmetic;
+import cc.noxiuam.titanic.data.cosmetic.ICosmetic;
 
-public class VeteranCape implements Cosmetic {
+public class VeteranCape implements ICosmetic {
 
     @Override
     public String getName() {

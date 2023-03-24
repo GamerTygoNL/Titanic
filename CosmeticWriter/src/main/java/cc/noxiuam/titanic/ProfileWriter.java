@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic;
 
-import cc.noxiuam.titanic.data.cosmetic.Cosmetic;
+import cc.noxiuam.titanic.data.cosmetic.ICosmetic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -14,7 +14,7 @@ import java.io.FileWriter;
 public class ProfileWriter {
 
     private final String username;
-    private final Cosmetic cosmetic;
+    private final ICosmetic cosmetic;
 
     @SneakyThrows
     public void writeProfile() {

@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.network.profile;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.network.cosmetic.Cosmetic;
 import cc.noxiuam.titanic.client.util.Logger;
 import com.google.gson.JsonArray;
@@ -119,7 +119,7 @@ public class ProfileManager {
         @Override
         public void run() {
             try {
-                Titanic.getInstance().getProfileManager().downloadAllProfiles();
+                Ref.getTitanic().getProfileManager().downloadAllProfiles();
                 Thread.sleep(60000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();

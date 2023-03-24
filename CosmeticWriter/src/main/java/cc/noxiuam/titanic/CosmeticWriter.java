@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic;
 
-import cc.noxiuam.titanic.data.cosmetic.Cosmetic;
+import cc.noxiuam.titanic.data.cosmetic.ICosmetic;
 import cc.noxiuam.titanic.data.cosmetic.CosmeticRegistry;
 import cc.noxiuam.titanic.data.server.RegisteredServerManager;
 import cc.noxiuam.titanic.util.ListUtil;
@@ -51,7 +51,7 @@ public class CosmeticWriter {
 
         String cosmeticName = scanner.nextLine();
 
-        Cosmetic cosmetic = this.cosmeticRegistry.getCosmeticByName(cosmeticName);
+        ICosmetic cosmetic = this.cosmeticRegistry.getCosmeticByName(cosmeticName);
 
         if (cosmetic == null) {
             System.out.println("No cosmetic exists with that name, please try again.");

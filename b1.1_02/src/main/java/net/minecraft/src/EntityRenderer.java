@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import net.minecraft.client.Minecraft;
@@ -148,7 +148,7 @@ public class EntityRenderer {
 
     private void setupViewBobbing(float f) {
         ViewBobbingSetupEvent event = new ViewBobbingSetupEvent(f);
-        Titanic.getInstance().getEventManager().handleEvent(event);
+        Ref.getEventManager().handleEvent(event);
 
         if (event.isCancelled()) {
             return;
@@ -185,7 +185,7 @@ public class EntityRenderer {
             }
 
             CameraChangeEvent event = new CameraChangeEvent(f2);
-            Titanic.getInstance().getEventManager().handleEvent(event);
+            Ref.getEventManager().handleEvent(event);
 
             if (event.isCancelled()) {
                 f2 = event.getF2();

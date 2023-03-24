@@ -1,9 +1,9 @@
 package cc.noxiuam.titanic.data.cosmetic.impl;
 
-import cc.noxiuam.titanic.data.cosmetic.Cosmetic;
+import cc.noxiuam.titanic.data.cosmetic.ICosmetic;
 import cc.noxiuam.titanic.data.path.PathRegistry;
 
-public class NaibuuCape implements Cosmetic {
+public class NaibuuCape implements ICosmetic {
 
     @Override
     public String getName() {

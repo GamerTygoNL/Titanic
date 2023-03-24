@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.module.impl.normal;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
@@ -29,7 +29,7 @@ public class ChunkLoadingFix extends AbstractModule {
         this.addEvent(TickEvent.class, this::onTick);
 
         // manual refreshing regardless if it's enabled or not
-        Titanic.getInstance().getEventManager().addEvent(KeyboardEvent.class, event -> {
+        Ref.getEventManager().addEvent(KeyboardEvent.class, event -> {
             if (event.getKey() == this.refreshKeybind.value()) {
                 this.mc.renderGlobal.loadRenderers();
             }

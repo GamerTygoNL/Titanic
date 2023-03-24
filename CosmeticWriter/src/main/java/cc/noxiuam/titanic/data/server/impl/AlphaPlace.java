@@ -1,14 +1,14 @@
 package cc.noxiuam.titanic.data.server.impl;
 
-import cc.noxiuam.titanic.data.cosmetic.Cosmetic;
+import cc.noxiuam.titanic.data.cosmetic.ICosmetic;
 import cc.noxiuam.titanic.data.cosmetic.impl.alphaplace.*;
 import cc.noxiuam.titanic.data.path.PathRegistry;
-import cc.noxiuam.titanic.data.server.RegisteredServer;
+import cc.noxiuam.titanic.data.server.IServer;
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-public class AlphaPlace implements RegisteredServer {
+public class AlphaPlace implements IServer {
 
     @Override
     public String getCosmeticPath() {
@@ -25,7 +25,7 @@ public class AlphaPlace implements RegisteredServer {
     }
 
     @Override
-    public List<Cosmetic> getCosmetics() {
+    public List<ICosmetic> getCosmetics() {
         return ImmutableList.of(
                 new AdminCape(),
                 new ModeratorCape(),

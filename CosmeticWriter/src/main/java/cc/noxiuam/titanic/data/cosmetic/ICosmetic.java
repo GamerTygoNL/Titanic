@@ -1,7 +1,7 @@
 package cc.noxiuam.titanic.data.cosmetic;
 
 
-public interface Cosmetic {
+public interface ICosmetic {
 
     String getName();
     String getDescription();

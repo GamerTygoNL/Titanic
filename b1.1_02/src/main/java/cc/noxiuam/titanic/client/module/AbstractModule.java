@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.module;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.event.AbstractEvent;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 @Accessors(fluent = true)
 public abstract class AbstractModule {
 
-    protected final Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
+    protected final Minecraft mc = Ref.getMinecraft();
 
     private final List<AbstractSetting<?>> settings;
 
@@ -49,17 +49,13 @@ public abstract class AbstractModule {
 
     public void addAllEvents() {
         for (Map.Entry<Class<? extends AbstractEvent>, Consumer> entry : this.activeEvents.entrySet()) {
-            Titanic.getInstance()
-                    .getEventManager()
-                    .addEvent((Class<? extends AbstractEvent>) entry.getKey(), entry.getValue());
+            Ref.getEventManager().addEvent((Class<? extends AbstractEvent>) entry.getKey(), entry.getValue());
         }
     }
 
     protected void removeAllEvents() {
         for (Map.Entry<Class<? extends AbstractEvent>, Consumer> entry : this.activeEvents.entrySet()) {
-            Titanic.getInstance()
-                    .getEventManager()
-                    .removeEvent((Class<? extends AbstractEvent>) entry.getKey(), entry.getValue());
+            Ref.getEventManager().removeEvent((Class<? extends AbstractEvent>) entry.getKey(), entry.getValue());
         }
     }
 

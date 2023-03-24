@@ -34,22 +34,22 @@ public class Titanic {
         instance = this;
         Logger logger = new Logger("Initialization");
 
-        eventManager = new EventManager();
+        this.eventManager = new EventManager();
         logger.info("Initialized Event Manager");
 
-        configManager = new ConfigManager();
+        this.configManager = new ConfigManager();
         logger.info("Initialized Config Manager");
 
-        (bridge = new Bridge()).setupMinecraftBridge(mc);
+        (this.bridge = new Bridge()).setupMinecraftBridge(mc);
         logger.info("Initialized Bridge");
 
-        profileManager = new ProfileManager();
+        this.profileManager = new ProfileManager();
         logger.info("Initialized Profile Manager");
 
-        moduleManager = new ModuleManager();
+        this.moduleManager = new ModuleManager();
         logger.info("Initialized Module Manager");
 
-        configManager.readConfigs();
+        this.configManager.readConfigs();
         logger.info("Reading Module Configuration Files");
 
         new CommandManager();
@@ -58,13 +58,13 @@ public class Titanic {
         eventManager.addEvent(KeyboardEvent.class, this::handleKeyboard);
         eventManager.addEvent(ChatReceivedEvent.class, chatReceivedEvent -> new Logger("Chat").info(chatReceivedEvent.getMessage()));
 
-        Thread shutdownThread = new Thread(configManager::saveConfigs);
+        Thread shutdownThread = new Thread(this.configManager::saveConfigs);
         Runtime.getRuntime().addShutdownHook(shutdownThread);
     }
 
     private void handleKeyboard(KeyboardEvent event) {
         int key = event.getKey();
-        Minecraft mc = bridge.getMinecraftBridge().bridge$getMinecraft();
+        Minecraft mc = Ref.getMinecraft();
 
         if (key == Keyboard.KEY_RSHIFT) {
             mc.displayGuiScreen(new HudLayoutEditor());
@@ -78,7 +78,7 @@ public class Titanic {
         }
 
         if (key == Keyboard.KEY_SLASH) {
-            bridge.getMinecraftBridge()
+            this.bridge.getMinecraftBridge()
                     .bridge$getMinecraft()
                     .displayGuiScreen(new GuiChat(true));
         }

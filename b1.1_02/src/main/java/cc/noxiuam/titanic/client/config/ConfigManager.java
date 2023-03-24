@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.config;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
@@ -56,7 +56,7 @@ public class ConfigManager {
     public void saveConfigs() {
         if (isSetup()) {
             writeModsProfile();
-            for (AbstractModule module : Titanic.getInstance().getModuleManager().getMods()) {
+            for (AbstractModule module : Ref.getModuleManager().getMods()) {
                 module.writeModuleConfig();
             }
         }
@@ -71,7 +71,7 @@ public class ConfigManager {
 
     @SneakyThrows
     private void writeModsProfile() {
-        List<AbstractModule> modules = new ArrayList<>(Titanic.getInstance().getModuleManager().getMods());
+        List<AbstractModule> modules = new ArrayList<>(Ref.getModuleManager().getMods());
 
         JsonObject configObj = new JsonObject();
 
@@ -117,9 +117,19 @@ public class ConfigManager {
 
     @SneakyThrows
     private void readModsProfile() {
-        List<AbstractModule> modules = new ArrayList<>(Titanic.getInstance().getModuleManager().getMods());
+        System.out.println(Ref.getModuleManager());
+        List<AbstractModule> modules = new ArrayList<>(Ref.getModuleManager().getMods());
 
         JsonParser parser = new JsonParser();
+
+        try {
+            parser.parse(new FileReader(this.modsConfig)).getAsJsonObject();
+        } catch (IllegalStateException ignored) {
+            // config was null for whatever reason? l0l
+            writeModsProfile();
+            return;
+        }
+
         JsonObject configObj = parser.parse(new FileReader(this.modsConfig)).getAsJsonObject();
 
         for (AbstractModule module : modules) {

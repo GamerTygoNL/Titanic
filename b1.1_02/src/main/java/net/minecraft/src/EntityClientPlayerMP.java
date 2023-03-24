@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.chat.ChatSendEvent;
 import net.minecraft.client.Minecraft;
 
@@ -117,7 +117,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     public void sendChatMessage(String s) {
 
         ChatSendEvent event = new ChatSendEvent(s);
-        Titanic.getInstance().getEventManager().handleEvent(event);
+        Ref.getEventManager().handleEvent(event);
 
         if (event.isCancelled()) {
             return;

@@ -1,15 +1,15 @@
 package cc.noxiuam.titanic.data.server;
 
-import cc.noxiuam.titanic.data.cosmetic.Cosmetic;
+import cc.noxiuam.titanic.data.cosmetic.ICosmetic;
 
 import java.util.List;
 
-public interface RegisteredServer {
+public interface IServer {
 
     String getCosmeticPath();
 
     List<String> getAddresses();
 
-    List<Cosmetic> getCosmetics();
+    List<ICosmetic> getCosmetics();
 
 }

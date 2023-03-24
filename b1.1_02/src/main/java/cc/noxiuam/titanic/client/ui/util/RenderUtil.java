@@ -1,9 +1,8 @@
 package cc.noxiuam.titanic.client.ui.util;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import lombok.experimental.UtilityClass;
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.MathHelper;
 import net.minecraft.src.Tessellator;
 import org.lwjgl.opengl.GL11;
 
@@ -18,7 +17,7 @@ public class RenderUtil {
         float f6 = 0.0f;
         float f7 = 0.0f;
 
-        Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
+        Minecraft mc = Ref.getMinecraft();
 
         GL11.glEnable(3042);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTexture(resourceLocation));
@@ -39,7 +38,7 @@ public class RenderUtil {
         float f5 = width / 2.0f;
         float f6 = 0.0f;
         float f7 = 0.0f;
-        Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
+        Minecraft mc = Ref.getMinecraft();
 
         GL11.glEnable(3042);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTexture(resourceLocation));

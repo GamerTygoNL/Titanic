@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.module.impl.normal;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.util.ItemStackUtil;
 import cc.noxiuam.titanic.client.util.Logger;
@@ -48,13 +48,13 @@ public class ModernInventory extends AbstractModule {
 
     @Override
     public void writeModuleConfig() {
-        if (!Titanic.getInstance().getConfigManager().isSetup()) {
+        if (!Ref.getConfigManager().isSetup()) {
             return;
         }
 
         try {
             File config = new File(
-                    Titanic.getInstance().getConfigManager().getThirdPartyModsConfigDir()
+                    Ref.getConfigManager().getThirdPartyModsConfigDir()
                             + File.separator +
                             "modernInventory.cfg"
             );
@@ -80,7 +80,7 @@ public class ModernInventory extends AbstractModule {
                     } else if (line.startsWith("USEINSTEADOFALT =")) {
                         try {
                             altAlternative = Integer.parseInt(line.split("=")[1].trim());
-                        } catch (Exception var4) {
+                        } catch (Exception ignored) {
                         }
                     }
                 }

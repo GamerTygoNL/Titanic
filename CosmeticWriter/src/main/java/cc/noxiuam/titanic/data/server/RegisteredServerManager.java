@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Getter
 public class RegisteredServerManager {
 
-    private final List<RegisteredServer> registeredServers = new CopyOnWriteArrayList<>();
+    private final List<IServer> registeredServers = new CopyOnWriteArrayList<>();
 
     private final AlphaPlace alphaPlace;
 

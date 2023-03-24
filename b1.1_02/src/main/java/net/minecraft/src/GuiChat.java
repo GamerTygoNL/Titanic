@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.gui.chat.ChatBackgroundDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.chat.PreChatMessageUpdateEvent;
 import org.lwjgl.input.Keyboard;
@@ -59,7 +59,7 @@ public class GuiChat extends GuiScreen {
         }
 
         PreChatMessageUpdateEvent event = new PreChatMessageUpdateEvent(i, message);
-        Titanic.getInstance().getEventManager().handleEvent(event);
+        Ref.getEventManager().handleEvent(event);
 
         if (event.isCancelled()) {
             message = event.getMessage();
@@ -69,7 +69,7 @@ public class GuiChat extends GuiScreen {
     public void drawScreen(int i, int j, float f) {
 
         ChatBackgroundDrawEvent chatBackgroundDrawEvent = new ChatBackgroundDrawEvent();
-        Titanic.getInstance().getEventManager().handleEvent(chatBackgroundDrawEvent);
+        Ref.getEventManager().handleEvent(chatBackgroundDrawEvent);
 
         if (!chatBackgroundDrawEvent.isCancelled()) {
             drawRect(2, height - 14, width - 2, height - 2, 0x80000000);

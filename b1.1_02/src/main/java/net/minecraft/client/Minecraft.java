@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
 import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.event.impl.TickEvent;
@@ -495,7 +496,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                 }
 
                 DebugDrawEvent debugDrawEvent = new DebugDrawEvent();
-                Titanic.getInstance().getEventManager().handleEvent(debugDrawEvent);
+                Ref.getEventManager().handleEvent(debugDrawEvent);
 
                 if (Keyboard.isKeyDown(61) || debugDrawEvent.isCancelled()) {
                     displayDebugInfo(l2);
@@ -830,7 +831,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
         }
 
         TickEvent tickEvent = new TickEvent();
-        Titanic.getInstance().getEventManager().handleEvent(tickEvent);
+        Ref.getEventManager().handleEvent(tickEvent);
 
         if (currentScreen != null) {
             field_6302_aa = ticksRan + 10000;
@@ -896,7 +897,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                             }
 
                             KeyboardEvent event = new KeyboardEvent(Keyboard.getEventKey());
-                            Titanic.getInstance().getEventManager().handleEvent(event);
+                            Ref.getEventManager().handleEvent(event);
 
                             if (Keyboard.getEventKey() == 63 && !event.isCancelled()) {
                                 gameSettings.thirdPersonView = !gameSettings.thirdPersonView;

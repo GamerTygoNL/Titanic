@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.gui.SlotChangeEvent;
 import org.lwjgl.opengl.GL11;
 
@@ -133,11 +133,12 @@ public abstract class GuiContainer extends GuiScreen {
                 j1 = -999;
             }
             if (j1 != -1) {
+                // TODO: Redo this mod's implementation.
                 SlotChangeEvent event = new SlotChangeEvent();
-                Titanic.getInstance().getEventManager().handleEvent(event);
+                Ref.getEventManager().handleEvent(event);
 
                 if (event.isCancelled()) {
-                    Titanic.getInstance().getModuleManager().getModernInventory().handleClickOnSlot(j1, k, this.mc, this.inventorySlots);
+                    Ref.getModuleManager().getModernInventory().handleClickOnSlot(j1, k, this.mc, this.inventorySlots);
                 } else {
                     mc.playerController.func_20085_a(inventorySlots.unusedList, j1, k, mc.thePlayer);
                 }

@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.network.PacketReceivedEvent;
 
 import java.io.DataInputStream;
@@ -195,7 +195,7 @@ public class NetworkManager {
         Packet packet;
         for (int i = 100; !readPackets.isEmpty() && i-- >= 0; packet.processPacket(netHandler)) {
             packet = (Packet) readPackets.remove(0);
-            Titanic.getInstance().getEventManager().handleEvent(new PacketReceivedEvent(packet));
+            Ref.getEventManager().handleEvent(new PacketReceivedEvent(packet));
         }
 
         if (isTerminating && readPackets.isEmpty()) {

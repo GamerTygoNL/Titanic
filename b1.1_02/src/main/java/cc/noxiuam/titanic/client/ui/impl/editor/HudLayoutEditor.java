@@ -1,22 +1,16 @@
 package cc.noxiuam.titanic.client.ui.impl.editor;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.impl.hud.AbstractMovableModule;
 import cc.noxiuam.titanic.client.ui.impl.GuiScreenWrapper;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
-import cc.noxiuam.titanic.client.ui.impl.editor.component.HUDModuleComponent;
 import cc.noxiuam.titanic.client.ui.util.FontUtil;
-import cc.noxiuam.titanic.client.ui.util.RenderUtil;
-import cc.noxiuam.titanic.client.util.MathUtil;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.ScaledResolution;
 import org.lwjgl.input.Mouse;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -30,7 +24,8 @@ public class HudLayoutEditor extends GuiScreenWrapper {
             4,
             4
     );
-    private final Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
+
+    private final Minecraft mc = Ref.getMinecraft();
 
     private final List<AbstractMovableModule> hudModules = new CopyOnWriteArrayList<>();
 
@@ -40,7 +35,7 @@ public class HudLayoutEditor extends GuiScreenWrapper {
     private float prevY;
 
     public HudLayoutEditor() {
-        for (AbstractModule module : Titanic.getInstance().getModuleManager().getMods()) {
+        for (AbstractModule module : Ref.getModuleManager().getMods()) {
             if (module instanceof AbstractMovableModule) {
                 hudModules.add((AbstractMovableModule) module);
 

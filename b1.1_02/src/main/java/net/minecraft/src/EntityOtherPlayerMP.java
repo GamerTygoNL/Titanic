@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.player.PlayerLoadEvent;
 
 public class EntityOtherPlayerMP extends EntityPlayer {
@@ -20,7 +20,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
         yOffset = 0.0F;
         stepHeight = 0.0F;
         if (s != null && s.length() > 0) {
-            Titanic.getInstance().getEventManager().handleEvent(new PlayerLoadEvent(this));
+            Ref.getEventManager().handleEvent(new PlayerLoadEvent(this));
         }
         noClip = true;
         renderDistanceWeight = 10D;

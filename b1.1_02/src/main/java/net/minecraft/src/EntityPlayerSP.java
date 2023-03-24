@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.player.PlayerLoadEvent;
 import net.minecraft.client.Minecraft;
 
@@ -21,7 +21,7 @@ public class EntityPlayerSP extends EntityPlayer {
         dimension = i;
         if (session != null && session.playerName != null && session.playerName.length() > 0) {
             field_771_i = session.playerName;
-            Titanic.getInstance().getEventManager().handleEvent(new PlayerLoadEvent(this));
+            Ref.getEventManager().handleEvent(new PlayerLoadEvent(this));
         }
     }
 

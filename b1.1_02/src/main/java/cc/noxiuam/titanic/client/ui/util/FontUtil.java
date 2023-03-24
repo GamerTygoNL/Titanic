@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.ui.util;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import lombok.experimental.UtilityClass;
 import net.minecraft.client.Minecraft;
 
@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 public class FontUtil {
 
     public void drawCenteredString(String string, int x, int y, int color) {
-        Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
+        Minecraft mc = Ref.getMinecraft();
         mc.fontRenderer.drawStringWithShadow(string, x - mc.fontRenderer.getStringWidth(string) / 2, y, color);
     }
 

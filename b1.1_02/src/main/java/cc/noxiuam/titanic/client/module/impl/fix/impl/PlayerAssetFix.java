@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.module.impl.fix.impl;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.client.network.profile.Profile;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
@@ -13,7 +13,7 @@ import net.minecraft.src.EntityPlayer;
  */
 public class PlayerAssetFix extends AbstractFixModule {
 
-    private final ProfileManager profileManager = Titanic.getInstance().getProfileManager();
+    private final ProfileManager profileManager = Ref.getProfileManager();
 
     public PlayerAssetFix() {
         super("Player Asset Fix");
@@ -34,7 +34,7 @@ public class PlayerAssetFix extends AbstractFixModule {
             spoofedSkinUsername = "GitCLI";
         }
 
-        player.field_20047_bv = "https://mc-heads.net/skin/" + spoofedSkinUsername;
+        player.field_20047_bv = "https://minotar.net/skin/" + spoofedSkinUsername;
         //player.playerCloakUrl = SkinUtil.getCapeURL(username);
 
         String retroCape = "http://assets.retromc.org/capes/" + spoofedSkinUsername + ".png";

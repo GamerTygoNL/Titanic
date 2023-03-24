@@ -79,3 +79,6 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 ### Animations
 - [ ] Sword block hitting (visual only)
 - [ ] Smooth sneaking animation
+
+### Alpha 1.2.6 (if ever made)
+- [ ] Pack loading like in Beta instead of overriding the JAR

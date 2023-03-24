@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.AbstractEvent;
 
 public class GuiIngameMenu extends GuiScreen {
@@ -53,7 +53,7 @@ public class GuiIngameMenu extends GuiScreen {
         AbstractEvent event = new AbstractEvent() {
             @Override
             public boolean isCancelled() {
-                return Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft().isMultiplayerWorld();
+                return Ref.getMinecraft().isMultiplayerWorld();
             }
         };
 

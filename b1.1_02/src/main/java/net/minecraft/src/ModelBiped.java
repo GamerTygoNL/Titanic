@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.player.model.PlayerModelRenderEvent;
 
 public class ModelBiped extends ModelBase {
@@ -135,7 +135,7 @@ public class ModelBiped extends ModelBase {
             bipedLeftLeg.offsetY = 12F;
             bipedHead.offsetY = 0.0F;
         }
-        Titanic.getInstance().getEventManager().handleEvent(new PlayerModelRenderEvent(this));
+        Ref.getEventManager().handleEvent(new PlayerModelRenderEvent(this));
         bipedRightArm.rotateAngleZ += MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
         bipedLeftArm.rotateAngleZ -= MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
         bipedRightArm.rotateAngleX += MathHelper.sin(f2 * 0.067F) * 0.05F;

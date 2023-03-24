@@ -1,10 +1,9 @@
 package cc.noxiuam.titanic.client.command;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatBundle;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.event.impl.chat.ChatSendEvent;
-import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,14 +15,14 @@ public class CommandManager {
     private final List<Command> commands = new ArrayList<>();
 
     public CommandManager() {
-        Titanic.getInstance().getEventManager().addEvent(ChatSendEvent.class, this::onChatMessage);
+        Ref.getEventManager().addEvent(ChatSendEvent.class, this::onChatMessage);
     }
 
     private void onChatMessage(ChatSendEvent event) {
         String msg = event.getMessage();
         String[] args = msg.split(" ");
 
-        ChatBundle chatBundle = Titanic.getInstance().getModuleManager().getChatBundle();
+        ChatBundle chatBundle = Ref.getModuleManager().getChatBundle();
 
         if (msg.length() != 0) {
             chatBundle.getChatMessageHistory().add(msg);
@@ -58,8 +57,7 @@ public class CommandManager {
                 }
             }
 
-            Minecraft mc = Titanic.getInstance().getBridge().getMinecraftBridge().bridge$getMinecraft();
-            mc.ingameGUI.addChatMessage(ChatColor.RED + "Unknown command: \"." + label + "\"");
+            Ref.getMinecraft().ingameGUI.addChatMessage(ChatColor.RED + "Unknown command: \"." + label + "\"");
         }).start();
     }
 

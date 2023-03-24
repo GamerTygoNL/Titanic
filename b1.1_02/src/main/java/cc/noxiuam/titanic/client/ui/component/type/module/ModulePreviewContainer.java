@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.ui.component.type.module;
 
-import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
@@ -30,7 +30,7 @@ public class ModulePreviewContainer extends AbstractContainer {
         super("/mods");
         this.container = container;
 
-        List<AbstractModule> mods = Titanic.getInstance().getModuleManager().getMods();
+        List<AbstractModule> mods = Ref.getModuleManager().getMods();
         mods.removeIf(mod -> mod instanceof AbstractFixModule);
 
         for (float i = 0; i < mods.size() / 5F; i++) {

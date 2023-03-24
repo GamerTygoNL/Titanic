@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.client.ui.component.type.setting.impl;
+package cc.noxiuam.titanic.client.ui.component.type.setting.impl.string;
 
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.ui.component.type.module.ModuleSettingsComponent;
