@@ -23,7 +23,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 
 ## Bug Fixes
 - [x] Fix chunk crash when loading them too fast
-- [ ] Fix rendering dead entities (net.minecraft.src.RenderManager.renderEntity)
+- [x] Fix rendering dead entities
 - [x] Fix chest inventory "chest" text not being capitalized properly
 - [ ] Fix armor models not moving with player swinging animation
 - [x] Fix chat crash when someone sends a bunch of characters

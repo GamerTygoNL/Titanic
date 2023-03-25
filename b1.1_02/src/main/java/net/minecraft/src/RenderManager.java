@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.world.entity.PreEntityRenderEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
@@ -98,6 +99,13 @@ public class RenderManager {
     public void renderEntityWithPosYaw(Entity entity, double d, double d1, double d2, float f, float f1) {
         Render render = getEntityRenderObject(entity);
         if (render != null) {
+            PreEntityRenderEvent event = new PreEntityRenderEvent(entity);
+            Ref.getEventManager().handleEvent(event);
+
+            if (event.isCancelled()) {
+                return;
+            }
+
             render.doRender(entity, d, d1, d2, f, f1);
             render.doRenderShadowAndFire(entity, d, d1, d2, f, f1);
         }

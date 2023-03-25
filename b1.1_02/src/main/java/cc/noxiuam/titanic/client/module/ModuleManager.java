@@ -1,10 +1,7 @@
 package cc.noxiuam.titanic.client.module;
 
-import cc.noxiuam.titanic.client.module.impl.fix.impl.ChestTextFix;
+import cc.noxiuam.titanic.client.module.impl.fix.impl.*;
 import cc.noxiuam.titanic.client.module.impl.normal.ChunkLoadingFix;
-import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerModelFix;
-import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerAssetFix;
-import cc.noxiuam.titanic.client.module.impl.fix.impl.SavingLevelFix;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.CoordinatesMod;
 import cc.noxiuam.titanic.client.module.impl.normal.ModernInventoryModule;
 import cc.noxiuam.titanic.client.module.impl.normal.NametagEditorModule;
@@ -50,6 +47,7 @@ public class ModuleManager {
         this.mods.add(new SavingLevelFix());
         this.mods.add(new ChunkLoadingFix());
         this.mods.add(new ChestTextFix());
+        this.mods.add(new DeadEntityRenderFix());
     }
 
 }
