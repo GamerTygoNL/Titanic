@@ -40,8 +40,8 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Implement screenshot taking with just F2 instead of F1 + F2
 
 ### Performance
-- [ ] Toggle crop rendering
-- [ ] Toggle block particle rendering
+- [x] Toggle crop rendering
+- [x] Toggle block particle rendering
 - [ ] Entity culling
 - [ ] Block culling - Render blocks that only can be seen
 
