@@ -21,7 +21,7 @@ public class PlayerModelFix extends AbstractFixModule {
     }
 
     private void fixSpecialPlayerModel(SpecialModelRenderEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
+        if (event.getRenderPassModel() != null) {
             event.getRenderPassModel().field_1244_k = event.getMainModel().field_1244_k;
         }
     }

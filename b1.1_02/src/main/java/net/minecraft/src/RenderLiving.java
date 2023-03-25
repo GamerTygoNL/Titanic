@@ -25,7 +25,7 @@ public class RenderLiving extends Render {
         unusedRenderBlocks.field_1244_k = func_167_c(entityliving, f1);
         unusedRenderBlocks.field_1243_l = entityliving.ridingEntity != null || entityliving.field_9300_bu;
 
-        SpecialModelRenderEvent event = new SpecialModelRenderEvent(entityliving, this.unusedRenderBlocks, this.renderPassModel);
+        SpecialModelRenderEvent event = new SpecialModelRenderEvent(this.unusedRenderBlocks, this.renderPassModel);
         Ref.getEventManager().handleEvent(event);
 
         if (renderPassModel != null) {
