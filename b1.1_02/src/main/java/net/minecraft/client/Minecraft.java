@@ -507,7 +507,11 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                 if (Keyboard.isKeyDown(65)) {
                     Display.update();
                 }
-                screenshotListener();
+
+                if (!Ref.getModuleManager().getScreenshotModule().enabled()) {
+                    screenshotListener();
+                }
+
                 if (mcCanvas != null && !mainFrame && (mcCanvas.getWidth() != displayWidth || mcCanvas.getHeight() != displayHeight)) {
                     displayWidth = mcCanvas.getWidth();
                     displayHeight = mcCanvas.getHeight();

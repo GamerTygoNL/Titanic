@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.SuccessfulScreenshotEvent;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -54,6 +56,10 @@ public class ScreenShotHelper {
             BufferedImage bufferedimage = new BufferedImage(i, j, 1);
             bufferedimage.setRGB(0, 0, i, j, imageData, 0, i);
             ImageIO.write(bufferedimage, "png", file2);
+
+            SuccessfulScreenshotEvent event = new SuccessfulScreenshotEvent(file2.getName());
+            Ref.getEventManager().handleEvent(event);
+
             return (new StringBuilder()).append("Saved screenshot as ").append(file2.getName()).toString();
         } catch (Exception exception) {
             exception.printStackTrace();

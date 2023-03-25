@@ -5,6 +5,7 @@ import cc.noxiuam.titanic.client.module.impl.normal.ChunkLoadingFix;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.CoordinatesMod;
 import cc.noxiuam.titanic.client.module.impl.normal.ModernInventoryModule;
 import cc.noxiuam.titanic.client.module.impl.normal.NametagEditorModule;
+import cc.noxiuam.titanic.client.module.impl.normal.ScreenshotModule;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.AutoLoginModule;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatModule;
 import cc.noxiuam.titanic.client.module.impl.normal.overlay.OverlayModule;
@@ -29,6 +30,7 @@ public class ModuleManager {
     private final AutoLoginModule autoLoginModule;
     private final NametagEditorModule nametagEditorModule;
     private final PerformanceModule performanceModule;
+    private final ScreenshotModule screenshotModule;
 
     public ModuleManager() {
         // qol mods
@@ -40,6 +42,7 @@ public class ModuleManager {
         this.mods.add(this.autoLoginModule = new AutoLoginModule());
         this.mods.add(this.nametagEditorModule = new NametagEditorModule());
         this.mods.add(this.performanceModule = new PerformanceModule());
+        this.mods.add(this.screenshotModule = new ScreenshotModule());
 
         // game fixes
         this.mods.add(new PlayerAssetFix());

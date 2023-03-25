@@ -71,12 +71,6 @@ public class Titanic {
             return;
         }
 
-        if (key == Keyboard.KEY_F2) {
-            mc.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(Minecraft.getMinecraftDir(), mc.displayWidth, mc.displayHeight));
-            mc.isTakingScreenshot = true;
-            return;
-        }
-
         if (key == Keyboard.KEY_SLASH) {
             this.bridge.getMinecraftBridge()
                     .bridge$getMinecraft()
