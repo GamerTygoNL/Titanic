@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.world.player.model.SpecialModelRenderEvent;
 import org.lwjgl.opengl.GL11;
 
 public class RenderLiving extends Render {
@@ -22,6 +24,10 @@ public class RenderLiving extends Render {
         GL11.glDisable(2884 /*GL_CULL_FACE*/);
         unusedRenderBlocks.field_1244_k = func_167_c(entityliving, f1);
         unusedRenderBlocks.field_1243_l = entityliving.ridingEntity != null || entityliving.field_9300_bu;
+
+        SpecialModelRenderEvent event = new SpecialModelRenderEvent(entityliving, this.unusedRenderBlocks, this.renderPassModel);
+        Ref.getEventManager().handleEvent(event);
+
         if (renderPassModel != null) {
             renderPassModel.field_1243_l = unusedRenderBlocks.field_1243_l;
         }

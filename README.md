@@ -25,7 +25,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Fix chunk crash when loading them too fast
 - [x] Fix rendering dead entities
 - [x] Fix chest inventory "chest" text not being capitalized properly
-- [ ] Fix armor models not moving with player swinging animation
+- [x] Fix armor models not moving with player swinging animation
 - [x] Fix chat crash when someone sends a bunch of characters
 - [x] Fix slow chunk rendering
 - [x] Fix capes models when sneaking and other stuff

@@ -3,6 +3,7 @@ package cc.noxiuam.titanic.client.module.impl.fix.impl;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.event.impl.world.player.model.CapeRenderEvent;
 import cc.noxiuam.titanic.event.impl.world.player.model.PlayerModelRenderEvent;
+import cc.noxiuam.titanic.event.impl.world.player.model.SpecialModelRenderEvent;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 
@@ -14,8 +15,15 @@ public class PlayerModelFix extends AbstractFixModule {
 
     public PlayerModelFix() {
         super("Player Model Fix");
-        addEvent(CapeRenderEvent.class, this::fixCapeModel);
-        addEvent(PlayerModelRenderEvent.class, this::fixPlayerHeadModel);
+        this.addEvent(CapeRenderEvent.class, this::fixCapeModel);
+        this.addEvent(PlayerModelRenderEvent.class, this::fixPlayerHeadModel);
+        this.addEvent(SpecialModelRenderEvent.class, this::fixSpecialPlayerModel);
+    }
+
+    private void fixSpecialPlayerModel(SpecialModelRenderEvent event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            event.getRenderPassModel().field_1244_k = event.getMainModel().field_1244_k;
+        }
     }
 
     public void fixPlayerHeadModel(PlayerModelRenderEvent event) {
