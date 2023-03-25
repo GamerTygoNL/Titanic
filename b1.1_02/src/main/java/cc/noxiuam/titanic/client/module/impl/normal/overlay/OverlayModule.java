@@ -12,19 +12,19 @@ import org.lwjgl.input.Keyboard;
 /**
  * Makes it so the debug info is togglable instead of holding the key down.
  */
-public class BetaOverlayModule extends AbstractModule {
+public class OverlayModule extends AbstractModule {
 
     public boolean showDebugInfo = false;
 
     private final KeybindSetting debugKeybind;
     private final StringSetting watermarkString;
 
-    public BetaOverlayModule() {
+    public OverlayModule() {
         super("betaOverlay", "Overlay", true);
 
         this.initSettings(
                 this.debugKeybind = new KeybindSetting("debugKeybind", "Toggle Debug Info", Keyboard.KEY_F3),
-                this.watermarkString = new StringSetting("watermarkString", "Watermark String", Ref.MC_VERSION, 30)
+                this.watermarkString = new StringSetting("watermarkString", "Watermark String", Ref.MC_VERSION, 35)
         );
 
         this.addEvent(KeyboardEvent.class, this::keyTyped);

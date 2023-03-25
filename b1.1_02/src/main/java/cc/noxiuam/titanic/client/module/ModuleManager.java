@@ -10,7 +10,7 @@ import cc.noxiuam.titanic.client.module.impl.normal.ModernInventoryModule;
 import cc.noxiuam.titanic.client.module.impl.normal.NametagEditorModule;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.AutoLoginModule;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatModule;
-import cc.noxiuam.titanic.client.module.impl.normal.overlay.BetaOverlayModule;
+import cc.noxiuam.titanic.client.module.impl.normal.overlay.OverlayModule;
 import cc.noxiuam.titanic.client.module.impl.normal.performance.PerformanceModule;
 import cc.noxiuam.titanic.client.module.impl.normal.perspective.PerspectiveModule;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class ModuleManager {
 
     private final ChatModule chatModule;
     private final PerspectiveModule perspectiveModule;
-    private final BetaOverlayModule betaOverlayModule;
+    private final OverlayModule overlayModule;
     private final ModernInventoryModule modernInventoryModule;
     private final AutoLoginModule autoLoginModule;
     private final NametagEditorModule nametagEditorModule;
@@ -38,7 +38,7 @@ public class ModuleManager {
         this.mods.add(this.coordinatesMod = new CoordinatesMod());
         this.mods.add(this.chatModule = new ChatModule());
         this.mods.add(this.perspectiveModule = new PerspectiveModule());
-        this.mods.add(this.betaOverlayModule = new BetaOverlayModule());
+        this.mods.add(this.overlayModule = new OverlayModule());
         this.mods.add(this.modernInventoryModule = new ModernInventoryModule());
         this.mods.add(this.autoLoginModule = new AutoLoginModule());
         this.mods.add(this.nametagEditorModule = new NametagEditorModule());
