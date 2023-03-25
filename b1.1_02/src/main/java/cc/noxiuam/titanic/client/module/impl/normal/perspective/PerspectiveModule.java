@@ -11,13 +11,13 @@ import net.minecraft.src.MathHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-public class PerspectiveBundle extends AbstractModule {
+public class PerspectiveModule extends AbstractModule {
 
     public PerspectiveView currentPerspective = PerspectiveView.FIRST;
     private final KeybindSetting switchPerspectiveKey;
     private final BooleanSetting viewBobbingInThirdPerson;
 
-    public PerspectiveBundle() {
+    public PerspectiveModule() {
         super("perspectiveBundle", "Perspective", true);
         this.initSettings(
                 switchPerspectiveKey = new KeybindSetting("switchPerspectiveKeybind", "Switch Perspective", Keyboard.KEY_R),

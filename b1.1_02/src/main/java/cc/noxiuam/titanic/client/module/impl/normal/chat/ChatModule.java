@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ChatBundle extends AbstractModule {
+public class ChatModule extends AbstractModule {
 
     private final List<String> chatMessageHistory = new ArrayList<>();
     public int chatMessageIndex = -1;
@@ -20,7 +20,7 @@ public class ChatBundle extends AbstractModule {
 
     private final String empty = "";
 
-    public ChatBundle() {
+    public ChatModule() {
         super("chatBundle", "Chat Editor", false);
         initSettings(
                 chatHistory = new BooleanSetting("chatHistory", "Message History", false),

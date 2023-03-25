@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.event.impl;
+package cc.noxiuam.titanic.event.impl.world;
 
 import cc.noxiuam.titanic.event.AbstractEvent;
 

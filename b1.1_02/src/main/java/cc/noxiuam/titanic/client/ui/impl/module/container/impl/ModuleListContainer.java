@@ -34,6 +34,11 @@ public class ModuleListContainer extends AbstractContainer {
     }
 
     @Override
+    public void handleUpdate() {
+        this.currentComponent.handleUpdate();
+    }
+
+    @Override
     public void keyTyped(char character, int key) {
         currentComponent.keyTyped(character, key);
     }

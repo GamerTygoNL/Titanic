@@ -138,7 +138,7 @@ public abstract class GuiContainer extends GuiScreen {
                 Ref.getEventManager().handleEvent(event);
 
                 if (event.isCancelled()) {
-                    Ref.getModuleManager().getModernInventory().handleClickOnSlot(j1, k, this.mc, this.inventorySlots);
+                    Ref.getModuleManager().getModernInventoryModule().handleClickOnSlot(j1, k, this.mc, this.inventorySlots);
                 } else {
                     mc.playerController.func_20085_a(inventorySlots.unusedList, j1, k, mc.thePlayer);
                 }

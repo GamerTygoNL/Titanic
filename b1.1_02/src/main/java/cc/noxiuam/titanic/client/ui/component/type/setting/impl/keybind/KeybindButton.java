@@ -53,7 +53,7 @@ public class KeybindButton extends AbstractComponent {
     @Override
     public void keyTyped(char character, int key) {
         if (listening) {
-            setting.setValue(key);
+            setting.value(key);
             listening = false;
             text = CaseUtils.capitalizeFirst(Keyboard.getKeyName(setting.value()));
         }

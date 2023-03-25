@@ -17,7 +17,7 @@ public abstract class AbstractSetting<T> {
     private final String name;
 
     private final T defaultValue;
-    @Setter private T value;
+    private T value;
 
     @Setter private Consumer<Object> onUpdate;
 
@@ -30,7 +30,7 @@ public abstract class AbstractSetting<T> {
 
     public abstract AbstractSettingComponent<T> getComponent(ModuleSettingsComponent list);
 
-    public void setValue(T newValue) {
+    public void value(T newValue) {
         if (!Objects.equals(this.value, newValue)) {
             this.value = newValue;
 

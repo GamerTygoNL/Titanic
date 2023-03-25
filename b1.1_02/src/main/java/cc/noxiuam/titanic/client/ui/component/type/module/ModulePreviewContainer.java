@@ -89,8 +89,8 @@ public class ModulePreviewContainer extends AbstractContainer {
                 if (previewComponent.getSettingsButton().mouseInside(x, y)
                         && previewComponent.getModule().settings().size() > 0) {
                     SoundUtil.playClick();
-                    container.setCurrentComponent(
-                            new ModuleSettingsComponent(previewComponent.getModule())
+                    this.container.setCurrentComponent(
+                            new ModuleSettingsComponent(this.container, this, previewComponent.getModule())
                     );
                     return;
                 }

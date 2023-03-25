@@ -5,7 +5,7 @@ import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.client.network.profile.Profile;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
 import cc.noxiuam.titanic.client.util.http.HttpUtil;
-import cc.noxiuam.titanic.event.impl.player.PlayerLoadEvent;
+import cc.noxiuam.titanic.event.impl.world.player.PlayerLoadEvent;
 import net.minecraft.src.EntityPlayer;
 
 /**

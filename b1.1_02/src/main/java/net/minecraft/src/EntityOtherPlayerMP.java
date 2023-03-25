@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.event.impl.player.PlayerLoadEvent;
+import cc.noxiuam.titanic.event.impl.world.player.PlayerLoadEvent;
 
 public class EntityOtherPlayerMP extends EntityPlayer {
 

@@ -6,6 +6,7 @@ import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
 import cc.noxiuam.titanic.client.ui.impl.editor.ModSettingsEditor;
 import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
+import cc.noxiuam.titanic.client.ui.impl.module.container.impl.ModuleListContainer;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 import lombok.Setter;
 
@@ -17,13 +18,17 @@ public class ModuleSettingsComponent extends AbstractContainer {
     private final List<AbstractSettingComponent<?>> settingComponents = new CopyOnWriteArrayList<>();
 
     @Setter private AbstractModule module;
+    private final ModuleListContainer container;
+    private final AbstractContainer parent;
 
     private final RoundedTextButton backButton = new RoundedTextButton("Back");
     private final RoundedTextButton closeButton = new RoundedTextButton("Close");
 
-    public ModuleSettingsComponent(AbstractModule module) {
+    public ModuleSettingsComponent(ModuleListContainer container, ModulePreviewContainer parent, AbstractModule module) {
         super("/modSettings");
         this.module = module;
+        this.container = container;
+        this.parent = parent;
 
         for (AbstractSetting<?> setting : module.settings()) {
             AbstractSettingComponent<?> component = setting.getComponent(this);
@@ -32,6 +37,13 @@ public class ModuleSettingsComponent extends AbstractContainer {
             }
         }
 
+    }
+
+    @Override
+    public void handleUpdate() {
+        for (AbstractSettingComponent<?> component : settingComponents) {
+            component.handleUpdate();
+        }
     }
 
     @Override
@@ -78,7 +90,7 @@ public class ModuleSettingsComponent extends AbstractContainer {
             this.mc.displayGuiScreen(null);
         } else if (this.backButton.mouseInside(x, y)) {
             SoundUtil.playClick();
-            this.mc.displayGuiScreen(new ModSettingsEditor());
+            this.container.setCurrentComponent(this.parent);
         }
     }
 

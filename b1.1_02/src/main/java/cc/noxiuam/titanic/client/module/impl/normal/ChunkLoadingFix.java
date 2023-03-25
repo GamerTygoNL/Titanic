@@ -1,10 +1,9 @@
 package cc.noxiuam.titanic.client.module.impl.normal;
 
-import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
-import cc.noxiuam.titanic.event.impl.TickEvent;
+import cc.noxiuam.titanic.event.impl.world.TickEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.network.PacketReceivedEvent;
 import net.minecraft.src.Packet51MapChunk;
@@ -25,11 +24,10 @@ public class ChunkLoadingFix extends AbstractModule {
                 this.refreshKeybind = new KeybindSetting("refreshKeybind", "Refresh Keybind", 0),
                 this.automaticRefresh = new BooleanSetting("automaticRefresh", "Automatically Refresh Blocks", true)
         );
+
         this.addEvent(PacketReceivedEvent.class, this::onPacket);
         this.addEvent(TickEvent.class, this::onTick);
-
-        // manual refreshing regardless if it's enabled or not
-        Ref.getEventManager().addEvent(KeyboardEvent.class, event -> {
+        this.addEvent(KeyboardEvent.class, event -> {
             if (event.getKey() == this.refreshKeybind.value()) {
                 this.mc.renderGlobal.loadRenderers();
             }

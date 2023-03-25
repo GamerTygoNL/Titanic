@@ -18,6 +18,11 @@ public class ModSettingsEditor extends GuiScreenWrapper {
     }
 
     @Override
+    public void updateScreen() {
+        this.moduleList.handleUpdate();
+    }
+
+    @Override
     public void drawScreen(int x, int y) {
         this.moduleList.draw(x, y);
     }

@@ -73,4 +73,6 @@ public abstract class AbstractComponent {
                 && mouseY < y + height;
     }
 
+    public void handleUpdate() { }
+
 }

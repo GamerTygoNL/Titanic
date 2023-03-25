@@ -24,7 +24,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 ## Bug Fixes
 - [x] Fix chunk crash when loading them too fast
 - [ ] Fix rendering dead entities (net.minecraft.src.RenderManager.renderEntity)
-- [ ] Fix chest inventory "chest" text not being capitalized properly
+- [x] Fix chest inventory "chest" text not being capitalized properly
 - [ ] Fix armor models not moving with player swinging animation
 - [x] Fix chat crash when someone sends a bunch of characters
 - [x] Fix slow chunk rendering
@@ -32,7 +32,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Fix player head model when sneaking and unsneaking
 - [x] Remove "Saving level..." when on a server, it doesn't save anything
 - [ ] Dragging HUD mods isn't entirely perfect
-- [ ] When switching worlds, your skin gets set to Steve sometimes.
+- [x] When switching worlds, your skin gets set to Steve sometimes. (This appears to be fixed?)
 
 ## QOL Suggestions Roadmap
 - [x] ~~Convenient~~ Modern Inventory
@@ -46,9 +46,10 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Block culling - Render blocks that only can be seen
 
 ### Nametags
-- [ ] Toggle Keybind
+- [x] Toggle Keybind
 - [ ] Show Own Nametag
-- [ ] Show Nametags in 3rd Person
+- [x] Text Shadow
+- [x] Show Nametags in 3rd Person
 - [ ] Text Color
 - [ ] Background Color
 

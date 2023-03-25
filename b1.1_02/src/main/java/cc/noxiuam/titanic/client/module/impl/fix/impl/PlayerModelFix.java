@@ -1,8 +1,8 @@
 package cc.noxiuam.titanic.client.module.impl.fix.impl;
 
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
-import cc.noxiuam.titanic.event.impl.player.model.CapeRenderEvent;
-import cc.noxiuam.titanic.event.impl.player.model.PlayerModelRenderEvent;
+import cc.noxiuam.titanic.event.impl.world.player.model.CapeRenderEvent;
+import cc.noxiuam.titanic.event.impl.world.player.model.PlayerModelRenderEvent;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 

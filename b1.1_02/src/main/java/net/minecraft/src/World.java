@@ -1,5 +1,8 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.world.block.BlockParticleRenderEvent;
+
 import java.io.*;
 import java.util.*;
 
@@ -1639,6 +1642,14 @@ public class World
             int k1 = (k + rand.nextInt(byte0)) - rand.nextInt(byte0);
             int l1 = getBlockId(i1, j1, k1);
             if (l1 > 0) {
+
+                BlockParticleRenderEvent event = new BlockParticleRenderEvent(Block.blocksList[l1]);
+                Ref.getEventManager().handleEvent(event);
+
+                if (event.isCancelled()) {
+                    return;
+                }
+
                 Block.blocksList[l1].randomDisplayTick(this, i1, j1, k1, random);
             }
         }

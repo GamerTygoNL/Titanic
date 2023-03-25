@@ -35,6 +35,11 @@ public class MainListUI extends AbstractComponent {
     }
 
     @Override
+    public void handleUpdate() {
+        this.moduleListContainer.handleUpdate();
+    }
+
+    @Override
     public void keyTyped(char character, int key) {
         this.moduleListContainer.keyTyped(character, key);
     }

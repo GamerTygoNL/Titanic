@@ -169,17 +169,17 @@ public class ConfigManager {
 
                 if (setting instanceof BooleanSetting) {
                     boolean value = settings.get(setting.id()).getAsBoolean();
-                    ((BooleanSetting) setting).setValue(value);
+                    ((BooleanSetting) setting).value(value);
                 }
 
                 if (setting instanceof StringSetting) {
                     String value = settings.get(setting.id()).getAsString();
-                    ((StringSetting) setting).setValue(value);
+                    ((StringSetting) setting).value(value);
                 }
 
                 if (setting instanceof KeybindSetting) {
                     int value = settings.get(setting.id()).getAsInt();
-                    ((KeybindSetting) setting).setValue(value);
+                    ((KeybindSetting) setting).value(value);
                 }
             }
         }

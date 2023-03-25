@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
@@ -94,8 +95,7 @@ public class RenderManager {
         renderEntityWithPosYaw(entity, d - renderPosX, d1 - renderPosY, d2 - renderPosZ, f1, f);
     }
 
-    public void renderEntityWithPosYaw(Entity entity, double d, double d1, double d2,
-                                       float f, float f1) {
+    public void renderEntityWithPosYaw(Entity entity, double d, double d1, double d2, float f, float f1) {
         Render render = getEntityRenderObject(entity);
         if (render != null) {
             render.doRender(entity, d, d1, d2, f, f1);

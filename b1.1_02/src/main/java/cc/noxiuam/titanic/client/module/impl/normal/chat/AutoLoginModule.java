@@ -7,16 +7,16 @@ import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.event.impl.chat.ChatReceivedEvent;
 import cc.noxiuam.titanic.event.impl.chat.ChatSendEvent;
 
-public class AutoLogin extends AbstractModule {
+public class AutoLoginModule extends AbstractModule {
 
     private final StringSetting password;
     private final BooleanSetting autoUpdatePassword;
     private final BooleanSetting showUpdateMessages;
 
-    public AutoLogin() {
+    public AutoLoginModule() {
         super("autoLogin", "Auto Login", false);
         this.initSettings(
-                this.password = new StringSetting("autoLoginPassword", "Auto Login Password", "password"),
+                this.password = new StringSetting("autoLoginPassword", "Auto Login Password", "password", 15),
                 this.autoUpdatePassword = new BooleanSetting("autoUpdatePassword", "Update Password on Login", true),
                 this.showUpdateMessages = new BooleanSetting("showUpdateMessages", "Show Update Messages", true)
         );

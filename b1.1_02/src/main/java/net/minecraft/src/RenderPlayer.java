@@ -1,7 +1,8 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.event.impl.player.model.CapeRenderEvent;
+import cc.noxiuam.titanic.event.impl.world.player.NametagRenderEvent;
+import cc.noxiuam.titanic.event.impl.world.player.model.CapeRenderEvent;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPlayer extends RenderLiving {
@@ -58,6 +59,7 @@ public class RenderPlayer extends RenderLiving {
         float f3 = 0.01666667F * f2;
         float f4 = entityplayer.getDistanceToEntity(renderManager.field_1226_h);
         float f5 = entityplayer.isSneaking() ? 32F : 64F;
+
         if (f4 < f5) {
             f3 = (float) ((double) f3 * (Math.sqrt(f4) / 2D));
             FontRenderer fontrenderer = getFontRendererFromRenderManager();
@@ -67,8 +69,16 @@ public class RenderPlayer extends RenderLiving {
             GL11.glRotatef(-renderManager.field_1225_i, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(renderManager.field_1224_j, 1.0F, 0.0F, 0.0F);
             GL11.glScalef(-f3, -f3, f3);
+
             String s = entityplayer.field_771_i;
             GL11.glDisable(2896 /*GL_LIGHTING*/);
+
+            NametagRenderEvent event = new NametagRenderEvent(entityplayer, f3);
+            Ref.getEventManager().handleEvent(event);
+            if (event.isCancelled()) {
+                return;
+            }
+
             if (!entityplayer.isSneaking()) {
                 GL11.glDepthMask(false);
                 GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
@@ -80,6 +90,7 @@ public class RenderPlayer extends RenderLiving {
                     byte0 = -10;
                 }
                 GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
+
                 tessellator.startDrawingQuads();
                 int j = fontrenderer.getStringWidth(s) / 2;
                 tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
@@ -88,6 +99,7 @@ public class RenderPlayer extends RenderLiving {
                 tessellator.addVertex(j + 1, 8 + byte0, 0.0D);
                 tessellator.addVertex(j + 1, -1 + byte0, 0.0D);
                 tessellator.draw();
+
                 GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
                 fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, byte0, 0x20ffffff);
                 GL11.glEnable(2929 /*GL_DEPTH_TEST*/);

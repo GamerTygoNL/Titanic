@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.font.DrawStringEvent;
 import org.lwjgl.opengl.GL11;
 
 import javax.imageio.ImageIO;
@@ -120,6 +122,14 @@ public class FontRenderer {
         if (s == null) {
             return;
         }
+
+        DrawStringEvent event = new DrawStringEvent(s);
+        Ref.getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            s = event.getString();
+        }
+
         if (flag) {
             int l = k & 0xff000000;
             k = (k & 0xfcfcfc) >> 2;

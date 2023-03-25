@@ -1,15 +1,18 @@
 package cc.noxiuam.titanic.client.module;
 
+import cc.noxiuam.titanic.client.module.impl.fix.impl.ChestTextFix;
 import cc.noxiuam.titanic.client.module.impl.normal.ChunkLoadingFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerModelFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.PlayerAssetFix;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.SavingLevelFix;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.CoordinatesMod;
-import cc.noxiuam.titanic.client.module.impl.normal.ModernInventory;
-import cc.noxiuam.titanic.client.module.impl.normal.chat.AutoLogin;
-import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatBundle;
-import cc.noxiuam.titanic.client.module.impl.normal.overlay.BetaOverlay;
-import cc.noxiuam.titanic.client.module.impl.normal.perspective.PerspectiveBundle;
+import cc.noxiuam.titanic.client.module.impl.normal.ModernInventoryModule;
+import cc.noxiuam.titanic.client.module.impl.normal.NametagEditorModule;
+import cc.noxiuam.titanic.client.module.impl.normal.chat.AutoLoginModule;
+import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatModule;
+import cc.noxiuam.titanic.client.module.impl.normal.overlay.BetaOverlayModule;
+import cc.noxiuam.titanic.client.module.impl.normal.performance.PerformanceModule;
+import cc.noxiuam.titanic.client.module.impl.normal.perspective.PerspectiveModule;
 import lombok.Getter;
 
 import java.util.List;
@@ -22,26 +25,31 @@ public class ModuleManager {
 
     private final CoordinatesMod coordinatesMod;
 
-    private final ChatBundle chatBundle;
-    private final PerspectiveBundle perspectiveBundle;
-    private final BetaOverlay betaOverlay;
-    private final ModernInventory modernInventory;
-    private final AutoLogin autoLogin;
+    private final ChatModule chatModule;
+    private final PerspectiveModule perspectiveModule;
+    private final BetaOverlayModule betaOverlayModule;
+    private final ModernInventoryModule modernInventoryModule;
+    private final AutoLoginModule autoLoginModule;
+    private final NametagEditorModule nametagEditorModule;
+    private final PerformanceModule performanceModule;
 
     public ModuleManager() {
         // qol mods
         this.mods.add(this.coordinatesMod = new CoordinatesMod());
-        this.mods.add(this.chatBundle = new ChatBundle());
-        this.mods.add(this.perspectiveBundle = new PerspectiveBundle());
-        this.mods.add(this.betaOverlay = new BetaOverlay());
-        this.mods.add(this.modernInventory = new ModernInventory());
-        this.mods.add(this.autoLogin = new AutoLogin());
+        this.mods.add(this.chatModule = new ChatModule());
+        this.mods.add(this.perspectiveModule = new PerspectiveModule());
+        this.mods.add(this.betaOverlayModule = new BetaOverlayModule());
+        this.mods.add(this.modernInventoryModule = new ModernInventoryModule());
+        this.mods.add(this.autoLoginModule = new AutoLoginModule());
+        this.mods.add(this.nametagEditorModule = new NametagEditorModule());
+        this.mods.add(this.performanceModule = new PerformanceModule());
 
         // game fixes
         this.mods.add(new PlayerAssetFix());
         this.mods.add(new PlayerModelFix());
         this.mods.add(new SavingLevelFix());
         this.mods.add(new ChunkLoadingFix());
+        this.mods.add(new ChestTextFix());
     }
 
 }

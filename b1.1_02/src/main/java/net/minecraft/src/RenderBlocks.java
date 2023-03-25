@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.world.block.BlockRenderEvent;
 import org.lwjgl.opengl.GL11;
 
 public class RenderBlocks {
@@ -42,6 +44,14 @@ public class RenderBlocks {
     }
 
     public boolean renderBlockByRenderType(Block block, int i, int j, int k) {
+
+        BlockRenderEvent event = new BlockRenderEvent(block);
+        Ref.getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            return false;
+        }
+
         int l = block.getRenderType();
         block.setBlockBoundsBasedOnState(blockAccess, i, j, k);
         if (l == 0) {

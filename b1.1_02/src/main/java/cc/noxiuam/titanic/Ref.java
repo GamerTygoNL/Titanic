@@ -13,6 +13,8 @@ import net.minecraft.client.Minecraft;
 @UtilityClass
 public class Ref {
 
+    public final String MC_VERSION = "Minecraft Beta 1.1_02";
+
     public EventManager getEventManager() {
         return Titanic.getInstance().getEventManager();
     }

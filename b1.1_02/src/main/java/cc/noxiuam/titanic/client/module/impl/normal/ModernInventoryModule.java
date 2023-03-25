@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Ported from a b1.1_02 mod, this is not my own in any way.
  */
-public class ModernInventory extends AbstractModule {
+public class ModernInventoryModule extends AbstractModule {
 
     private static final Logger LOGGER = new Logger("Modern Inventory Mod");
 
@@ -36,7 +36,7 @@ public class ModernInventory extends AbstractModule {
 
     public static int altAlternative = 0;
 
-    public ModernInventory() {
+    public ModernInventoryModule() {
         super("modernInventory", "Modern Inventory", false);
         this.addEvent(SlotChangeEvent.class, this::onSlotChange);
         this.writeModuleConfig();
