@@ -50,6 +50,14 @@ public class NametagEditorModule extends AbstractModule {
         String s = event.getPlayer().field_771_i;
         float f3 = event.getF3();
 
+        if (!this.showNametags) {
+            GL11.glEnable(2896 /*GL_LIGHTING*/);
+            GL11.glDisable(3042 /*GL_BLEND*/);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glPopMatrix();
+            return;
+        }
+
         if (!event.getPlayer().isSneaking()) {
             GL11.glDepthMask(false);
             GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
