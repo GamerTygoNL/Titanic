@@ -26,8 +26,6 @@ public class CosmeticWriter {
     private final RegisteredServerManager serverManager;
     private final CosmeticRegistry cosmeticRegistry;
 
-    private final List<String> nameCache = new CopyOnWriteArrayList<>();
-
     private final JsonArray nameArray;
 
     @SneakyThrows
