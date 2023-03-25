@@ -68,7 +68,6 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [ ] Scrolling
 - [ ] Copy & Pasting
 - [ ] Strip chat colors entirely
-- [ ] Make the chat a draggable HUD mod
 - [x] Background Toggling
 - [x] Message History
 
