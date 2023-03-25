@@ -1,6 +1,8 @@
 # Titanic
 A QOL client for Legacy Minecraft Versions.
 
+Join the [Discord](https://discord.gg/Q3YBDerR2k)!
+
 ![image](img/mods.png)
 
 ## Which versions will this client support?
