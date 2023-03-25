@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class NametagEditorModule extends AbstractModule {
 
     private final KeybindSetting toggleKeybind;
-    private final BooleanSetting /*showOwnNametag,*/ textShadow, showThirdPersonNametags, showBackground;
+    private final BooleanSetting textShadow, showBackground;
 
     // text color
     // background color
@@ -25,8 +25,6 @@ public class NametagEditorModule extends AbstractModule {
 
         this.initSettings(
                 this.toggleKeybind = new KeybindSetting("toggleKeybind", "Temp Toggle Keybind", 0),
-                //this.showOwnNametag = new BooleanSetting("showOwnNametag", "Show Own Nametag", false),
-                this.showThirdPersonNametags = new BooleanSetting("showThirdPersonNametags", "Third Person Nametags", true),
                 this.textShadow = new BooleanSetting("textShadow", "Text Shadow", false),
                 this.showBackground = new BooleanSetting("showBackground", "Show Background", true)
         );

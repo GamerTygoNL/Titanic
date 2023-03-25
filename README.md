@@ -47,9 +47,9 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 
 ### Nametags
 - [x] Toggle Keybind
-- [ ] Show Own Nametag
+- [ ] Show Own Nametag (b1.7.3+ only)
 - [x] Text Shadow
-- [x] Show Nametags in 3rd Person
+- [ ] Show Nametags in 3rd Person (b1.7.3+ only)
 - [ ] Text Color
 - [ ] Background Color
 

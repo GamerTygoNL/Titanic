@@ -70,10 +70,12 @@ public class ModulePreviewContainer extends AbstractContainer {
         boolean showPageButtons = modulePages.size() > 1;
 
         if (showPageButtons) {
+            this.leftButton.setDisabled(this.pageNumber == 0);
             this.leftButton.position(this.x + this.width / 2.165F - 12, this.y + this.height + 12);
             this.leftButton.size(15, 15);
             this.leftButton.draw(x, y);
 
+            this.rightButton.setDisabled(this.pageNumber == this.modulePages.size() - 1);
             this.rightButton.position(this.x + this.width / 2.165F + 12, this.y + this.height + 12);
             this.rightButton.size(15, 15);
             this.rightButton.draw(x, y);

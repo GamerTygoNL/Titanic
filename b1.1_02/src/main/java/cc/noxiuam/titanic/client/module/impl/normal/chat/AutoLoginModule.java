@@ -1,5 +1,6 @@
 package cc.noxiuam.titanic.client.module.impl.normal.chat;
 
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
@@ -22,7 +23,7 @@ public class AutoLoginModule extends AbstractModule {
         );
 
         this.addEvent(ChatReceivedEvent.class, event -> {
-            if (event.getMessage().equals(ChatColor.COLOR_CHAR + "cPlease log in using /login <password>.")) {
+            if (event.getMessage().equals(Ref.ALPHA_PLACE_AUTH_MESSAGE)) {
                 this.mc.thePlayer.sendChatMessage("/login " + this.password.value());
             }
         });
