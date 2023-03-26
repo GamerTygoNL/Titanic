@@ -31,10 +31,10 @@ public class CoordinatesMod extends AbstractMovableModule {
         int playerX = MathHelper.floor_double(player.posX);
         int playerY = MathHelper.floor_double(player.posY);
         int playerZ = MathHelper.floor_double(player.posZ);
-        this.setSize(115, 20);
 
         String position = "X: " + playerX + " Y: " + playerY + " Z: " + playerZ;
 
+        this.setSize(this.mc.fontRenderer.getStringWidth(position) + 10, 20);
         if (this.showBackground.value()) {
             RenderUtil.drawRect(this.x(), this.y(), this.x() + this.width(), this.y() + this.height(), 0x6F000000);
         }
