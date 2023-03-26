@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FovEvent extends AbstractEvent {
 
+    private final float partialTicks;
     private float fov;
 
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class KeyUpEvent extends AbstractEvent {
+public class KeyboardEvent extends AbstractEvent {
 
     private int key;
 

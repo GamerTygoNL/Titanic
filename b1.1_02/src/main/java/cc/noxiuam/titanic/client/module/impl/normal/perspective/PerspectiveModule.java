@@ -3,7 +3,7 @@ package cc.noxiuam.titanic.client.module.impl.normal.perspective;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import net.minecraft.src.EntityPlayerSP;
@@ -24,7 +24,7 @@ public class PerspectiveModule extends AbstractModule {
                 viewBobbingInThirdPerson = new BooleanSetting("viewBobbingInThirdPerson", "3rd Person View Bobbing", false)
         );
         this.addEvent(CameraChangeEvent.class, this::getModernCamera);
-        this.addEvent(KeyDownEvent.class, this::updateCurrentPerspective);
+        this.addEvent(KeyboardEvent.class, this::updateCurrentPerspective);
         this.addEvent(ViewBobbingSetupEvent.class, this::onViewBob);
     }
 
@@ -62,7 +62,7 @@ public class PerspectiveModule extends AbstractModule {
         }
     }
 
-    private void updateCurrentPerspective(KeyDownEvent event) {
+    private void updateCurrentPerspective(KeyboardEvent event) {
         if (event.getKey() == Keyboard.KEY_F5) {
             event.cancel();
             return;

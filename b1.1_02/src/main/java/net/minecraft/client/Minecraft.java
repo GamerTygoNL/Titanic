@@ -5,7 +5,7 @@ import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
 import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.event.impl.world.TickEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyUpEvent;
 import cc.noxiuam.titanic.event.impl.mouse.ScrollEvent;
 import net.minecraft.src.*;
@@ -907,7 +907,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                                 forceReload();
                             }
 
-                            KeyDownEvent event = new KeyDownEvent(Keyboard.getEventKey());
+                            KeyboardEvent event = new KeyboardEvent(Keyboard.getEventKey());
                             Ref.getEventManager().handleEvent(event);
 
                             if (Keyboard.getEventKey() == 63 && !event.isCancelled()) {
@@ -933,9 +933,6 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                             gameSettings.setOptionValue(EnumOptions.RENDER_DISTANCE, !Keyboard.isKeyDown(42) && !Keyboard.isKeyDown(54) ? 1 : -1);
                         }
                     }
-                } else {
-                    KeyUpEvent event = new KeyUpEvent(Keyboard.getEventKey());
-                    Ref.getEventManager().handleEvent(event);
                 }
             } while (true);
             if (currentScreen == null) {

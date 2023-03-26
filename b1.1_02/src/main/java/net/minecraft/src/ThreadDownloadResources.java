@@ -105,7 +105,7 @@ public class ThreadDownloadResources extends Thread {
             }
             mc.installResource(s, file);
         } catch (Exception exception) {
-            exception.printStackTrace();
+//            exception.printStackTrace();
         }
     }
 

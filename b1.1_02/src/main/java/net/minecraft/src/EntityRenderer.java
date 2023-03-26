@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import cc.noxiuam.titanic.event.impl.world.FovEvent;
@@ -127,7 +127,7 @@ public class EntityRenderer {
             f1 /= (1.0F - 500F / (f2 + 500F)) * 2.0F + 1.0F;
         }
 
-        FovEvent event = new FovEvent(f1);
+        FovEvent event = new FovEvent(f, f1);
         Ref.getEventManager().handleEvent(event);
         if (!event.isCancelled()) {
             // shrug

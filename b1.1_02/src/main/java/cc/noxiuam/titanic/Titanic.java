@@ -10,7 +10,7 @@ import cc.noxiuam.titanic.client.util.Logger;
 import cc.noxiuam.titanic.event.EventManager;
 
 import cc.noxiuam.titanic.event.impl.chat.ChatReceivedEvent;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiChat;
@@ -55,14 +55,14 @@ public class Titanic {
         new CommandManager();
         logger.info("Initialized Command Manager");
 
-        eventManager.addEvent(KeyDownEvent.class, this::handleKeyboard);
+        eventManager.addEvent(KeyboardEvent.class, this::handleKeyboard);
         eventManager.addEvent(ChatReceivedEvent.class, chatReceivedEvent -> new Logger("Chat").info(chatReceivedEvent.getMessage()));
 
         Thread shutdownThread = new Thread(this.configManager::saveConfigs);
         Runtime.getRuntime().addShutdownHook(shutdownThread);
     }
 
-    private void handleKeyboard(KeyDownEvent event) {
+    private void handleKeyboard(KeyboardEvent event) {
         int key = event.getKey();
         Minecraft mc = Ref.getMinecraft();
 

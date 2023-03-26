@@ -8,7 +8,7 @@ import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
 import cc.noxiuam.titanic.event.impl.font.DrawStringEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.MainMenuLogoDrawEvent;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import net.minecraft.src.Tessellator;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -38,7 +38,7 @@ public class MenuTweaksModule extends AbstractModule {
                 this.watermarkString = new StringSetting("watermarkString", "Watermark String", Ref.MC_VERSION, 35)
         );
 
-        this.addEvent(KeyDownEvent.class, this::keyTyped);
+        this.addEvent(KeyboardEvent.class, this::keyTyped);
         this.addEvent(DebugDrawEvent.class, this::onDebugDraw);
         this.addEvent(MainMenuLogoDrawEvent.class, this::onMainMenuLogoDraw);
         this.addEvent(DrawStringEvent.class, event -> {
@@ -73,7 +73,7 @@ public class MenuTweaksModule extends AbstractModule {
         }
     }
 
-    private void keyTyped(KeyDownEvent event) {
+    private void keyTyped(KeyboardEvent event) {
         int key = event.getKey();
 
         // Game Debug (F3)
