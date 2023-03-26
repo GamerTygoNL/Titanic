@@ -7,6 +7,7 @@ import cc.noxiuam.titanic.event.impl.world.TickEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyUpEvent;
+import cc.noxiuam.titanic.event.impl.mouse.ScrollEvent;
 import net.minecraft.src.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -856,7 +857,12 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                 if (l <= 200L) {
                     int j = Mouse.getEventDWheel();
                     if (j != 0) {
-                        thePlayer.inventory.changeCurrentItem(j);
+                        ScrollEvent event = new ScrollEvent(j);
+                        Ref.getEventManager().handleEvent(event);
+
+                        if (!event.isCancelled()) {
+                            thePlayer.inventory.changeCurrentItem(j);
+                        }
                     }
                     if (currentScreen == null) {
                         if (!field_6289_L && Mouse.getEventButtonState()) {
