@@ -34,7 +34,7 @@ public class CosmeticWriter {
         this.serverManager = new RegisteredServerManager();
         this.cosmeticRegistry = new CosmeticRegistry();
 
-        URL url = new URL("https://noxiuam.cc/titanic-client/profiles.json");
+        URL url = new URL("https://noxiuam.cc/titanic-client/api/profiles.json");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("GET");

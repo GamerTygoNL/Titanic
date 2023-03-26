@@ -31,7 +31,7 @@ public class ProfileManager {
     public void downloadAllProfiles() {
         List<String> names = new ArrayList<>();
 
-        URL url = new URL("https://noxiuam.cc/titanic-client/profiles.json");
+        URL url = new URL("https://noxiuam.cc/titanic-client/api/profiles.json");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("GET");
@@ -60,7 +60,7 @@ public class ProfileManager {
         logger.info("Downloading " + username + (username.endsWith("s") ? "'" : "'s") + " profile");
 
         try {
-            URL url = new URL("https://noxiuam.cc/titanic-client/player/" + username);
+            URL url = new URL("https://noxiuam.cc/titanic-client/api/player/" + username);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("GET");
