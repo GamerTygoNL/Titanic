@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.event.impl.perspective;
+package cc.noxiuam.titanic.event.impl.world;
 
 import cc.noxiuam.titanic.event.AbstractEvent;
 import lombok.AllArgsConstructor;
@@ -8,8 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CameraChangeEvent extends AbstractEvent {
+public class FovEvent extends AbstractEvent {
 
-    private float f2;
+    private final float partialTicks;
+    private float fov;
 
 }

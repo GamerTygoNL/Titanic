@@ -54,7 +54,7 @@ public class PerspectiveModule extends AbstractModule {
         event.cancel();
 
         if (currentPerspective == PerspectiveView.THIRD) {
-            event.f2 += 180F;
+            event.setF2(event.getF2() + 180F);
         }
 
         if (currentPerspective == PerspectiveView.THIRD) {
@@ -80,15 +80,6 @@ public class PerspectiveModule extends AbstractModule {
                 mc.gameSettings.thirdPersonView = false;
             }
         }
-    }
-
-    /**
-     * Used to help determine what perspective you're in.
-     */
-    enum PerspectiveView {
-        FIRST,
-        SECOND,
-        THIRD
     }
 
 }

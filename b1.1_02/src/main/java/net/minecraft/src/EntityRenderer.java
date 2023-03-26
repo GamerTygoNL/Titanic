@@ -1,8 +1,11 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
+import cc.noxiuam.titanic.event.impl.mouse.PlayerLookInputEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
+import cc.noxiuam.titanic.event.impl.world.FovEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -113,6 +116,7 @@ public class EntityRenderer {
         }
     }
 
+    // fov
     private float func_914_d(float f) {
         EntityPlayerSP entityplayersp = mc.thePlayer;
         float f1 = 70F;
@@ -123,6 +127,14 @@ public class EntityRenderer {
             float f2 = (float) ((EntityPlayer) (entityplayersp)).deathTime + f;
             f1 /= (1.0F - 500F / (f2 + 500F)) * 2.0F + 1.0F;
         }
+
+        FovEvent event = new FovEvent(f, f1);
+        Ref.getEventManager().handleEvent(event);
+        if (!event.isCancelled()) {
+            // shrug
+            f1 = event.getFov();
+        }
+
         return f1;
     }
 
@@ -292,11 +304,16 @@ public class EntityRenderer {
             float f2 = f1 * f1 * f1 * 8F;
             float f3 = (float) mc.mouseHelper.field_1114_a * f2;
             float f4 = (float) mc.mouseHelper.field_1113_b * f2;
-            int l = 1;
             if (mc.gameSettings.invertMouse) {
-                l = -1;
+                f4 = -f4;
             }
-            mc.thePlayer.func_346_d(f3, f4 * (float) l);
+
+            PlayerLookInputEvent event = new PlayerLookInputEvent(f3, f4, f);
+            Ref.getEventManager().handleEvent(event);
+
+            if (!event.isCancelled()) {
+                mc.thePlayer.func_346_d(event.getDx(), event.getDy());
+            }
         }
         if (mc.field_6307_v) {
             return;

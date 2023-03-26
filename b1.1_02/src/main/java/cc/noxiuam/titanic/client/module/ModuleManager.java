@@ -11,6 +11,7 @@ import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatEditorModule;
 import cc.noxiuam.titanic.client.module.impl.normal.gui.MenuTweaksModule;
 import cc.noxiuam.titanic.client.module.impl.normal.performance.PerformanceModule;
 import cc.noxiuam.titanic.client.module.impl.normal.perspective.PerspectiveModule;
+import cc.noxiuam.titanic.client.module.impl.normal.zoom.ZoomModule;
 import lombok.Getter;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ModuleManager {
     private final NametagEditorModule nametagEditorModule;
     private final PerformanceModule performanceModule;
     private final ScreenshotModule screenshotModule;
+    private final ZoomModule zoomModule;
 
     public ModuleManager() {
         // qol mods
@@ -43,6 +45,7 @@ public class ModuleManager {
         this.mods.add(this.nametagEditorModule = new NametagEditorModule());
         this.mods.add(this.performanceModule = new PerformanceModule());
         this.mods.add(this.screenshotModule = new ScreenshotModule());
+        this.mods.add(this.zoomModule = new ZoomModule());
 
         // game fixes
         this.mods.add(new PlayerAssetFix());
