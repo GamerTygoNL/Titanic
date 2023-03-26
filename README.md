@@ -40,6 +40,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] ~~Convenient~~ Modern Inventory
 - [ ] Local player tab list mod (players you have loaded since beta has no way of getting new players)
 - [x] Implement screenshot taking with just F2 instead of F1 + F2
+- [ ] Light Level mod: Display the light level of the block you're currently standing on/looking at.
 
 ### Performance
 - [x] Toggle crop rendering
@@ -63,7 +64,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 
 ### Game Overlay
 - [x] Toggle F3 instead of holding
-- [ ] Nether Portal overlay/sounds
+- [ ] Reimplement Nether Portal overlay/sounds (the code seems to be there for it???)
 - [ ] A way to toggle fire in first person or lower its position
 
 ### Chat
