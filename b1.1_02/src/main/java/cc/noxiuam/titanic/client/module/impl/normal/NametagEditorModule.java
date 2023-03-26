@@ -4,7 +4,7 @@ import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
 import cc.noxiuam.titanic.event.impl.world.player.NametagRenderEvent;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.Tessellator;
@@ -29,7 +29,7 @@ public class NametagEditorModule extends AbstractModule {
                 this.showBackground = new BooleanSetting("showBackground", "Show Background", true)
         );
 
-        this.addEvent(KeyboardEvent.class, event -> {
+        this.addEvent(KeyDownEvent.class, event -> {
             if (event.getKey() == this.toggleKeybind.value()) {
                 this.showNametags = !this.showNametags;
             }

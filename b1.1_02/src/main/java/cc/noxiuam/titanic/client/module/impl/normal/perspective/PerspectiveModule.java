@@ -3,7 +3,7 @@ package cc.noxiuam.titanic.client.module.impl.normal.perspective;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import net.minecraft.src.EntityPlayerSP;
@@ -24,7 +24,7 @@ public class PerspectiveModule extends AbstractModule {
                 viewBobbingInThirdPerson = new BooleanSetting("viewBobbingInThirdPerson", "3rd Person View Bobbing", false)
         );
         this.addEvent(CameraChangeEvent.class, this::getModernCamera);
-        this.addEvent(KeyboardEvent.class, this::updateCurrentPerspective);
+        this.addEvent(KeyDownEvent.class, this::updateCurrentPerspective);
         this.addEvent(ViewBobbingSetupEvent.class, this::onViewBob);
     }
 
@@ -54,7 +54,7 @@ public class PerspectiveModule extends AbstractModule {
         event.cancel();
 
         if (currentPerspective == PerspectiveView.THIRD) {
-            event.f2 += 180F;
+            event.setF2(event.getF2() + 180F);
         }
 
         if (currentPerspective == PerspectiveView.THIRD) {
@@ -62,7 +62,7 @@ public class PerspectiveModule extends AbstractModule {
         }
     }
 
-    private void updateCurrentPerspective(KeyboardEvent event) {
+    private void updateCurrentPerspective(KeyDownEvent event) {
         if (event.getKey() == Keyboard.KEY_F5) {
             event.cancel();
             return;
@@ -80,15 +80,6 @@ public class PerspectiveModule extends AbstractModule {
                 mc.gameSettings.thirdPersonView = false;
             }
         }
-    }
-
-    /**
-     * Used to help determine what perspective you're in.
-     */
-    enum PerspectiveView {
-        FIRST,
-        SECOND,
-        THIRD
     }
 
 }

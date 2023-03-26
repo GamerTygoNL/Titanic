@@ -5,7 +5,7 @@ import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.event.impl.SuccessfulScreenshotEvent;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.ScreenShotHelper;
 import org.lwjgl.input.Keyboard;
@@ -31,10 +31,10 @@ public class ScreenshotModule extends AbstractModule {
         );
 
         this.addEvent(SuccessfulScreenshotEvent.class, this::onSuccessfulScreenshot);
-        this.addEvent(KeyboardEvent.class, this::onKeyPress);
+        this.addEvent(KeyDownEvent.class, this::onKeyPress);
     }
 
-    private void onKeyPress(KeyboardEvent event) {
+    private void onKeyPress(KeyDownEvent event) {
         if (event.getKey() == this.screenshotKeybind.value()) {
             this.mc.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(
                     Minecraft.getMinecraftDir(),

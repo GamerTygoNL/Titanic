@@ -4,7 +4,7 @@ import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
 import cc.noxiuam.titanic.event.impl.world.TickEvent;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
+import cc.noxiuam.titanic.event.impl.keyboard.KeyDownEvent;
 import cc.noxiuam.titanic.event.impl.network.PacketReceivedEvent;
 import net.minecraft.src.Packet51MapChunk;
 
@@ -27,7 +27,7 @@ public class ChunkLoadingFix extends AbstractModule {
 
         this.addEvent(PacketReceivedEvent.class, this::onPacket);
         this.addEvent(TickEvent.class, this::onTick);
-        this.addEvent(KeyboardEvent.class, event -> {
+        this.addEvent(KeyDownEvent.class, event -> {
             if (event.getKey() == this.refreshKeybind.value()) {
                 this.mc.renderGlobal.loadRenderers();
             }
