@@ -6,7 +6,6 @@ import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.event.impl.world.TickEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyUpEvent;
 import cc.noxiuam.titanic.event.impl.mouse.ScrollEvent;
 import net.minecraft.src.*;
 import org.lwjgl.LWJGLException;

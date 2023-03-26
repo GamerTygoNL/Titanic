@@ -7,6 +7,7 @@ import cc.noxiuam.titanic.client.module.ModuleManager;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
 import cc.noxiuam.titanic.client.ui.impl.editor.HudLayoutEditor;
 import cc.noxiuam.titanic.client.util.Logger;
+import cc.noxiuam.titanic.client.util.SmoothUtil;
 import cc.noxiuam.titanic.event.EventManager;
 
 import cc.noxiuam.titanic.event.impl.chat.ChatReceivedEvent;
@@ -57,6 +58,7 @@ public class Titanic {
 
         eventManager.addEvent(KeyboardEvent.class, this::handleKeyboard);
         eventManager.addEvent(ChatReceivedEvent.class, chatReceivedEvent -> new Logger("Chat").info(chatReceivedEvent.getMessage()));
+        SmoothUtil.inject();
 
         Thread shutdownThread = new Thread(this.configManager::saveConfigs);
         Runtime.getRuntime().addShutdownHook(shutdownThread);

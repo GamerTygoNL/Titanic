@@ -5,6 +5,7 @@ import org.lwjgl.input.Keyboard;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
+import cc.noxiuam.titanic.client.util.SmoothUtil;
 import cc.noxiuam.titanic.event.impl.mouse.ScrollEvent;
 import cc.noxiuam.titanic.event.impl.world.FovEvent;
 import cc.noxiuam.titanic.event.impl.world.TickEvent;
@@ -22,15 +23,20 @@ public class ZoomModule extends AbstractModule {
     private final KeybindSetting zoomKey;
     private final BooleanSetting scrolling;
     private final BooleanSetting animated;
+    private final BooleanSetting smooth;
 
     public ZoomModule() {
         super("zoom", "Zoom", true);
-        this.initSettings(this.zoomKey = new KeybindSetting("zoom", "Key", Keyboard.KEY_C),
+        this.initSettings(
+                this.zoomKey = new KeybindSetting("zoom", "Key", Keyboard.KEY_C),
                 this.scrolling = new BooleanSetting("scrolling", "Adjust with scroll wheel", true),
-                this.animated = new BooleanSetting("animated", "Animated", true));
+                this.animated = new BooleanSetting("animated", "Animated", true),
+                this.smooth = new BooleanSetting("smooth", "Smooth camera", true)
+        );
         this.addEvent(TickEvent.class, this::onTick);
         this.addEvent(FovEvent.class, this::onFov);
         this.addEvent(ScrollEvent.class, this::onScroll);
+        SmoothUtil.activateWith(() -> enabled() && smooth.value() && wasHeld);
     }
 
     private void onTick(TickEvent event) {

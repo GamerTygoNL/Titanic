@@ -2,6 +2,7 @@ package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
+import cc.noxiuam.titanic.event.impl.mouse.PlayerLookInputEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
 import cc.noxiuam.titanic.event.impl.world.FovEvent;
@@ -303,11 +304,16 @@ public class EntityRenderer {
             float f2 = f1 * f1 * f1 * 8F;
             float f3 = (float) mc.mouseHelper.field_1114_a * f2;
             float f4 = (float) mc.mouseHelper.field_1113_b * f2;
-            int l = 1;
             if (mc.gameSettings.invertMouse) {
-                l = -1;
+                f4 = -f4;
             }
-            mc.thePlayer.func_346_d(f3, f4 * (float) l);
+
+            PlayerLookInputEvent event = new PlayerLookInputEvent(f3, f4, f);
+            Ref.getEventManager().handleEvent(event);
+
+            if (!event.isCancelled()) {
+                mc.thePlayer.func_346_d(event.getDx(), event.getDy());
+            }
         }
         if (mc.field_6307_v) {
             return;
