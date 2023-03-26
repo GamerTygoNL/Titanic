@@ -1,15 +1,9 @@
-.idea/
-.gradle/
-build/
+**/.idea/
+**/.gradle/
+**/build/
+**/.classpath
+**/.project
+**/.settings/
+**/bin/
 
-b1.1_02/.idea/
-b1.1_02/.gradle/
-b1.1_02/build/
-
-b1.7.3/.idea/
-b1.7.3/.gradle/
-b1.7.3/build/
-
-CosmeticWriter/src/main/.gradle/
-CosmeticWriter/src/main/build/
 CosmeticWriter/src/main/resources/
