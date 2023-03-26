@@ -42,7 +42,6 @@ public class ZoomModule extends AbstractModule {
         expLevelEnd += (getTargetLevel() - expLevelEnd) * 0.85F /* woosh speed */;
 
         boolean held = Keyboard.isKeyDown(zoomKey.value());
-
         if (held && !wasHeld) {
             level = 1F / 4;
         } else if (!held && wasHeld) {
@@ -64,7 +63,7 @@ public class ZoomModule extends AbstractModule {
     }
 
     private void onScroll(ScrollEvent event) {
-        if (!(scrolling.value() && Keyboard.isKeyDown(zoomKey.value()))) {
+        if (!(scrolling.value() && wasHeld)) {
             return;
         }
 
