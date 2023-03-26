@@ -1,7 +1,7 @@
 package cc.noxiuam.titanic.client.command;
 
 import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatModule;
+import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatEditorModule;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.event.impl.chat.ChatSendEvent;
 
@@ -22,11 +22,11 @@ public class CommandManager {
         String msg = event.getMessage();
         String[] args = msg.split(" ");
 
-        ChatModule chatModule = Ref.getModuleManager().getChatModule();
+        ChatEditorModule chatEditorModule = Ref.getModuleManager().getChatEditorModule();
 
         if (msg.length() != 0) {
-            chatModule.getChatMessageHistory().add(msg);
-            chatModule.chatMessageIndex = chatModule.getChatMessageHistory().size();
+            chatEditorModule.getChatMessageHistory().add(msg);
+            chatEditorModule.chatMessageIndex = chatEditorModule.getChatMessageHistory().size();
         }
 
         if (args.length > 0 && args[0].startsWith(".")) {

@@ -1,38 +1,48 @@
 package cc.noxiuam.titanic.client.module.impl.normal.chat;
 
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
+import cc.noxiuam.titanic.event.impl.gui.HotbarRenderEvent;
 import cc.noxiuam.titanic.event.impl.gui.chat.ChatBackgroundDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.chat.PreChatMessageUpdateEvent;
 import lombok.Getter;
+import net.minecraft.src.GuiChat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ChatModule extends AbstractModule {
+public class ChatEditorModule extends AbstractModule {
 
     private final List<String> chatMessageHistory = new ArrayList<>();
     public int chatMessageIndex = -1;
-
-    private final BooleanSetting chatHistory;
-    private final BooleanSetting chatBackground;
-
     private final String empty = "";
+    
+    private final BooleanSetting chatHistory, chatBackground, showHotbarWhileTyping;
 
-    public ChatModule() {
-        super("chatBundle", "Chat Editor", false);
+    public ChatEditorModule() {
+        super("chatEditor", "Chat Editor", false);
+
         initSettings(
-                chatHistory = new BooleanSetting("chatHistory", "Message History", false),
-                chatBackground = new BooleanSetting("chatBackground", "Chat Background", true)
+                this.chatHistory = new BooleanSetting("chatHistory", "Message History", false),
+                this.chatBackground = new BooleanSetting("chatBackground", "Chat Background", true),
+                this.showHotbarWhileTyping = new BooleanSetting("showHotbarWhileTyping", "Show Hotbar While Typing", true)
         );
 
+        this.addEvent(HotbarRenderEvent.class, this::onHotbarRender);
         this.addEvent(PreChatMessageUpdateEvent.class, this::onPreMessageUpdate);
         this.addEvent(ChatBackgroundDrawEvent.class, this::onChatBackgroundDraw);
     }
 
+    private void onHotbarRender(HotbarRenderEvent event) {
+        if (this.showHotbarWhileTyping.value() && Ref.getMinecraft().currentScreen instanceof GuiChat) {
+            event.cancel();
+        }
+    }
+
     private void onPreMessageUpdate(PreChatMessageUpdateEvent event) {
-        if (chatHistory.value()) {
+        if (this.chatHistory.value()) {
             int key = event.getKey();
 
             event.cancel();
@@ -47,7 +57,7 @@ public class ChatModule extends AbstractModule {
 
     private void updateCurrentMessageFromHistory(PreChatMessageUpdateEvent event, int increaseAmount) {
         int newIndex = this.chatMessageIndex + increaseAmount;
-        int historySize = chatMessageHistory.size();
+        int historySize = this.chatMessageHistory.size();
 
         if (newIndex < 0) {
             newIndex = 0;

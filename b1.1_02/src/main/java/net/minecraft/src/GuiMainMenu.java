@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.gui.MainMenuLogoDrawEvent;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
@@ -111,11 +113,18 @@ public class GuiMainMenu extends GuiScreen {
 
     public void drawScreen(int i, int j, float f) {
         drawDefaultBackground();
-        Tessellator tessellator = Tessellator.instance;
-        drawLogo(f);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/logo.png"));
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        tessellator.setColorOpaque_I(0xffffff);
+
+        MainMenuLogoDrawEvent event = new MainMenuLogoDrawEvent(this);
+        Ref.getEventManager().handleEvent(event);
+
+        if (!event.isCancelled()) {
+            Tessellator tessellator = Tessellator.instance;
+            drawLogo(f);
+            GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/logo.png"));
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            tessellator.setColorOpaque_I(0xffffff);
+        }
+
         GL11.glPushMatrix();
         GL11.glTranslatef(width / 2 + 90, 70F, 0.0F);
         GL11.glRotatef(-20F, 0.0F, 0.0F, 1.0F);

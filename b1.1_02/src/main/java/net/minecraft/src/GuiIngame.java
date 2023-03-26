@@ -3,6 +3,7 @@ package net.minecraft.src;
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.GuiDrawEvent;
+import cc.noxiuam.titanic.event.impl.gui.HotbarRenderEvent;
 import cc.noxiuam.titanic.event.impl.gui.chat.ChatBackgroundDrawEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
@@ -53,92 +54,99 @@ public class GuiIngame extends Gui {
         if (f1 > 0.0F) {
             func_4065_b(f1, k, l);
         }
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/gui.png"));
-        InventoryPlayer inventoryplayer = mc.thePlayer.inventory;
-        zLevel = -90F;
-        drawTexturedModalRect(k / 2 - 91, l - 22, 0, 0, 182, 22);
-        drawTexturedModalRect((k / 2 - 91 - 1) + inventoryplayer.currentItem * 20, l - 22 - 1, 0, 22, 24, 22);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/icons.png"));
-        GL11.glEnable(3042 /*GL_BLEND*/);
-        GL11.glBlendFunc(775, 769);
-        drawTexturedModalRect(k / 2 - 7, l / 2 - 7, 0, 0, 16, 16);
-        GL11.glDisable(3042 /*GL_BLEND*/);
-        boolean flag1 = (mc.thePlayer.field_9306_bj / 3) % 2 == 1;
-        if (mc.thePlayer.field_9306_bj < 10) {
-            flag1 = false;
-        }
-        int i1 = mc.thePlayer.health;
-        int j1 = mc.thePlayer.prevHealth;
-        rand.setSeed(updateCounter * 0x4c627L);
-        if (mc.playerController.shouldDrawHUD()) {
-            int k1 = mc.thePlayer.getPlayerArmorValue();
-            for (int i2 = 0; i2 < 10; i2++) {
-                int j3 = l - 32;
-                if (k1 > 0) {
-                    int k4 = (k / 2 + 91) - i2 * 8 - 9;
-                    if (i2 * 2 + 1 < k1) {
-                        drawTexturedModalRect(k4, j3, 34, 9, 9, 9);
+
+        HotbarRenderEvent hotbarRenderEvent = new HotbarRenderEvent();
+        Ref.getEventManager().handleEvent(hotbarRenderEvent);
+
+        if (!hotbarRenderEvent.isCancelled()) {
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/gui.png"));
+            InventoryPlayer inventoryplayer = mc.thePlayer.inventory;
+            zLevel = -90F;
+            drawTexturedModalRect(k / 2 - 91, l - 22, 0, 0, 182, 22);
+            drawTexturedModalRect((k / 2 - 91 - 1) + inventoryplayer.currentItem * 20, l - 22 - 1, 0, 22, 24, 22);
+            GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/icons.png"));
+            GL11.glEnable(3042 /*GL_BLEND*/);
+            GL11.glBlendFunc(775, 769);
+            drawTexturedModalRect(k / 2 - 7, l / 2 - 7, 0, 0, 16, 16);
+            GL11.glDisable(3042 /*GL_BLEND*/);
+            boolean flag1 = (mc.thePlayer.field_9306_bj / 3) % 2 == 1;
+            if (mc.thePlayer.field_9306_bj < 10) {
+                flag1 = false;
+            }
+            int i1 = mc.thePlayer.health;
+            int j1 = mc.thePlayer.prevHealth;
+            rand.setSeed(updateCounter * 0x4c627L);
+            if (mc.playerController.shouldDrawHUD()) {
+                int k1 = mc.thePlayer.getPlayerArmorValue();
+                for (int i2 = 0; i2 < 10; i2++) {
+                    int j3 = l - 32;
+                    if (k1 > 0) {
+                        int k4 = (k / 2 + 91) - i2 * 8 - 9;
+                        if (i2 * 2 + 1 < k1) {
+                            drawTexturedModalRect(k4, j3, 34, 9, 9, 9);
+                        }
+                        if (i2 * 2 + 1 == k1) {
+                            drawTexturedModalRect(k4, j3, 25, 9, 9, 9);
+                        }
+                        if (i2 * 2 + 1 > k1) {
+                            drawTexturedModalRect(k4, j3, 16, 9, 9, 9);
+                        }
                     }
-                    if (i2 * 2 + 1 == k1) {
-                        drawTexturedModalRect(k4, j3, 25, 9, 9, 9);
+                    int i5 = 0;
+                    if (flag1) {
+                        i5 = 1;
                     }
-                    if (i2 * 2 + 1 > k1) {
-                        drawTexturedModalRect(k4, j3, 16, 9, 9, 9);
+                    int k5 = (k / 2 - 91) + i2 * 8;
+                    if (i1 <= 4) {
+                        j3 += rand.nextInt(2);
+                    }
+                    drawTexturedModalRect(k5, j3, 16 + i5 * 9, 0, 9, 9);
+                    if (flag1) {
+                        if (i2 * 2 + 1 < j1) {
+                            drawTexturedModalRect(k5, j3, 70, 0, 9, 9);
+                        }
+                        if (i2 * 2 + 1 == j1) {
+                            drawTexturedModalRect(k5, j3, 79, 0, 9, 9);
+                        }
+                    }
+                    if (i2 * 2 + 1 < i1) {
+                        drawTexturedModalRect(k5, j3, 52, 0, 9, 9);
+                    }
+                    if (i2 * 2 + 1 == i1) {
+                        drawTexturedModalRect(k5, j3, 61, 0, 9, 9);
                     }
                 }
-                int i5 = 0;
-                if (flag1) {
-                    i5 = 1;
-                }
-                int k5 = (k / 2 - 91) + i2 * 8;
-                if (i1 <= 4) {
-                    j3 += rand.nextInt(2);
-                }
-                drawTexturedModalRect(k5, j3, 16 + i5 * 9, 0, 9, 9);
-                if (flag1) {
-                    if (i2 * 2 + 1 < j1) {
-                        drawTexturedModalRect(k5, j3, 70, 0, 9, 9);
+
+                if (mc.thePlayer.isInsideOfMaterial(Material.water)) {
+                    int j2 = (int) Math.ceil(((double) (mc.thePlayer.air - 2) * 10D) / 300D);
+                    int k3 = (int) Math.ceil(((double) mc.thePlayer.air * 10D) / 300D) - j2;
+                    for (int j5 = 0; j5 < j2 + k3; j5++) {
+                        if (j5 < j2) {
+                            drawTexturedModalRect((k / 2 - 91) + j5 * 8, l - 32 - 9, 16, 18, 9, 9);
+                        } else {
+                            drawTexturedModalRect((k / 2 - 91) + j5 * 8, l - 32 - 9, 25, 18, 9, 9);
+                        }
                     }
-                    if (i2 * 2 + 1 == j1) {
-                        drawTexturedModalRect(k5, j3, 79, 0, 9, 9);
-                    }
-                }
-                if (i2 * 2 + 1 < i1) {
-                    drawTexturedModalRect(k5, j3, 52, 0, 9, 9);
-                }
-                if (i2 * 2 + 1 == i1) {
-                    drawTexturedModalRect(k5, j3, 61, 0, 9, 9);
+
                 }
             }
+            GL11.glDisable(3042 /*GL_BLEND*/);
+            GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+            GL11.glPushMatrix();
+            GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F);
+            RenderHelper.enableStandardItemLighting();
+            GL11.glPopMatrix();
 
-            if (mc.thePlayer.isInsideOfMaterial(Material.water)) {
-                int j2 = (int) Math.ceil(((double) (mc.thePlayer.air - 2) * 10D) / 300D);
-                int k3 = (int) Math.ceil(((double) mc.thePlayer.air * 10D) / 300D) - j2;
-                for (int j5 = 0; j5 < j2 + k3; j5++) {
-                    if (j5 < j2) {
-                        drawTexturedModalRect((k / 2 - 91) + j5 * 8, l - 32 - 9, 16, 18, 9, 9);
-                    } else {
-                        drawTexturedModalRect((k / 2 - 91) + j5 * 8, l - 32 - 9, 25, 18, 9, 9);
-                    }
-                }
-
+            for (int l1 = 0; l1 < 9; l1++) {
+                int k2 = (k / 2 - 90) + l1 * 20 + 2;
+                int l3 = l - 16 - 3;
+                func_554_a(l1, k2, l3, f);
             }
-        }
-        GL11.glDisable(3042 /*GL_BLEND*/);
-        GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-        GL11.glPushMatrix();
-        GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F);
-        RenderHelper.enableStandardItemLighting();
-        GL11.glPopMatrix();
-        for (int l1 = 0; l1 < 9; l1++) {
-            int k2 = (k / 2 - 90) + l1 * 20 + 2;
-            int l3 = l - 16 - 3;
-            func_554_a(l1, k2, l3, f);
-        }
 
-        RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+            RenderHelper.disableStandardItemLighting();
+            GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        }
 
         DebugDrawEvent debugDrawEvent = new DebugDrawEvent();
         Ref.getEventManager().handleEvent(debugDrawEvent);

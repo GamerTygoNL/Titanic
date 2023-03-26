@@ -7,8 +7,8 @@ import cc.noxiuam.titanic.client.module.impl.normal.ModernInventoryModule;
 import cc.noxiuam.titanic.client.module.impl.normal.NametagEditorModule;
 import cc.noxiuam.titanic.client.module.impl.normal.ScreenshotModule;
 import cc.noxiuam.titanic.client.module.impl.normal.chat.AutoLoginModule;
-import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatModule;
-import cc.noxiuam.titanic.client.module.impl.normal.overlay.OverlayModule;
+import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatEditorModule;
+import cc.noxiuam.titanic.client.module.impl.normal.gui.MenuTweaksModule;
 import cc.noxiuam.titanic.client.module.impl.normal.performance.PerformanceModule;
 import cc.noxiuam.titanic.client.module.impl.normal.perspective.PerspectiveModule;
 import lombok.Getter;
@@ -23,9 +23,9 @@ public class ModuleManager {
 
     private final CoordinatesMod coordinatesMod;
 
-    private final ChatModule chatModule;
+    private final ChatEditorModule chatEditorModule;
     private final PerspectiveModule perspectiveModule;
-    private final OverlayModule overlayModule;
+    private final MenuTweaksModule menuTweaksModule;
     private final ModernInventoryModule modernInventoryModule;
     private final AutoLoginModule autoLoginModule;
     private final NametagEditorModule nametagEditorModule;
@@ -35,9 +35,9 @@ public class ModuleManager {
     public ModuleManager() {
         // qol mods
         this.mods.add(this.coordinatesMod = new CoordinatesMod());
-        this.mods.add(this.chatModule = new ChatModule());
+        this.mods.add(this.chatEditorModule = new ChatEditorModule());
         this.mods.add(this.perspectiveModule = new PerspectiveModule());
-        this.mods.add(this.overlayModule = new OverlayModule());
+        this.mods.add(this.menuTweaksModule = new MenuTweaksModule());
         this.mods.add(this.modernInventoryModule = new ModernInventoryModule());
         this.mods.add(this.autoLoginModule = new AutoLoginModule());
         this.mods.add(this.nametagEditorModule = new NametagEditorModule());

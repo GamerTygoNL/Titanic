@@ -29,7 +29,7 @@ public class RoundedTextButton extends AbstractComponent {
                 this.x + this.width,
                 this.y + this.height,
                 5,
-                backgroundColor.getColor(mouseInside(x, y)).getRGB()
+                this.backgroundColor.getColor(mouseInside(x, y)).getRGB()
         );
 
         RenderUtil.drawRoundedOutline(
@@ -39,7 +39,7 @@ public class RoundedTextButton extends AbstractComponent {
                 this.y + this.height,
                 5.0F,
                 3.0F,
-                outlineColor.getColor(mouseInside(x, y)).getRGB()
+                this.outlineColor.getColor(mouseInside(x, y)).getRGB()
         );
 
         FontUtil.drawCenteredString(this.text, (int) (this.x + this.width / 2F), (int) (this.y + this.height / 2F - 3), this.disabled ? 0xFF333333 : -1);

@@ -2,6 +2,7 @@ package cc.noxiuam.titanic.client.ui.component.type.module;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
+import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
 import cc.noxiuam.titanic.client.ui.impl.editor.ModSettingsEditor;
@@ -58,7 +59,7 @@ public class ModuleSettingsComponent extends AbstractContainer {
             component.size(this.width, this.height);
             component.position(this.x, this.y + componentHeight);
             component.draw(x, y);
-            componentHeight += component.getHeight() + 5;
+            componentHeight += (component.getSetting() instanceof StringSetting) ? component.getHeight() + 10 : component.getHeight() + 5;
         }
 
         this.backButton.position(this.x, this.y + this.height);

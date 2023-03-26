@@ -13,7 +13,7 @@ public class BooleanSetting extends AbstractSetting<Boolean> {
 
     @Override
     public AbstractSettingComponent<Boolean> getComponent(ModuleSettingsComponent list) {
-        return new BooleanComponent(this,    list);
+        return new BooleanComponent(this, list);
     }
 
 }
