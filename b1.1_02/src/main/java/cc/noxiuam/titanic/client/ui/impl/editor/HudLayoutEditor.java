@@ -9,21 +9,13 @@ import cc.noxiuam.titanic.client.ui.util.FontUtil;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Mouse;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HudLayoutEditor extends GuiScreenWrapper {
 
-    private final RoundedIconButton modsButton = new RoundedIconButton(
-            "/titanic/pencil.png",
-            true,
-            17,
-            17,
-            4,
-            4
-    );
+    private final RoundedIconButton modsButton = new RoundedIconButton("/titanic/pencil.png", true, 17, 17, 4, 4);
 
     private final Minecraft mc = Ref.getMinecraft();
 
@@ -31,8 +23,8 @@ public class HudLayoutEditor extends GuiScreenWrapper {
 
     private AbstractMovableModule selectedModule;
 
-    private float prevX;
-    private float prevY;
+    private float xOffset;
+    private float yOffset;
 
     public HudLayoutEditor() {
         for (AbstractModule module : Ref.getModuleManager().getMods()) {
@@ -59,37 +51,25 @@ public class HudLayoutEditor extends GuiScreenWrapper {
 
     @Override
     public void drawScreen(int x, int y) {
-
-        for (AbstractMovableModule module : this.hudModules) {
-            if (module.mouseInside(x, y)) {
-                if (Mouse.isButtonDown(0)) {
-                    float dragX = (float) x - this.prevX;
-                    float dragY = (float) y - this.prevY;
-
-                    this.dragModule(module, dragX, dragY);
-                }
-            }
+        if (selectedModule != null && selectedModule.enabled()) {
+            selectedModule.setPosition(x - xOffset, y - yOffset);
         }
 
         modsButton.draw(x, y);
 
         String blueText = "HUD";
         String indicator = "You are currently editing the";
-        mc.fontRenderer.drawStringWithShadow(blueText + ChatColor.WHITE + ".", width / 2 + mc.fontRenderer.getStringWidth(indicator) / 2 - 4, height / 2 + 21, 0xFF00C2FF);
-        FontUtil.drawCenteredString(indicator, width / 2 - mc.fontRenderer.getStringWidth(blueText) / 2, height / 2 + 21, -1);
-    }
-
-    private void dragModule(AbstractMovableModule module, float offsetX, float offsetY) {
-        if (!module.enabled()) {
-            return;
-        }
-
-        module.setPosition(offsetX, offsetY);
+        mc.fontRenderer.drawStringWithShadow(blueText + ChatColor.WHITE + ".",
+                width / 2 + mc.fontRenderer.getStringWidth(indicator) / 2 - 4, height / 2 + 21, 0xFF00C2FF);
+        FontUtil.drawCenteredString(indicator, width / 2 - mc.fontRenderer.getStringWidth(blueText) / 2,
+                height / 2 + 21, -1);
     }
 
     @Override
     protected void mouseMovedOrUp(int i, int j, int k) {
-        this.selectedModule = null;
+        if (k == 0) {
+            this.selectedModule = null;
+        }
     }
 
     @Override
@@ -99,12 +79,15 @@ public class HudLayoutEditor extends GuiScreenWrapper {
             mc.displayGuiScreen(new ModSettingsEditor());
         }
 
-        this.prevX = x;
-        this.prevY = y;
+        if (button != 0) {
+            return;
+        }
 
         for (AbstractMovableModule module : this.hudModules) {
             if (module.mouseInside(x, y)) {
                 this.selectedModule = module;
+                xOffset = x - module.x();
+                yOffset = y - module.y();
             }
         }
     }
