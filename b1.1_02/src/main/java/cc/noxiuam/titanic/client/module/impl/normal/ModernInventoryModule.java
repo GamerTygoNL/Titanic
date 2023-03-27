@@ -2,7 +2,7 @@ package cc.noxiuam.titanic.client.module.impl.normal;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
-import cc.noxiuam.titanic.client.util.ItemStackUtil;
+import cc.noxiuam.titanic.client.util.WorldUtil;
 import cc.noxiuam.titanic.client.util.Logger;
 import cc.noxiuam.titanic.event.impl.gui.SlotChangeEvent;
 import net.minecraft.client.Minecraft;
@@ -193,7 +193,7 @@ public class ModernInventoryModule extends AbstractModule {
                             ItemStack itemstack = ((Slot) list.get(i)).getStack();
                             if (itemstack != null) {
                                 l1 = itemstack.itemID;
-                                j2 = ItemStackUtil.getItemDamage(itemstack);
+                                j2 = WorldUtil.getItemDamage(itemstack);
                             }
                             if (l1 == -1) {
                                 return;
@@ -205,7 +205,7 @@ public class ModernInventoryModule extends AbstractModule {
                                     ItemStack itemstack2 = ((Slot) list.get(l2)).getStack();
                                     if (itemstack2 != null
                                             && itemstack2.itemID == l1
-                                            && ItemStackUtil.getItemDamage(itemstack2) == j2
+                                            && WorldUtil.getItemDamage(itemstack2) == j2
                                             && hasFreeSlot(list, k, l, l1, j2, itemstack2.stackSize, action == MOVE_ALL_AND_STACK)) {
                                         mc.playerController.func_20085_a(inventoryCB.unusedList, l2, 0, mc.thePlayer);
                                         l2 = i1;
@@ -293,7 +293,7 @@ public class ModernInventoryModule extends AbstractModule {
             ItemStack itemstack1 = slot1 == null ? null : slot1.getStack();
             if (slot1 != null && itemstack1 != null 
                     && itemstack1.itemID == k 
-                    && ItemStackUtil.getItemDamage(itemstack1) == l
+                    && WorldUtil.getItemDamage(itemstack1) == l
                     && itemstack1.stackSize + i1 <= itemstack1.getMaxStackSize() 
                     && !(slot1 instanceof SlotCrafting)) {
                 return true;
@@ -337,7 +337,7 @@ public class ModernInventoryModule extends AbstractModule {
                     if (itemstack2 == null 
                             || itemstack2.stackSize >= itemstack2.getMaxStackSize() 
                             || itemstack2.itemID != itemstack.itemID 
-                            || ItemStackUtil.getItemDamage(itemstack2) != ItemStackUtil.getItemDamage(itemstack)) {
+                            || WorldUtil.getItemDamage(itemstack2) != WorldUtil.getItemDamage(itemstack)) {
                         continue;
                     }
                     mc.playerController.func_20085_a(inventoryCB.unusedList, j1, 0, mc.thePlayer);
@@ -394,7 +394,7 @@ public class ModernInventoryModule extends AbstractModule {
                     ItemStack itemstack3 = ((Slot) list.get(k1)).getStack();
                     if (itemstack3 == null
                             || itemstack3.itemID != itemstack1.itemID
-                            || ItemStackUtil.getItemDamage(itemstack3) != ItemStackUtil.getItemDamage(itemstack1)) {
+                            || WorldUtil.getItemDamage(itemstack3) != WorldUtil.getItemDamage(itemstack1)) {
                         continue;
                     }
                     mc.playerController.func_20085_a(inventoryCB.unusedList, k1, 0, mc.thePlayer);
@@ -436,13 +436,13 @@ public class ModernInventoryModule extends AbstractModule {
         return stack1 != null && stack2 == null
                 || stack1 != null && (stack1.itemID < stack2.itemID
                 || stack1.itemID == stack2.itemID && stack1.getItem().shiftedIndex > 1
-                && ItemStackUtil.getItemDamage(stack1) < ItemStackUtil.getItemDamage(stack2));
+                && WorldUtil.getItemDamage(stack1) < WorldUtil.getItemDamage(stack2));
     }
 
     private boolean equalTo(ItemStack stack1, ItemStack stack2) {
         return stack1 == null && stack2 == null
                 || (stack1 != null && stack2 != null && (stack1.itemID == stack2.itemID && (stack1.getItem().shiftedIndex == 1
-                || ItemStackUtil.getItemDamage(stack1) == ItemStackUtil.getItemDamage(stack2))));
+                || WorldUtil.getItemDamage(stack1) == WorldUtil.getItemDamage(stack2))));
     }
 
 }

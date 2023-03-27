@@ -59,14 +59,20 @@ public class HudLayoutEditor extends GuiScreenWrapper {
 
         for (AbstractMovableModule module : this.hudModules) {
 
+            if (!module.enabled()) continue;
+
             // Draw an overlay rectangle if you're hovering over the mod
-            RenderUtil.drawRect(
-                    module.x(),
-                    module.y(),
-                    module.x() + module.width(),
-                    module.y() + module.height(),
-                    this.moduleHoverColor.getColor(module.mouseInside(x, y)).getRGB()
-            );
+
+            if (module.mouseInside(x, y)) {
+                RenderUtil.drawRect(
+                        module.x(),
+                        module.y(),
+                        module.x() + module.width(),
+                        module.y() + module.height(),
+                        this.moduleHoverColor.getColor(module.mouseInside(x, y)).getRGB()
+                );
+            }
+
 
             // Draw an outline around each of them
             RenderUtil.drawRoundedOutline(

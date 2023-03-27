@@ -6,22 +6,19 @@ import cc.noxiuam.titanic.client.module.impl.hud.AbstractMovableModule;
 import cc.noxiuam.titanic.client.ui.util.FontUtil;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
 import cc.noxiuam.titanic.event.impl.gui.GuiDrawEvent;
-import com.google.common.io.LimitInputStream;
-import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class CoordinatesMod extends AbstractMovableModule {
+public class CoordinatesModule extends AbstractMovableModule {
 
     private final MultiOptionSetting displayMode;
-    private final BooleanSetting showBackground;
+    private final BooleanSetting showBackground, showY;
 
-    public CoordinatesMod() {
+    public CoordinatesModule() {
         super("coordinates", "Coordinates", false);
 
         this.initSettings(
@@ -31,16 +28,14 @@ public class CoordinatesMod extends AbstractMovableModule {
                         "Horizontal",
                         "Horizontal", "Vertical"
                 ),
-                this.showBackground = new BooleanSetting("showBackground", "Show Background", true)
+                this.showBackground = new BooleanSetting("showBackground", "Show Background", true),
+                this.showY = new BooleanSetting("showY", "Show Y Level", true)
         );
 
-        this.addEvent(GuiDrawEvent.class, this::draw);
+        this.addEvent(GuiDrawEvent.class, this::drawCoordinates);
     }
 
-    private void draw(GuiDrawEvent event) {
-
-        GL11.glPushMatrix();
-
+    private void drawCoordinates(GuiDrawEvent event) {
         EntityPlayer player = this.mc.thePlayer;
         int playerX = MathHelper.floor_double(player.posX);
         int playerY = MathHelper.floor_double(player.posY);
@@ -52,16 +47,18 @@ public class CoordinatesMod extends AbstractMovableModule {
 
         List<String> positions = new ArrayList<>();
         positions.add(x);
-        positions.add(y);
+        if (this.showY.value()) {
+            positions.add(y);
+        }
         positions.add(z);
 
-        String position = x + y + z;
+        String position = x + (this.showY.value() ? y : "") + z;
 
         if (this.displayMode.value().equalsIgnoreCase("Horizontal")) {
             this.setSize(this.mc.fontRenderer.getStringWidth(position) + 10, 20);
         } else {
             String longest = positions.stream().max(Comparator.comparingInt(String::length)).get();
-            this.setSize(this.mc.fontRenderer.getStringWidth(longest) + 6, 44);
+            this.setSize(this.mc.fontRenderer.getStringWidth(longest) + 9, this.showY.value() ? 44 : 32);
         }
 
         if (this.displayMode.value().equalsIgnoreCase("Horizontal")) {
@@ -74,11 +71,13 @@ public class CoordinatesMod extends AbstractMovableModule {
                 RenderUtil.drawRect(this.x(), this.y(), this.x() + this.width(), this.y() + this.height(), 0x6F000000);
             }
             this.mc.fontRenderer.drawStringWithShadow(x, (int) (this.x() + 5), (int) this.y() + 6, -1);
-            this.mc.fontRenderer.drawStringWithShadow(y, (int) (this.x() + 1), (int) this.y() + 18, -1);
-            this.mc.fontRenderer.drawStringWithShadow(z, (int) (this.x() + 1), (int) this.y() + 30, -1);
-        }
 
-        GL11.glPopMatrix();
+            if (this.showY.value()) {
+                this.mc.fontRenderer.drawStringWithShadow(y, (int) (this.x() + 1), (int) this.y() + 18, -1);
+            }
+
+            this.mc.fontRenderer.drawStringWithShadow(z, (int) (this.x() + 1), (int) this.y() + (this.showY.value() ? 30 : 18), -1);
+        }
     }
 
 }
