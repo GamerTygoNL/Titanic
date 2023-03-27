@@ -17,19 +17,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HudLayoutEditor extends GuiScreenWrapper {
 
-    private final RoundedIconButton modsButton = new RoundedIconButton("/titanic/pencil.png", true, 17, 17, 4, 4);
-
-    private final ColorFade moduleHoverColor = new ColorFade(0x00000000, 0x7000C2FF);
-
     private final Minecraft mc = Ref.getMinecraft();
-
     private final List<AbstractMovableModule> hudModules = new CopyOnWriteArrayList<>();
+
+    private final RoundedIconButton modsButton = new RoundedIconButton("/titanic/pencil.png", true, 17, 17, 4, 4);
+    private final ColorFade moduleHoverColor = new ColorFade(0x00000000, 0x7000C2FF);
 
     private AbstractMovableModule selectedModule;
 
     private float xOffset;
     private float yOffset;
-
 
     public HudLayoutEditor() {
         for (AbstractModule module : Ref.getModuleManager().getMods()) {
