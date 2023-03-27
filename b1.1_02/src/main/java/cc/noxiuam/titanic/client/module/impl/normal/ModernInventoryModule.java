@@ -30,11 +30,11 @@ public class ModernInventoryModule extends AbstractModule {
     private static final int SORT = 7;
     private static final int NONE = 0;
 
-    public static Map<String, Integer> actionMap = new HashMap<>();
+    private static final Map<String, Integer> ACTION_MAP = new HashMap<>();
 
-    public static boolean wroteConfig = false;
+    private static boolean wroteConfig = false;
 
-    public static int altAlternative = 0;
+    private static int altAlternative = 0;
 
     public ModernInventoryModule() {
         super("modernInventory", "Modern Inventory", false);
@@ -64,19 +64,19 @@ public class ModernInventoryModule extends AbstractModule {
                 String line;
                 while((line = var1.readLine()) != null) {
                     if (line.startsWith("MOVE_ONE =")) {
-                        putOnKeyMap(actionMap, line, MOVE_ONE);
+                        putOnKeyMap(ACTION_MAP, line, MOVE_ONE);
                     } else if (line.startsWith("MOVE_ONE_AND_STACK =")) {
-                        putOnKeyMap(actionMap, line, MOVE_ONE_AND_STACK);
+                        putOnKeyMap(ACTION_MAP, line, MOVE_ONE_AND_STACK);
                     } else if (line.startsWith("MOVE_STACK =")) {
-                        putOnKeyMap(actionMap, line, MOVE_STACK);
+                        putOnKeyMap(ACTION_MAP, line, MOVE_STACK);
                     } else if (line.startsWith("MOVE_STACK_AND_STACK =")) {
-                        putOnKeyMap(actionMap, line, MOVE_STACK_AND_STACK);
+                        putOnKeyMap(ACTION_MAP, line, MOVE_STACK_AND_STACK);
                     } else if (line.startsWith("MOVE_ALL =")) {
-                        putOnKeyMap(actionMap, line, MOVE_ALL);
+                        putOnKeyMap(ACTION_MAP, line, MOVE_ALL);
                     } else if (line.startsWith("MOVE_ALL_AND_STACK =")) {
-                        putOnKeyMap(actionMap, line, MOVE_ALL_AND_STACK);
+                        putOnKeyMap(ACTION_MAP, line, MOVE_ALL_AND_STACK);
                     } else if (line.startsWith("SORT =")) {
-                        putOnKeyMap(actionMap, line, SORT);
+                        putOnKeyMap(ACTION_MAP, line, SORT);
                     } else if (line.startsWith("USEINSTEADOFALT =")) {
                         try {
                             altAlternative = Integer.parseInt(line.split("=")[1].trim());
@@ -87,13 +87,13 @@ public class ModernInventoryModule extends AbstractModule {
 
                 var1.close();
             } else {
-                actionMap.put("tff0", MOVE_ONE_AND_STACK);
-                actionMap.put("tff1", MOVE_ONE);
-                actionMap.put("ftf0", MOVE_STACK_AND_STACK);
-                actionMap.put("ftf1", MOVE_STACK);
-                actionMap.put("fft0", MOVE_ALL_AND_STACK);
-                actionMap.put("fft1", MOVE_ALL);
-                actionMap.put("fff2", SORT);
+                ACTION_MAP.put("tff0", MOVE_ONE_AND_STACK);
+                ACTION_MAP.put("tff1", MOVE_ONE);
+                ACTION_MAP.put("ftf0", MOVE_STACK_AND_STACK);
+                ACTION_MAP.put("ftf1", MOVE_STACK);
+                ACTION_MAP.put("fft0", MOVE_ALL_AND_STACK);
+                ACTION_MAP.put("fft1", MOVE_ALL);
+                ACTION_MAP.put("fff2", SORT);
                 BufferedWriter var6 = new BufferedWriter(new FileWriter(config));
                 var6.write("# Configure key/mouse combinations for actions:");
                 var6.newLine();
@@ -424,7 +424,7 @@ public class ModernInventoryModule extends AbstractModule {
     }
 
     public Integer getAction(boolean var0, boolean var1, boolean var2, int var3) {
-        Integer action = actionMap.get((var0 ? "t" : "f") + (var1 ? "t" : "f") + (var2 ? "t" : "f") + var3);
+        Integer action = ACTION_MAP.get((var0 ? "t" : "f") + (var1 ? "t" : "f") + (var2 ? "t" : "f") + var3);
         if (action == null) {
             action = NONE;
         }
