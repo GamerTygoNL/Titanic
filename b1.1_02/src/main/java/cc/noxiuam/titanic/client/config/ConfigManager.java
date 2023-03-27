@@ -5,6 +5,7 @@ import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
+import cc.noxiuam.titanic.client.module.data.setting.impl.MultiOptionSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.client.module.impl.hud.AbstractMovableModule;
@@ -103,6 +104,10 @@ public class ConfigManager {
                 if (setting instanceof KeybindSetting) {
                     settings.addProperty(setting.id(), ((KeybindSetting) setting).value());
                 }
+
+                if (setting instanceof MultiOptionSetting) {
+                    settings.addProperty(setting.id(), ((MultiOptionSetting) setting).value());
+                }
             }
 
             modObj.add("info", info);
@@ -183,6 +188,11 @@ public class ConfigManager {
                 if (setting instanceof KeybindSetting) {
                     int value = settings.get(setting.id()).getAsInt();
                     ((KeybindSetting) setting).value(value);
+                }
+
+                if (setting instanceof MultiOptionSetting) {
+                    String value = settings.get(setting.id()).getAsString();
+                    ((MultiOptionSetting) setting).value(value);
                 }
             }
         }
