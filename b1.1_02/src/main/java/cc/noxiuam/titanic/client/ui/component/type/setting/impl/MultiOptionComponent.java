@@ -4,6 +4,7 @@ import cc.noxiuam.titanic.client.module.data.setting.impl.MultiOptionSetting;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
 import cc.noxiuam.titanic.client.ui.component.type.module.ModuleSettingsComponent;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
+import cc.noxiuam.titanic.client.ui.util.FontUtil;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 
 public class MultiOptionComponent extends AbstractSettingComponent<String> {
@@ -31,9 +32,9 @@ public class MultiOptionComponent extends AbstractSettingComponent<String> {
         this.leftButton.position(this.x + this.width - 80, this.y);
         this.leftButton.draw(x, y);
 
-        this.mc.fontRenderer.drawStringWithShadow(
+        FontUtil.drawCenteredString(
                 this.setting.value(),
-                (int) (this.x + this.width - 54),
+                (int) (this.x + this.width - 38),
                 (int) (this.y + 2),
                 -1
         );
