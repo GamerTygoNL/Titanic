@@ -21,14 +21,14 @@ public class ModernInventoryModule extends AbstractModule {
 
     private static final Logger LOGGER = new Logger("Modern Inventory Mod");
 
-    private static final Integer MOVE_ONE_AND_STACK = 1;
-    private static final Integer MOVE_ONE = 2;
-    private static final Integer MOVE_STACK_AND_STACK = 3;
-    private static final Integer MOVE_STACK = 4;
-    private static final Integer MOVE_ALL_AND_STACK = 5;
-    private static final Integer MOVE_ALL = 6;
-    private static final Integer SORT = 7;
-    private static final Integer NONE = 0;
+    private static final int MOVE_ONE_AND_STACK = 1;
+    private static final int MOVE_ONE = 2;
+    private static final int MOVE_STACK_AND_STACK = 3;
+    private static final int MOVE_STACK = 4;
+    private static final int MOVE_ALL_AND_STACK = 5;
+    private static final int MOVE_ALL = 6;
+    private static final int SORT = 7;
+    private static final int NONE = 0;
 
     public static Map<String, Integer> actionMap = new HashMap<>();
 
