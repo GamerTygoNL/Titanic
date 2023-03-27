@@ -142,6 +142,9 @@ public class ConfigManager {
             JsonObject modObject = configObj.getAsJsonObject(module.id());
 
             if (modObject == null) {
+                if (module.enabledByDefault()) {
+                    module.addAllEvents();
+                }
                 continue;
             }
 
