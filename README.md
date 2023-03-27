@@ -33,7 +33,7 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Fix capes models when sneaking and other stuff
 - [x] Fix player head model when sneaking and unsneaking
 - [x] Remove "Saving level..." when on a server, it doesn't save anything
-- [ ] Dragging HUD mods isn't entirely perfect
+- [x] Dragging HUD mods isn't entirely perfect
 - [x] When switching worlds, your skin gets set to Steve sometimes. (This appears to be fixed?)
 
 ## QOL Suggestions Roadmap
