@@ -26,12 +26,12 @@ public class ZoomModule extends AbstractModule {
     private final BooleanSetting smooth;
 
     public ZoomModule() {
-        super("zoom", "Zoom", true);
+        super("zoom", "Zoom", false);
         this.initSettings(
                 this.zoomKey = new KeybindSetting("zoom", "Key", Keyboard.KEY_C),
                 this.scrolling = new BooleanSetting("scrolling", "Adjust with scroll wheel", true),
                 this.animated = new BooleanSetting("animated", "Animated", true),
-                this.smooth = new BooleanSetting("smooth", "Smooth camera", true)
+                this.smooth = new BooleanSetting("smooth", "Smooth Camera", true)
         );
         this.addEvent(TickEvent.class, this::onTick);
         this.addEvent(FovEvent.class, this::onFov);
