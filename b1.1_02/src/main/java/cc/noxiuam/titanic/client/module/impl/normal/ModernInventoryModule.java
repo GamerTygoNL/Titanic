@@ -138,24 +138,24 @@ public class ModernInventoryModule extends AbstractModule {
         wroteConfig = true;
     }
 
-    public void handleClickOnSlot(int i, int j, Minecraft mc, CraftingInventoryCB inventoryCB) {
+    public void handleClickOnSlot(int i, int button, Minecraft mc, CraftingInventoryCB inventoryCB) {
         if (!wroteConfig) {
             this.writeModuleConfig();
         }
 
         if (mc.thePlayer != null) {
             if (i < 0) {
-                mc.playerController.func_20085_a(inventoryCB.unusedList, i, j, mc.thePlayer);
+                mc.playerController.func_20085_a(inventoryCB.unusedList, i, button, mc.thePlayer);
             } else {
-                boolean flag = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
-                boolean flag1 = Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
-                boolean flag2;
+                boolean controlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
+                boolean shiftKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+                boolean menuKeyDown;
                 if (altAlternative != 0) {
-                    flag2 = Keyboard.isKeyDown(altAlternative);
+                    menuKeyDown = Keyboard.isKeyDown(altAlternative);
                 } else {
-                    flag2 = Keyboard.isKeyDown(56) || Keyboard.isKeyDown(184);
+                    menuKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LMENU) || Keyboard.isKeyDown(Keyboard.KEY_RMENU);
                 }
-                Integer action = getAction(flag, flag1, flag2, j);
+                Integer action = getAction(controlKeyDown, shiftKeyDown, menuKeyDown, button);
                 List list = mc.thePlayer.field_20068_h.field_20122_e;
                 int k;
                 int l;
@@ -172,7 +172,7 @@ public class ModernInventoryModule extends AbstractModule {
                     i1 = list.size();
                 }
                 if (action == NONE) {
-                    mc.playerController.func_20085_a(inventoryCB.unusedList, i, j, mc.thePlayer);
+                    mc.playerController.func_20085_a(inventoryCB.unusedList, i, button, mc.thePlayer);
                 } else if (action == SORT) {
                     int k1;
                     int i2 = k1 = list.size() - (mc.thePlayer.inventory.getSizeInventory() - 4);
