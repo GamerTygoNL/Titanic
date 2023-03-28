@@ -1,5 +1,6 @@
 package cc.noxiuam.titanic.client.ui.impl.editor;
 
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.ui.impl.GuiScreenWrapper;
 import cc.noxiuam.titanic.client.ui.impl.module.MainListUI;
 
@@ -15,6 +16,12 @@ public class ModSettingsEditor extends GuiScreenWrapper {
         float height = 300.0F / 2;
         this.moduleList.size(width, height);
         this.moduleList.position(this.width / 2.0f - width / 2.0f, this.height / 2.0f - height / 2.0f);
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        Ref.getConfigManager().saveConfigs();
     }
 
     @Override

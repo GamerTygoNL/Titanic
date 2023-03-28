@@ -44,9 +44,14 @@ public class HudLayoutEditor extends GuiScreenWrapper {
     }
 
     @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        Ref.getConfigManager().saveConfigs();
+    }
+
+    @Override
     public void initGui() {
         super.initGui();
-        Ref.getConfigManager().saveConfigs();
         this.modsButton.size(25, 25);
         this.modsButton.position(this.width / 2.0F - 12, this.height / 2.0F - 12);
     }
