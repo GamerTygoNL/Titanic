@@ -45,8 +45,8 @@ public class ModuleManager {
         this.mods.add(this.coordinatesModule = new CoordinatesModule());
         this.mods.add(this.modernInventoryModule = new ModernInventoryModule());
         this.mods.add(this.performanceModule = new PerformanceModule());
-        this.mods.add(this.zoomModule = new ZoomModule());
         this.mods.add(this.perspectiveModule = new PerspectiveModule());
+        this.mods.add(this.zoomModule = new ZoomModule());
 
         this.mods.add(this.lightLevelModule = new LightLevelModule());
         this.mods.add(this.worldEditor = new WorldEditor());
