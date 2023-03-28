@@ -13,10 +13,7 @@ import net.minecraft.src.Tessellator;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-/**
- * Makes it so the debug info is togglable instead of holding the key down.
- */
-public class MenuTweaksModule extends AbstractModule {
+public class PackTweaksModule extends AbstractModule {
 
     public boolean showDebugInfo = false;
 
@@ -24,8 +21,8 @@ public class MenuTweaksModule extends AbstractModule {
     private final StringSetting watermarkString;
     private final MultiOptionSetting mainMenuLogo;
 
-    public MenuTweaksModule() {
-        super("menuTweaks", "Menu Tweaks", true);
+    public PackTweaksModule() {
+        super("packTweaks", "Pack Tweaks", false);
 
         this.initSettings(
                 this.debugKeybind = new KeybindSetting("debugKeybind", "Toggle Debug Info", Keyboard.KEY_F3),
