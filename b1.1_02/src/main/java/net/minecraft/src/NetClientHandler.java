@@ -2,6 +2,7 @@ package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.event.impl.chat.ChatReceivedEvent;
+import cc.noxiuam.titanic.event.impl.network.PacketTimeUpdateEvent;
 import net.minecraft.client.Minecraft;
 
 import java.io.BufferedReader;
@@ -369,6 +370,13 @@ public class NetClientHandler extends NetHandler {
     }
 
     public void handleUpdateTime(Packet4UpdateTime packet4updatetime) {
+        PacketTimeUpdateEvent event = new PacketTimeUpdateEvent(packet4updatetime);
+        Ref.getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         mc.theWorld.setWorldTime(packet4updatetime.time);
     }
 
