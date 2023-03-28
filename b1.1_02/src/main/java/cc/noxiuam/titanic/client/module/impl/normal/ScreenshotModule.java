@@ -58,7 +58,7 @@ public class ScreenshotModule extends AbstractModule {
         List<File> listOfFiles = new ArrayList<>();
         listOfFiles.add(screenshot);
 
-        this.mc.ingameGUI.addChatMessage("[Titanic] " + ChatColor.BLUE + "Copied screenshot.");
+        this.mc.ingameGUI.addChatMessage(ChatColor.DARK_AQUA + "[Titanic] " + ChatColor.WHITE + "Copied screenshot.");
 
         FileList fileList = new FileList(listOfFiles);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(fileList, (clipboard, contents) -> System.out.println("Lost ownership"));

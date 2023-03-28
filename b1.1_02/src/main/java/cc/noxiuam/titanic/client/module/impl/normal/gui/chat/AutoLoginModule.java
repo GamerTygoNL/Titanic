@@ -32,7 +32,7 @@ public class AutoLoginModule extends AbstractModule {
             if (this.autoUpdatePassword.value() && event.getMessage().startsWith("/login")) {
                 this.password.value(event.getMessage().replace("/login ", ""));
                 if (this.showUpdateMessages.value()) {
-                    this.mc.ingameGUI.addChatMessage("[Titanic] Updated password.");
+                    this.mc.ingameGUI.addChatMessage(ChatColor.DARK_AQUA + "[Titanic] " + ChatColor.WHITE + "Updated password.");
                 }
             }
         });
