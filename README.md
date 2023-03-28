@@ -75,9 +75,8 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 - [x] Message History
 
 ### World Editor
-- [ ] Static time options: Morning, Noon, Evening, Midnight
+- [x] Static time options: Morning, Noon, Evening, Midnight
 - [ ] Brightness slider
-- [ ] Render Distance slider
 
 ### Animations
 - [ ] Sword block hitting (visual only)
