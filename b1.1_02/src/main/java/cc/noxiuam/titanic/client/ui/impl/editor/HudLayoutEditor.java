@@ -21,7 +21,6 @@ public class HudLayoutEditor extends GuiScreenWrapper {
     private final List<AbstractMovableModule> hudModules = new CopyOnWriteArrayList<>();
 
     private final RoundedIconButton modsButton = new RoundedIconButton("/titanic/pencil.png", true, 17, 17, 4, 4);
-    private final ColorFade moduleHoverColor = new ColorFade(0x00000000, 0x7000C2FF);
 
     private AbstractMovableModule selectedModule;
 
@@ -47,6 +46,7 @@ public class HudLayoutEditor extends GuiScreenWrapper {
     @Override
     public void initGui() {
         super.initGui();
+        Ref.getConfigManager().saveConfigs();
         this.modsButton.size(25, 25);
         this.modsButton.position(this.width / 2.0F - 12, this.height / 2.0F - 12);
     }
@@ -62,17 +62,15 @@ public class HudLayoutEditor extends GuiScreenWrapper {
             if (!module.enabled()) continue;
 
             // Draw an overlay rectangle if you're hovering over the mod
-
             if (module.mouseInside(x, y)) {
                 RenderUtil.drawRect(
                         module.x(),
                         module.y(),
                         module.x() + module.width(),
                         module.y() + module.height(),
-                        this.moduleHoverColor.getColor(module.mouseInside(x, y)).getRGB()
+                        0x7000C2FF
                 );
             }
-
 
             // Draw an outline around each of them
             RenderUtil.drawRoundedOutline(
