@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.client.module.impl.normal.zoom;
+package cc.noxiuam.titanic.client.module.impl.normal.perspective.zoom;
 
 import org.lwjgl.input.Keyboard;
 

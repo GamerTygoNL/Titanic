@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.client.module.impl.normal.performance;
+package cc.noxiuam.titanic.client.module.impl.normal.world.performance;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;

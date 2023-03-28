@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.client.module.impl.normal;
+package cc.noxiuam.titanic.client.module.impl.normal.world;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;

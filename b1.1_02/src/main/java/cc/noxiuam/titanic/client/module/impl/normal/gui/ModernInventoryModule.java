@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.client.module.impl.normal;
+package cc.noxiuam.titanic.client.module.impl.normal.gui;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
