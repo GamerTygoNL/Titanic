@@ -26,8 +26,10 @@ public class ThirdPartyLoader {
     private int totalModsDownloaded = 0;
 
     public void load() {
-        this.writeLatestModInfo();
-        this.loadModsFromIndex();
+        new Thread(() -> {
+            this.writeLatestModInfo();
+            this.loadModsFromIndex();
+        }).start();
     }
 
     /**

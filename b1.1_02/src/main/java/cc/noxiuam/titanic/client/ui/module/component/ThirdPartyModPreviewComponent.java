@@ -57,7 +57,7 @@ public class ThirdPartyModPreviewComponent extends AbstractComponent {
     public void mouseClicked(float x, float y) {
         if (this.mouseInside(x, y)) {
             SoundUtil.playClick();
-            Ref.getModuleManager().getThirdPartyLoader().downloadAndSetupMod(this.module);
+            new Thread(() -> Ref.getModuleManager().getThirdPartyLoader().downloadAndSetupMod(this.module)).start();
         }
     }
 
