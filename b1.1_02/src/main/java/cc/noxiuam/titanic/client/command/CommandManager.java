@@ -1,7 +1,7 @@
 package cc.noxiuam.titanic.client.command;
 
 import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.client.module.impl.normal.chat.ChatEditorModule;
+import cc.noxiuam.titanic.client.module.impl.normal.gui.chat.ChatEditorModule;
 import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.event.impl.chat.ChatSendEvent;
 
