@@ -1,6 +1,6 @@
-package cc.noxiuam.titanic.client.ui.impl.module;
+package cc.noxiuam.titanic.client.ui.module.container;
 
-import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
+import cc.noxiuam.titanic.client.ui.module.container.AbstractContainer;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

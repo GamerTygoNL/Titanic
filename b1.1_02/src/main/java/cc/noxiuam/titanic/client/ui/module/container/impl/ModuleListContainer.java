@@ -1,16 +1,12 @@
-package cc.noxiuam.titanic.client.ui.impl.module.container.impl;
+package cc.noxiuam.titanic.client.ui.module.container.impl;
 
 import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
-import cc.noxiuam.titanic.client.ui.component.type.footer.FooterContainer;
-import cc.noxiuam.titanic.client.ui.component.type.module.ModulePreviewContainer;
-import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
-import lombok.Getter;
+import cc.noxiuam.titanic.client.ui.module.container.AbstractContainer;
 import lombok.Setter;
 
 public class ModuleListContainer extends AbstractContainer {
 
     private final FooterContainer footer = new FooterContainer(this);
-
     private final ModulePreviewContainer previewContainer = new ModulePreviewContainer(this);
 
     @Setter private AbstractComponent currentComponent;
@@ -45,7 +41,7 @@ public class ModuleListContainer extends AbstractContainer {
 
     @Override
     public void mouseClicked(float x, float y) {
-        if (this.currentComponent == previewContainer) {
+        if (this.currentComponent == this.previewContainer) {
             this.footer.mouseClicked(x, y);
         }
 

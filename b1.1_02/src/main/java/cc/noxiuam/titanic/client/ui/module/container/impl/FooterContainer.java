@@ -1,10 +1,10 @@
-package cc.noxiuam.titanic.client.ui.component.type.footer;
+package cc.noxiuam.titanic.client.ui.module.container.impl;
 
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
-import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
-import cc.noxiuam.titanic.client.ui.impl.editor.HudLayoutEditor;
-import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
-import cc.noxiuam.titanic.client.ui.impl.module.container.impl.ModuleListContainer;
+import cc.noxiuam.titanic.client.ui.module.component.ThirdPartyModsComponent;
+import cc.noxiuam.titanic.client.ui.module.editor.HudLayoutEditor;
+import cc.noxiuam.titanic.client.ui.module.container.AbstractContainer;
+import cc.noxiuam.titanic.client.ui.module.container.impl.ModuleListContainer;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 
 public class FooterContainer extends AbstractContainer {
@@ -68,8 +68,7 @@ public class FooterContainer extends AbstractContainer {
             mc.displayGuiScreen(new HudLayoutEditor());
         } else if (this.thirdPartyButton.mouseInside(x, y)) {
             SoundUtil.playClick();
-            // TODO: make 3rd party mods ui
-            //this.container.setCurrentComponent();
+            this.container.setCurrentComponent(new ThirdPartyModsComponent(this.container));
         }
     }
 

@@ -5,7 +5,7 @@ import cc.noxiuam.titanic.client.command.CommandManager;
 import cc.noxiuam.titanic.client.config.ConfigManager;
 import cc.noxiuam.titanic.client.module.ModuleManager;
 import cc.noxiuam.titanic.client.network.profile.ProfileManager;
-import cc.noxiuam.titanic.client.ui.impl.editor.HudLayoutEditor;
+import cc.noxiuam.titanic.client.ui.module.editor.HudLayoutEditor;
 import cc.noxiuam.titanic.client.util.Logger;
 import cc.noxiuam.titanic.client.util.SmoothUtil;
 import cc.noxiuam.titanic.event.EventManager;
@@ -15,7 +15,6 @@ import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiChat;
-import net.minecraft.src.ScreenShotHelper;
 import org.lwjgl.input.Keyboard;
 
 @Getter

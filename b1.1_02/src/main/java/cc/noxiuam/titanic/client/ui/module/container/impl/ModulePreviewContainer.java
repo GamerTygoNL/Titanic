@@ -1,13 +1,13 @@
-package cc.noxiuam.titanic.client.ui.component.type.module;
+package cc.noxiuam.titanic.client.ui.module.container.impl;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.impl.fix.AbstractFixModule;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
-import cc.noxiuam.titanic.client.ui.component.type.module.impl.ModulePreviewComponent;
-import cc.noxiuam.titanic.client.ui.component.type.module.data.ModulePage;
-import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
-import cc.noxiuam.titanic.client.ui.impl.module.container.impl.ModuleListContainer;
+import cc.noxiuam.titanic.client.ui.component.type.module.ModulePreviewComponent;
+import cc.noxiuam.titanic.client.ui.module.component.ModuleSettingsComponent;
+import cc.noxiuam.titanic.client.ui.module.component.data.ModulePage;
+import cc.noxiuam.titanic.client.ui.module.container.AbstractContainer;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 import lombok.Getter;
 

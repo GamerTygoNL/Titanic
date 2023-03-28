@@ -2,7 +2,7 @@ package cc.noxiuam.titanic.client.ui.component.type.setting;
 
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
-import cc.noxiuam.titanic.client.ui.component.type.module.ModuleSettingsComponent;
+import cc.noxiuam.titanic.client.ui.module.component.ModuleSettingsComponent;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

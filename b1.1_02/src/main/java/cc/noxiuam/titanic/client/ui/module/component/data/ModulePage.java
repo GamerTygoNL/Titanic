@@ -1,6 +1,6 @@
-package cc.noxiuam.titanic.client.ui.component.type.module.data;
+package cc.noxiuam.titanic.client.ui.module.component.data;
 
-import cc.noxiuam.titanic.client.ui.component.type.module.impl.ModulePreviewComponent;
+import cc.noxiuam.titanic.client.ui.component.type.module.ModulePreviewComponent;
 import lombok.Getter;
 
 import java.util.List;

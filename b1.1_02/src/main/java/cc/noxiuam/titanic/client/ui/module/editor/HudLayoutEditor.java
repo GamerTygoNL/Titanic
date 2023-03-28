@@ -1,10 +1,9 @@
-package cc.noxiuam.titanic.client.ui.impl.editor;
+package cc.noxiuam.titanic.client.ui.module.editor;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.impl.hud.AbstractMovableModule;
-import cc.noxiuam.titanic.client.ui.fade.impl.ColorFade;
-import cc.noxiuam.titanic.client.ui.impl.GuiScreenWrapper;
+import cc.noxiuam.titanic.client.ui.GuiScreenWrapper;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
 import cc.noxiuam.titanic.client.ui.util.FontUtil;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;

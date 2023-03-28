@@ -2,7 +2,7 @@ package cc.noxiuam.titanic.client.ui.component.type.setting.impl;
 
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.ui.component.type.button.TogglableTextButton;
-import cc.noxiuam.titanic.client.ui.component.type.module.ModuleSettingsComponent;
+import cc.noxiuam.titanic.client.ui.module.component.ModuleSettingsComponent;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 

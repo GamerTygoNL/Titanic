@@ -2,7 +2,7 @@ package cc.noxiuam.titanic.client.ui.component.type.setting.impl.keybind;
 
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
-import cc.noxiuam.titanic.client.ui.component.type.module.ModuleSettingsComponent;
+import cc.noxiuam.titanic.client.ui.module.component.ModuleSettingsComponent;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
 
 public class KeybindComponent extends AbstractSettingComponent<Integer> {

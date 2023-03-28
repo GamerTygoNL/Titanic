@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.client.ui.impl.module.container;
+package cc.noxiuam.titanic.client.ui.module.container;
 
 import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
 import lombok.AllArgsConstructor;

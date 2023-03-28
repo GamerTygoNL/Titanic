@@ -2,7 +2,7 @@ package cc.noxiuam.titanic.client.ui.component.type.setting.impl.string;
 
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
-import cc.noxiuam.titanic.client.ui.component.type.module.ModuleSettingsComponent;
+import cc.noxiuam.titanic.client.ui.module.component.ModuleSettingsComponent;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
 

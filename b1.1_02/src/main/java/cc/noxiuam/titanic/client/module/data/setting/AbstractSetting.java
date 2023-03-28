@@ -1,6 +1,6 @@
 package cc.noxiuam.titanic.client.module.data.setting;
 
-import cc.noxiuam.titanic.client.ui.component.type.module.ModuleSettingsComponent;
+import cc.noxiuam.titanic.client.ui.module.component.ModuleSettingsComponent;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
 import lombok.*;
 import lombok.experimental.Accessors;

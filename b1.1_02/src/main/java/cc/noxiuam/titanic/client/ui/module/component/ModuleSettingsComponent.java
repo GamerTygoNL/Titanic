@@ -1,14 +1,13 @@
-package cc.noxiuam.titanic.client.ui.component.type.module;
+package cc.noxiuam.titanic.client.ui.module.component;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
-import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
-import cc.noxiuam.titanic.client.ui.impl.editor.ModSettingsEditor;
-import cc.noxiuam.titanic.client.ui.impl.module.container.AbstractContainer;
-import cc.noxiuam.titanic.client.ui.impl.module.container.impl.ModuleListContainer;
+import cc.noxiuam.titanic.client.ui.module.container.AbstractContainer;
+import cc.noxiuam.titanic.client.ui.module.container.impl.ModuleListContainer;
+import cc.noxiuam.titanic.client.ui.module.container.impl.ModulePreviewContainer;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
 import lombok.Setter;
 
@@ -41,7 +40,7 @@ public class ModuleSettingsComponent extends AbstractContainer {
     );
 
     public ModuleSettingsComponent(ModuleListContainer container, ModulePreviewContainer parent, AbstractModule module) {
-        super("/modSettings");
+        super("/mods/settings?module=");
         this.module = module;
         this.container = container;
         this.parent = parent;

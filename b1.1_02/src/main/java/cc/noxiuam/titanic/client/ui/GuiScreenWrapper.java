@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.client.ui.impl;
+package cc.noxiuam.titanic.client.ui;
 
 import net.minecraft.src.GuiScreen;
 

@@ -1,7 +1,7 @@
-package cc.noxiuam.titanic.client.ui.impl.module;
+package cc.noxiuam.titanic.client.ui.module;
 
 import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
-import cc.noxiuam.titanic.client.ui.impl.module.container.impl.ModuleListContainer;
+import cc.noxiuam.titanic.client.ui.module.container.impl.ModuleListContainer;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
 
 public class MainListUI extends AbstractComponent {

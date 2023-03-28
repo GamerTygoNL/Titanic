@@ -1,8 +1,8 @@
-package cc.noxiuam.titanic.client.ui.impl.editor;
+package cc.noxiuam.titanic.client.ui.module.editor;
 
 import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.client.ui.impl.GuiScreenWrapper;
-import cc.noxiuam.titanic.client.ui.impl.module.MainListUI;
+import cc.noxiuam.titanic.client.ui.GuiScreenWrapper;
+import cc.noxiuam.titanic.client.ui.module.MainListUI;
 
 public class ModSettingsEditor extends GuiScreenWrapper {
 

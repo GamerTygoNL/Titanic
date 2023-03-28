@@ -1,9 +1,9 @@
-package cc.noxiuam.titanic.client.ui.component.type.module.impl;
+package cc.noxiuam.titanic.client.ui.component.type.module;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
-import cc.noxiuam.titanic.client.ui.component.type.module.ModulePreviewContainer;
+import cc.noxiuam.titanic.client.ui.module.container.impl.ModulePreviewContainer;
 import cc.noxiuam.titanic.client.ui.fade.impl.ColorFade;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
 import lombok.AllArgsConstructor;
@@ -59,7 +59,7 @@ public class ModulePreviewComponent extends AbstractComponent {
             this.settingsButton.draw(x, y);
         }
 
-        this.mc.fontRenderer.drawStringWithShadow(this.module.name(), (int) (this.x + 5), (int) this.y + 4, this.module.enabled() ? -1 : 0xFFADADAD);
+        this.mc.fontRenderer.drawStringWithShadow(this.module.name(), (int) this.x + 5, (int) this.y + 4, this.module.enabled() ? -1 : 0xFFADADAD);
     }
 
 }

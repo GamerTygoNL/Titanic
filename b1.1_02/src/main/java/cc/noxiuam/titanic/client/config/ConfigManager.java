@@ -33,7 +33,7 @@ public class ConfigManager {
     private final File thirdPartyModsConfigDir = new File(thirdPartyModsDir + File.separator + "config");
 
     private final File modsConfig = new File(configDir + File.separator + "mods.json");
-    private final File thirdPartyConfig = new File(thirdPartyModsDir + File.separator + "thirdParty.json");
+    private final File thirdPartyIndex = new File(thirdPartyModsDir + File.separator + "thirdParty.json");
 
     public ConfigManager() {
         if (isSetup()) {
@@ -46,7 +46,7 @@ public class ConfigManager {
             return !(!configDir.exists() && !configDir.mkdirs()
                     || !thirdPartyModsDir.exists() && !thirdPartyModsDir.mkdirs()
                     || !modsConfig.exists() && !modsConfig.createNewFile()
-                    || !thirdPartyConfig.exists() && !thirdPartyConfig.createNewFile());
+                    || !thirdPartyIndex.exists() && !thirdPartyIndex.createNewFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +122,6 @@ public class ConfigManager {
 
     @SneakyThrows
     private void readModsProfile() {
-        System.out.println(Ref.getModuleManager());
         List<AbstractModule> modules = new ArrayList<>(Ref.getModuleManager().getMods());
 
         JsonParser parser = new JsonParser();
@@ -199,7 +198,7 @@ public class ConfigManager {
 
     }
 
-    private String beautifyJson(JsonObject obj) {
+    public String beautifyJson(JsonObject obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(obj);
     }

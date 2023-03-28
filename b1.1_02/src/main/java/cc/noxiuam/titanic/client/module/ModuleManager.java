@@ -1,5 +1,6 @@
 package cc.noxiuam.titanic.client.module;
 
+import cc.noxiuam.titanic.client.module.external.ThirdPartyLoader;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.*;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.FPSModule;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.LightLevelModule;
@@ -25,6 +26,8 @@ public class ModuleManager {
 
     private final List<AbstractModule> mods = new CopyOnWriteArrayList<>();
 
+    private final ThirdPartyLoader thirdPartyLoader;
+
     private final CoordinatesModule coordinatesModule;
     private final LightLevelModule lightLevelModule;
     private final FPSModule fpsModule;
@@ -41,6 +44,8 @@ public class ModuleManager {
     private final ZoomModule zoomModule;
 
     public ModuleManager() {
+        this.thirdPartyLoader = new ThirdPartyLoader();
+
         // qol mods
         this.mods.add(this.modernInventoryModule = new ModernInventoryModule());
         this.mods.add(this.performanceModule = new PerformanceModule());
@@ -65,6 +70,8 @@ public class ModuleManager {
         this.mods.add(new SavingLevelFix());
         this.mods.add(new ChestTextFix());
         this.mods.add(new DeadEntityRenderFix());
+
+        this.thirdPartyLoader.load();
     }
 
 }
