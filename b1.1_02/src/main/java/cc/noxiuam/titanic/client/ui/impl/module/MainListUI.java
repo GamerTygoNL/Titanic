@@ -11,13 +11,13 @@ public class MainListUI extends AbstractComponent {
     @Override
     public void size(float width, float height) {
         super.size(width, height);
-        moduleListContainer.size(width - 20, height - 50);
+        this.moduleListContainer.size(width - 20, height - 50);
     }
 
     @Override
     public void position(float newX, float newY) {
         super.position(newX, newY);
-        moduleListContainer.position(newX + 10, newY + 10);
+        this.moduleListContainer.position(newX + 10, newY + 10);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MainListUI extends AbstractComponent {
                 0x80000000
         );
 
-        moduleListContainer.draw(x, y);
+        this.moduleListContainer.draw(x, y);
     }
 
     @Override

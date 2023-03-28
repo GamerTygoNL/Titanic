@@ -11,7 +11,7 @@ public class KeybindComponent extends AbstractSettingComponent<Integer> {
 
     public KeybindComponent(AbstractSetting<Integer> setting, ModuleSettingsComponent list) {
         super(setting, list);
-        button = new KeybindButton((KeybindSetting) setting);
+        this.button = new KeybindButton((KeybindSetting) setting);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class KeybindComponent extends AbstractSettingComponent<Integer> {
 
     @Override
     public void keyTyped(char character, int key) {
-        button.keyTyped(character, key);
+        this.button.keyTyped(character, key);
     }
 
     @Override
     public void mouseClicked(float x, float y) {
-        button.mouseClicked(x, y);
+        this.button.mouseClicked(x, y);
     }
 
 }

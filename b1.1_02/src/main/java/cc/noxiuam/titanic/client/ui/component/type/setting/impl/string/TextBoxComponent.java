@@ -6,6 +6,7 @@ import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
 import cc.noxiuam.titanic.client.ui.fade.impl.ColorFade;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
+import net.minecraft.src.FontAllowedCharacters;
 import org.lwjgl.input.Keyboard;
 
 public class TextBoxComponent extends AbstractComponent {
@@ -70,7 +71,9 @@ public class TextBoxComponent extends AbstractComponent {
             return;
         }
 
-        if (this.using && this.text.length() < this.setting.getMaxLength()) {
+        if (this.using
+                && FontAllowedCharacters.field_20157_a.indexOf(character) >= 0
+                && this.text.length() < this.setting.getMaxLength()) {
             this.text += character;
         }
     }

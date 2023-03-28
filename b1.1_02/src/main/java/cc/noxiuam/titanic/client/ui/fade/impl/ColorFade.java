@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.awt.*;
 
+/**
+ * @author - CheatBreaker, LLC
+ */
 public class ColorFade extends ExponentialFade {
 
     @Getter @Setter private int startColor;

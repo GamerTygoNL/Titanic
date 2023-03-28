@@ -34,13 +34,13 @@ public class ModulePreviewContainer extends AbstractContainer {
         mods.removeIf(mod -> mod instanceof AbstractFixModule);
 
         for (float i = 0; i < mods.size() / 5F; i++) {
-            modulePages.add(new ModulePage());
+            this.modulePages.add(new ModulePage());
         }
 
         for (AbstractModule module : mods) {
             for (ModulePage modulePage : this.modulePages) {
                 if (module instanceof AbstractFixModule) continue;
-                if (queuedModules.contains(module)) {
+                if (this.queuedModules.contains(module)) {
                     continue;
                 }
 
@@ -49,7 +49,7 @@ public class ModulePreviewContainer extends AbstractContainer {
                 }
 
                 modulePage.getPreviewComponents().add(new ModulePreviewComponent(this, module));
-                queuedModules.add(module);
+                this.queuedModules.add(module);
             }
         }
     }
@@ -67,7 +67,7 @@ public class ModulePreviewContainer extends AbstractContainer {
             previewComponent.draw(x, y);
         }
 
-        boolean showPageButtons = modulePages.size() > 1;
+        boolean showPageButtons = this.modulePages.size() > 1;
 
         if (showPageButtons) {
             this.leftButton.setDisabled(this.pageNumber == 0);
@@ -84,7 +84,7 @@ public class ModulePreviewContainer extends AbstractContainer {
 
     @Override
     public void mouseClicked(float x, float y) {
-        boolean showPageButtons = modulePages.size() > 1;
+        boolean showPageButtons = this.modulePages.size() > 1;
 
         for (ModulePreviewComponent previewComponent : this.modulePages.get(this.pageNumber).getPreviewComponents()) {
             if (previewComponent.mouseInside((int) x, (int) y)) {
@@ -105,7 +105,7 @@ public class ModulePreviewContainer extends AbstractContainer {
         if (showPageButtons && this.leftButton.mouseInside(x, y) && this.pageNumber > 0) {
             SoundUtil.playClick();
             this.pageNumber--;
-        } else if (showPageButtons && this.rightButton.mouseInside(x, y) && this.pageNumber + 1 < modulePages.size()) {
+        } else if (showPageButtons && this.rightButton.mouseInside(x, y) && this.pageNumber + 1 < this.modulePages.size()) {
             SoundUtil.playClick();
             this.pageNumber++;
         }

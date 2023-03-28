@@ -3,6 +3,7 @@ package cc.noxiuam.titanic.client.ui.component.type.module;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.AbstractSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
+import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedTextButton;
 import cc.noxiuam.titanic.client.ui.component.type.setting.AbstractSettingComponent;
 import cc.noxiuam.titanic.client.ui.impl.editor.ModSettingsEditor;
@@ -22,8 +23,22 @@ public class ModuleSettingsComponent extends AbstractContainer {
     private final ModuleListContainer container;
     private final AbstractContainer parent;
 
-    private final RoundedTextButton backButton = new RoundedTextButton("Back");
-    private final RoundedTextButton closeButton = new RoundedTextButton("Close");
+    private final RoundedIconButton backButton = new RoundedIconButton(
+            "/titanic/back.png",
+            true,
+            11,
+            11,
+            4.5F,
+            4.5F
+    );
+    private final RoundedIconButton closeButton = new RoundedIconButton(
+            "/titanic/close.png",
+            true,
+            11,
+            11,
+            4.5F,
+            4.5F
+    );
 
     public ModuleSettingsComponent(ModuleListContainer container, ModulePreviewContainer parent, AbstractModule module) {
         super("/modSettings");
@@ -63,11 +78,11 @@ public class ModuleSettingsComponent extends AbstractContainer {
         }
 
         this.backButton.position(this.x, this.y + this.height);
-        this.backButton.size(189 / 4F, 75 / 4F);
+        this.backButton.size(20, 20);
         this.backButton.draw(x, y);
 
-        this.closeButton.position(this.x + this.width - 47, this.y + this.height);
-        this.closeButton.size(189 / 4F, 75 / 4F);
+        this.closeButton.position(this.x + this.width - 20, this.y + this.height);
+        this.closeButton.size(20, 20);
         this.closeButton.draw(x, y);
     }
 

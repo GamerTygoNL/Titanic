@@ -12,7 +12,7 @@ public class BooleanComponent extends AbstractSettingComponent<Boolean> {
 
     public BooleanComponent(BooleanSetting setting, ModuleSettingsComponent list) {
         super(setting, list);
-        button.setShowText(setting.value());
+        this.button.setShowText(setting.value());
     }
 
     @Override
@@ -32,9 +32,9 @@ public class BooleanComponent extends AbstractSettingComponent<Boolean> {
 
     @Override
     public void mouseClicked(float x, float y) {
-        if (button.mouseInside(x, y)) {
-            setting.value(!setting.value());
-            button.setShowText(setting.value());
+        if (this.button.mouseInside(x, y)) {
+            this.setting.value(!this.setting.value());
+            this.button.setShowText(this.setting.value());
             SoundUtil.playClick();
         }
     }

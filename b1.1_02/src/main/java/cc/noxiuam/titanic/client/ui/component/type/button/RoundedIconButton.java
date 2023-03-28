@@ -22,14 +22,14 @@ public class RoundedIconButton extends AbstractComponent {
     @Override
     public void draw(float x, float y) {
 
-        if (showBackground) {
+        if (this.showBackground) {
             RenderUtil.drawRoundedRect(
                     this.x,
                     this.y,
                     this.x + this.width,
                     this.y + this.height,
                     5,
-                    backgroundColor.getColor(mouseInside(x, y)).getRGB()
+                    this.backgroundColor.getColor(mouseInside(x, y)).getRGB()
             );
 
             RenderUtil.drawRoundedOutline(
@@ -39,17 +39,17 @@ public class RoundedIconButton extends AbstractComponent {
                     this.y + this.height,
                     5.0F,
                     3.0F,
-                    outlineColor.getColor(mouseInside(x, y)).getRGB()
+                    this.outlineColor.getColor(mouseInside(x, y)).getRGB()
             );
         }
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderUtil.renderIcon(
-                icon,
-                this.x + xOffset,
-                this.y + yOffset,
-                iconWidth,
-                iconHeight
+                this.icon,
+                this.x + this.xOffset,
+                this.y + this.yOffset,
+                this.iconWidth,
+                this.iconHeight
         );
 
     }

@@ -3,7 +3,9 @@ package cc.noxiuam.titanic.client.ui.fade;
 import lombok.Getter;
 import lombok.Setter;
 
-// @author - CheatBreaker
+/**
+ * @author - CheatBreaker, LLC
+ */
 @Getter @Setter
 public abstract class AbstractFade {
     protected final float color;

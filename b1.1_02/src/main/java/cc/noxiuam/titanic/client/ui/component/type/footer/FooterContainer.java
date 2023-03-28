@@ -18,10 +18,29 @@ public class FooterContainer extends AbstractContainer {
             4.5F
     );
 
-    private final RoundedTextButton closeButton = new RoundedTextButton("Close");
+    private final RoundedIconButton closeButton = new RoundedIconButton(
+            "/titanic/close.png",
+            true,
+            11,
+            11,
+            4.5F,
+            4.5F
+    );
 
-    public FooterContainer() {
+    private final RoundedIconButton thirdPartyButton = new RoundedIconButton(
+            "/titanic/thirdparty.png",
+            true,
+            11,
+            11,
+            4.5F,
+            4.5F
+    );
+
+    private final ModuleListContainer container;
+
+    public FooterContainer(ModuleListContainer container) {
         super("/footer");
+        this.container = container;
     }
 
     @Override
@@ -30,8 +49,12 @@ public class FooterContainer extends AbstractContainer {
         this.editHudButton.size(20, 20);
         this.editHudButton.draw(x, y);
 
-        this.closeButton.position(this.x + this.width - 47, this.y + this.height);
-        this.closeButton.size(189 / 4F, 75 / 4F);
+        this.thirdPartyButton.position(this.x + this.editHudButton.getWidth() + 5, this.y + this.height);
+        this.thirdPartyButton.size(20, 20);
+        this.thirdPartyButton.draw(x, y);
+
+        this.closeButton.position(this.x + this.width - 20, this.y + this.height);
+        this.closeButton.size(20, 20);
         this.closeButton.draw(x, y);
     }
 
@@ -43,6 +66,10 @@ public class FooterContainer extends AbstractContainer {
         } else if (this.editHudButton.mouseInside(x, y)) {
             SoundUtil.playClick();
             mc.displayGuiScreen(new HudLayoutEditor());
+        } else if (this.thirdPartyButton.mouseInside(x, y)) {
+            SoundUtil.playClick();
+            // TODO: make 3rd party mods ui
+            //this.container.setCurrentComponent();
         }
     }
 

@@ -11,6 +11,7 @@ import static org.lwjgl.opengl.GL11.*;
 @UtilityClass
 public class RenderUtil {
 
+    @Deprecated
     public void renderIcon(String resourceLocation, float size, float x, float y) {
         float f4 = size * 2.0f;
         float f5 = size * 2.0f;

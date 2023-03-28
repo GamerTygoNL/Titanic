@@ -67,10 +67,10 @@ public abstract class AbstractComponent {
      * @param mouseY The mouse's current Y position.
      */
     public boolean mouseInside(float mouseX, float mouseY) {
-        return mouseX > x
-                && mouseX < x + width
-                && mouseY > y
-                && mouseY < y + height;
+        return mouseX > this.x
+                && mouseX < this.x + this.width
+                && mouseY > this.y
+                && mouseY < this.y + this.height;
     }
 
     public void handleUpdate() { }

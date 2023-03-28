@@ -31,8 +31,8 @@ public class ModulePreviewComponent extends AbstractComponent {
 
     @Override
     public void draw(float x, float y) {
-        settingsButton.size(15, 15);
-        settingsButton.position(this.x + width - 16, this.y);
+        this.settingsButton.size(15, 15);
+        this.settingsButton.position(this.x + width - 16, this.y);
 
         RenderUtil.drawRoundedOutline(
                 this.x,
@@ -41,9 +41,9 @@ public class ModulePreviewComponent extends AbstractComponent {
                 this.y + this.height,
                 5.0F,
                 3.0F,
-                module.enabled()
-                        ? enabledOutline.getColor(true).getRGB()
-                        : outlineColor.getColor(mouseInside((int) x, (int) y) && this.container.mouseInside(x, y)).getRGB()
+                this.module.enabled()
+                        ? this.enabledOutline.getColor(true).getRGB()
+                        : this.outlineColor.getColor(mouseInside((int) x, (int) y) && this.container.mouseInside(x, y)).getRGB()
         );
 
         RenderUtil.drawRoundedRect(
@@ -52,14 +52,14 @@ public class ModulePreviewComponent extends AbstractComponent {
                 this.x + this.width,
                 this.y + this.height,
                 5.0F,
-                backgroundColor.getColor(mouseInside((int) x, (int) y) && this.container.mouseInside(x, y)).getRGB()
+                this.backgroundColor.getColor(mouseInside((int) x, (int) y) && this.container.mouseInside(x, y)).getRGB()
         );
 
-        if (module.settings().size() > 0) {
-            settingsButton.draw(x, y);
+        if (this.module.settings().size() > 0) {
+            this.settingsButton.draw(x, y);
         }
 
-        this.mc.fontRenderer.drawStringWithShadow(module.name(), (int) (this.x + 5), (int) this.y + 4, module.enabled() ? -1 : 0xFFADADAD);
+        this.mc.fontRenderer.drawStringWithShadow(this.module.name(), (int) (this.x + 5), (int) this.y + 4, this.module.enabled() ? -1 : 0xFFADADAD);
     }
 
 }

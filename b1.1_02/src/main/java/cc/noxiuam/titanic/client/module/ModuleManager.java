@@ -42,21 +42,21 @@ public class ModuleManager {
 
     public ModuleManager() {
         // qol mods
-        this.mods.add(this.coordinatesModule = new CoordinatesModule());
         this.mods.add(this.modernInventoryModule = new ModernInventoryModule());
         this.mods.add(this.performanceModule = new PerformanceModule());
         this.mods.add(this.perspectiveModule = new PerspectiveModule());
+        this.mods.add(this.chatEditorModule = new ChatEditorModule());
         this.mods.add(this.zoomModule = new ZoomModule());
 
-        this.mods.add(this.lightLevelModule = new LightLevelModule());
-        this.mods.add(this.worldEditor = new WorldEditor());
-        this.mods.add(this.chatEditorModule = new ChatEditorModule());
-        this.mods.add(this.nametagEditorModule = new NametagEditorModule());
-        this.mods.add(this.autoLoginModule = new AutoLoginModule());
-
-        this.mods.add(this.screenshotModule = new ScreenshotModule());
-        this.mods.add(this.packTweaksModule = new PackTweaksModule());
         this.mods.add(this.fpsModule = new FPSModule());
+        this.mods.add(this.coordinatesModule = new CoordinatesModule());
+        this.mods.add(this.lightLevelModule = new LightLevelModule());
+        this.mods.add(this.packTweaksModule = new PackTweaksModule());
+        this.mods.add(this.nametagEditorModule = new NametagEditorModule());
+
+        this.mods.add(this.autoLoginModule = new AutoLoginModule());
+        this.mods.add(this.worldEditor = new WorldEditor());
+        this.mods.add(this.screenshotModule = new ScreenshotModule());
         this.mods.add(new ChunkLoadingFix());
 
         // game fixes

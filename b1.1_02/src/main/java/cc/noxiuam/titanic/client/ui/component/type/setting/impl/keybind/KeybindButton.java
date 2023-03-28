@@ -27,14 +27,13 @@ public class KeybindButton extends AbstractComponent {
 
     @Override
     public void draw(float x, float y) {
-
         RenderUtil.drawRoundedRect(
                 this.x,
                 this.y,
                 this.x + this.width,
                 this.y + this.height,
                 5,
-                backgroundColor.getColor(mouseInside(x, y)).getRGB()
+                this.backgroundColor.getColor(mouseInside(x, y)).getRGB()
         );
 
         RenderUtil.drawRoundedOutline(
@@ -44,7 +43,7 @@ public class KeybindButton extends AbstractComponent {
                 this.y + this.height,
                 5.0F,
                 3.0F,
-                outlineColor.getColor(mouseInside(x, y)).getRGB()
+                this.outlineColor.getColor(mouseInside(x, y)).getRGB()
         );
 
         FontUtil.drawCenteredString(this.text, (int) (this.x + this.width / 2F), (int) (this.y + this.height / 2F - 3), -1);
@@ -52,18 +51,18 @@ public class KeybindButton extends AbstractComponent {
 
     @Override
     public void keyTyped(char character, int key) {
-        if (listening) {
-            setting.value(key);
-            listening = false;
-            text = CaseUtils.capitalizeFirst(Keyboard.getKeyName(setting.value()));
+        if (this.listening) {
+            this.setting.value(key);
+            this.listening = false;
+            this.text = CaseUtils.capitalizeFirst(Keyboard.getKeyName(this.setting.value()));
         }
     }
 
     @Override
     public void mouseClicked(float x, float y) {
-        if (mouseInside(x, y) && !listening) {
-            listening = true;
-            text = "?";
+        if (mouseInside(x, y) && !this.listening) {
+            this.listening = true;
+            this.text = "?";
             SoundUtil.playClick();
         }
     }
