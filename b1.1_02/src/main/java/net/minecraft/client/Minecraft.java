@@ -3,6 +3,7 @@ package net.minecraft.client;
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.bridge.type.MinecraftBridge;
 import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.event.impl.mouse.ClickEvent;
 import cc.noxiuam.titanic.event.impl.world.TickEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
@@ -878,6 +879,11 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                             if (Mouse.getEventButton() == 2 && Mouse.getEventButtonState()) {
                                 clickMiddleMouseButton();
                             }
+                        }
+
+                        if (Mouse.getEventButtonState()) {
+                            ClickEvent clickEvent = new ClickEvent(Mouse.getEventButton());
+                            Ref.getEventManager().handleEvent(clickEvent);
                         }
                     } else if (currentScreen != null) {
                         currentScreen.handleMouseInput();
