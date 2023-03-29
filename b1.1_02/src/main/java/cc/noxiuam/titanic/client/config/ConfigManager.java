@@ -196,7 +196,7 @@ public class ConfigManager {
                 }
 
                 if (setting instanceof NumberSetting) {
-                    double value = settings.get(setting.id()).getAsDouble();
+                    int value = settings.get(setting.id()).getAsInt();
                     ((NumberSetting) setting).setValueFrom(value);
                 }
             }
