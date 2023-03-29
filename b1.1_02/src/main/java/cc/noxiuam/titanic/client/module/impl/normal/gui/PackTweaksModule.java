@@ -60,7 +60,6 @@ public class PackTweaksModule extends AbstractModule {
         this.addEvent(PlayerBlockCollideEvent.class, this::onBlockCollision);
         this.addEvent(PortalOverlayEvent.class, this::onPortalOverlay);
         this.addEvent(PortalOverlayDrawEvent.class, this::onPortalDraw);
-        this.addEvent(PlayerWorldChangeEvent.class, this::onWorldChange);
 
         this.addEvent(DrawStringEvent.class, event -> {
             if (event.getString().equalsIgnoreCase(Ref.MC_VERSION)) {
@@ -107,17 +106,6 @@ public class PackTweaksModule extends AbstractModule {
     private void onPortalOverlay(PortalOverlayEvent event) {
         if (this.showPortalOverlay.value() && this.inPortal) {
             event.cancel();
-        }
-    }
-
-    private void onWorldChange(PlayerWorldChangeEvent event) {
-        boolean comingFromOverWorld = event.getPrevWorld().worldProvider != null && event.getNewWorld().worldProvider instanceof WorldProviderHell;
-        boolean comingFromNether = event.getPrevWorld().worldProvider instanceof WorldProviderHell && event.getNewWorld().worldProvider != null;
-
-        if (comingFromOverWorld || comingFromNether) {
-            if (this.showPortalOverlay.value()) {
-                this.mc.sndManager.func_337_a("portal.travel", 1.0F, new Random().nextFloat() * 0.4F + 0.8F);
-            }
         }
     }
 
