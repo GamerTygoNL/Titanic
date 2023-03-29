@@ -8,6 +8,7 @@ import cc.noxiuam.titanic.client.module.data.setting.impl.MultiOptionSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
 import cc.noxiuam.titanic.event.impl.font.DrawStringEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
+import cc.noxiuam.titanic.event.impl.gui.FirstPersonFireDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.MainMenuLogoDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.PortalOverlayDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
@@ -25,7 +26,7 @@ public class PackTweaksModule extends AbstractModule {
 
     private final KeybindSetting debugKeybind;
     private final StringSetting watermarkString;
-    private final BooleanSetting showPortalOverlay;
+    private final BooleanSetting showPortalOverlay, showFireInFirstPerson;
     private final MultiOptionSetting mainMenuLogo;
     
     private final Random rand = new Random();
@@ -48,6 +49,7 @@ public class PackTweaksModule extends AbstractModule {
                         "Classic",
                         "Classic", "Modern"
                 ),
+                this.showFireInFirstPerson = new BooleanSetting("showFireInFirstPerson", "First Person Fire", true),
                 this.showPortalOverlay = new BooleanSetting("showPortalOverlay", "Show Portal Overlay", false),
                 this.watermarkString = new StringSetting("watermarkString", "Watermark String", Ref.MC_VERSION, 35)
         );
@@ -60,6 +62,12 @@ public class PackTweaksModule extends AbstractModule {
         this.addEvent(PlayerBlockCollideEvent.class, this::onBlockCollision);
         this.addEvent(PortalOverlayEvent.class, this::onPortalOverlay);
         this.addEvent(PortalOverlayDrawEvent.class, this::onPortalDraw);
+
+        this.addEvent(FirstPersonFireDrawEvent.class, event -> {
+            if (!this.showFireInFirstPerson.value()) {
+                event.cancel();
+            }
+        });
 
         this.addEvent(DrawStringEvent.class, event -> {
             if (event.getString().equalsIgnoreCase(Ref.MC_VERSION)) {

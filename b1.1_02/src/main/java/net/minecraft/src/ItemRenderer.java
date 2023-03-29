@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.gui.FirstPersonFireDrawEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
@@ -268,6 +270,13 @@ public class ItemRenderer {
     }
 
     private void renderFireInFirstPerson(float f) {
+        FirstPersonFireDrawEvent event = new FirstPersonFireDrawEvent();
+        Ref.getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         Tessellator tessellator = Tessellator.instance;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.9F);
         GL11.glEnable(3042 /*GL_BLEND*/);

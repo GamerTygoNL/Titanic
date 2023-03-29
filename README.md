@@ -64,8 +64,8 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 
 ### Pack Tweaks
 - [x] Toggle F3 instead of holding
-- [ ] Reimplement Nether Portal overlay/sounds (the code seems to be there for it???)
-- [ ] A way to toggle fire in first person or lower its position
+- [x] Reimplement Nether Portal overlay/sounds
+- [x] A way to toggle fire in first person or lower its position
 
 ### Chat
 - [ ] Scrolling
