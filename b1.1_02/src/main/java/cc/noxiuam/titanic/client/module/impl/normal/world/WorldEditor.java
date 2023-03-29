@@ -1,12 +1,15 @@
 package cc.noxiuam.titanic.client.module.impl.normal.world;
 
 import cc.noxiuam.titanic.client.module.AbstractModule;
+import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.MultiOptionSetting;
 import cc.noxiuam.titanic.event.impl.network.PacketTimeUpdateEvent;
+import cc.noxiuam.titanic.event.impl.world.CloudRenderEvent;
 
 public class WorldEditor extends AbstractModule {
 
     private final MultiOptionSetting currentTime;
+    private final BooleanSetting hideClouds;
 
     public WorldEditor() {
         super("worldEditor", "World Editor", false);
@@ -15,11 +18,17 @@ public class WorldEditor extends AbstractModule {
                 this.currentTime = new MultiOptionSetting(
                         "currentTime",
                         "Current Time",
-                        "Server" ,
+                        "Server",
                         "Server", "Morning", "Noon", "Evening", "Dusk", "Midnight", "Dawn"
-                )
+                ),
+                this.hideClouds = new BooleanSetting("hideClouds", "Hide Clouds", false)
         );
 
+        this.addEvent(CloudRenderEvent.class, event -> {
+            if (this.hideClouds.value()) {
+                event.cancel();
+            }
+        });
         this.addEvent(PacketTimeUpdateEvent.class, this::updateTime);
     }
 

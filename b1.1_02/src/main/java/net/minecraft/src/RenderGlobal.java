@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.world.CloudRenderEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
@@ -646,6 +648,14 @@ public class RenderGlobal
         if (mc.theWorld.worldProvider.field_4220_c) {
             return;
         }
+
+        CloudRenderEvent event = new CloudRenderEvent();
+        Ref.getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         if (mc.gameSettings.fancyGraphics) {
             func_6510_c(f);
             return;
