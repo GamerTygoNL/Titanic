@@ -7,7 +7,7 @@ import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
 import cc.noxiuam.titanic.client.util.SmoothUtil;
 import cc.noxiuam.titanic.event.impl.mouse.ScrollEvent;
-import cc.noxiuam.titanic.event.impl.world.FovEvent;
+import cc.noxiuam.titanic.event.impl.world.fov.FOVUpdateEvent;
 import cc.noxiuam.titanic.event.impl.world.TickEvent;
 
 // thank you Ennui for your amazing mod! <3
@@ -34,7 +34,7 @@ public class ZoomModule extends AbstractModule {
                 this.smooth = new BooleanSetting("smooth", "Smooth Camera", true)
         );
         this.addEvent(TickEvent.class, this::onTick);
-        this.addEvent(FovEvent.class, this::onFov);
+        this.addEvent(FOVUpdateEvent.class, this::onFov);
         this.addEvent(ScrollEvent.class, this::onScroll);
         SmoothUtil.activateWith(() -> enabled() && smooth.value() && wasHeld);
     }
@@ -56,7 +56,7 @@ public class ZoomModule extends AbstractModule {
         wasHeld = held;
     }
 
-    private void onFov(FovEvent event) {
+    private void onFov(FOVUpdateEvent event) {
         float outputLevel = getTargetLevel();
         if (animated.value()) {
             // interpolate for each frame to make it smoother

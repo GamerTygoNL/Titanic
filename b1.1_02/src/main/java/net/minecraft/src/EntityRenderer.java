@@ -1,11 +1,11 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.mouse.PlayerLookInputEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
-import cc.noxiuam.titanic.event.impl.world.FovEvent;
+import cc.noxiuam.titanic.event.impl.world.fov.FOVUpdateEvent;
+import cc.noxiuam.titanic.event.impl.world.fov.PreFOVUpdateEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -123,17 +123,19 @@ public class EntityRenderer {
         if (entityplayersp.isInsideOfMaterial(Material.water)) {
             f1 = 60F;
         }
+
+        PreFOVUpdateEvent preFovUpdateEvent = new PreFOVUpdateEvent(f1);
+        Ref.getEventManager().handleEvent(preFovUpdateEvent);
+        f1 = preFovUpdateEvent.getFov();
+
         if (((EntityPlayer) (entityplayersp)).health <= 0) {
             float f2 = (float) ((EntityPlayer) (entityplayersp)).deathTime + f;
             f1 /= (1.0F - 500F / (f2 + 500F)) * 2.0F + 1.0F;
         }
 
-        FovEvent event = new FovEvent(f, f1);
+        FOVUpdateEvent event = new FOVUpdateEvent(f, f1);
         Ref.getEventManager().handleEvent(event);
-        if (!event.isCancelled()) {
-            // shrug
-            f1 = event.getFov();
-        }
+        f1 = event.getFov();
 
         return f1;
     }

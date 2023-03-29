@@ -59,10 +59,10 @@ Titanic will come with a Bukkit API that will allow servers to stop the use of c
 ### Perspective
 - [x] 3rd Person View Bobbing
 - [x] Modern Perspective Switching
-- [ ] Camera FOV
+- [x] Camera FOV
 - [ ] Hand FOV
 
-### Game Overlay
+### Pack Tweaks
 - [x] Toggle F3 instead of holding
 - [ ] Reimplement Nether Portal overlay/sounds (the code seems to be there for it???)
 - [ ] A way to toggle fire in first person or lower its position

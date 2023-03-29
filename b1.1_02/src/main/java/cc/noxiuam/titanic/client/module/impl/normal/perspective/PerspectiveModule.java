@@ -3,9 +3,11 @@ package cc.noxiuam.titanic.client.module.impl.normal.perspective;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
+import cc.noxiuam.titanic.client.module.data.setting.impl.NumberSetting;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
+import cc.noxiuam.titanic.event.impl.world.fov.PreFOVUpdateEvent;
 import net.minecraft.src.EntityPlayerSP;
 import net.minecraft.src.MathHelper;
 import org.lwjgl.input.Keyboard;
@@ -16,13 +18,18 @@ public class PerspectiveModule extends AbstractModule {
     public PerspectiveView currentPerspective = PerspectiveView.FIRST;
     private final KeybindSetting switchPerspectiveKey;
     private final BooleanSetting viewBobbingInThirdPerson;
+    private final NumberSetting cameraFov/*, handFov*/;
 
     public PerspectiveModule() {
         super("perspectiveBundle", "Perspective", true);
         this.initSettings(
-                switchPerspectiveKey = new KeybindSetting("switchPerspectiveKeybind", "Switch Perspective", Keyboard.KEY_R),
-                viewBobbingInThirdPerson = new BooleanSetting("viewBobbingInThirdPerson", "3rd Person View Bobbing", false)
+                this.switchPerspectiveKey = new KeybindSetting("switchPerspectiveKeybind", "Switch Perspective", Keyboard.KEY_R),
+                this.viewBobbingInThirdPerson = new BooleanSetting("viewBobbingInThirdPerson", "3rd Person View Bobbing", false),
+                this.cameraFov = new NumberSetting("cameraFov", "Camera FOV", 70, 50, 100, 0)/*,
+                this.handFov = new NumberSetting("handFov", "Hand FOV", 70, 30, 120, 0)*/
         );
+
+        this.addEvent(PreFOVUpdateEvent.class, this::updateFOV);
         this.addEvent(CameraChangeEvent.class, this::getModernCamera);
         this.addEvent(KeyboardEvent.class, this::updateCurrentPerspective);
         this.addEvent(ViewBobbingSetupEvent.class, this::onViewBob);
@@ -33,8 +40,11 @@ public class PerspectiveModule extends AbstractModule {
         setupViewBobbing(event.getValue());
     }
 
-    private void setupViewBobbing(float f) {
+    private void updateFOV(PreFOVUpdateEvent event) {
+        event.setFov(this.cameraFov.value().floatValue());
+    }
 
+    private void setupViewBobbing(float f) {
         if (!this.viewBobbingInThirdPerson.value() && mc.gameSettings.thirdPersonView) {
             return;
         }
