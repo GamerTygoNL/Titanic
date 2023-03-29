@@ -163,11 +163,15 @@ public class ConfigManager {
                 module.addAllEvents();
             }
 
-            if (module instanceof AbstractMovableModule) {
-                float x = info.get("x").getAsFloat();
-                float y = info.get("y").getAsFloat();
-                ((AbstractMovableModule) module).x(x);
-                ((AbstractMovableModule) module).y(y);
+            try {
+                if (module instanceof AbstractMovableModule) {
+                    float x = info.get("x").getAsFloat();
+                    float y = info.get("y").getAsFloat();
+                    ((AbstractMovableModule) module).x(x);
+                    ((AbstractMovableModule) module).y(y);
+                }
+            } catch (NullPointerException e) {
+                continue;
             }
 
             for (AbstractSetting<?> setting : module.settings()) {

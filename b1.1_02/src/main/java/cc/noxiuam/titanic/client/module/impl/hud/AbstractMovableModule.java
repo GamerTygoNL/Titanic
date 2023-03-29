@@ -80,7 +80,7 @@ public abstract class AbstractMovableModule extends AbstractModule {
         return (this.color().value().equalsIgnoreCase("Chroma") ? "" : this.getTextColor().toString());
     }
 
-    private ChatColor getTextColor() {
+    public ChatColor getTextColor() {
         return this.textColors.get(this.color.value());
     }
 

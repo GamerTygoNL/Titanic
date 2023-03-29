@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public abstract class AbstractSetting<T> {
 
     private final String id;
-    private final String name;
+    @Setter private String name;
 
     private final T defaultValue;
     private T value;

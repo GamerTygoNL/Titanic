@@ -4,19 +4,20 @@ import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
 import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
+import cc.noxiuam.titanic.client.module.impl.hud.AbstractMovableModule;
+import cc.noxiuam.titanic.client.ui.util.RenderUtil;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.world.player.NametagRenderEvent;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.Tessellator;
 import org.lwjgl.opengl.GL11;
 
-public class NametagEditorModule extends AbstractModule {
+import java.awt.*;
+
+public class NametagEditorModule extends AbstractMovableModule {
 
     private final KeybindSetting toggleKeybind;
     private final BooleanSetting textShadow, showBackground;
-
-    // text color
-    // background color
 
     public boolean showNametags = true;
 
@@ -25,6 +26,7 @@ public class NametagEditorModule extends AbstractModule {
 
         this.initSettings(
                 this.toggleKeybind = new KeybindSetting("toggleKeybind", "Temp Toggle Keybind", 0),
+                this.color(),
                 this.textShadow = new BooleanSetting("textShadow", "Text Shadow", false),
                 this.showBackground = new BooleanSetting("showBackground", "Show Background", true)
         );
@@ -80,14 +82,13 @@ public class NametagEditorModule extends AbstractModule {
             }
 
             GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
-            fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, byte0, 0x20ffffff);
             GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
             GL11.glDepthMask(true);
 
             if (this.textShadow.value()) {
-                fontRenderer.drawStringWithShadow(s, -fontRenderer.getStringWidth(s) / 2, byte0, -1);
+                fontRenderer.drawStringWithShadow(this.getPrefixedTextColor() + s, -fontRenderer.getStringWidth(s) / 2, byte0, this.getChromaColor());
             } else {
-                fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, byte0, -1);
+                fontRenderer.drawString(this.getPrefixedTextColor() + s, -fontRenderer.getStringWidth(s) / 2, byte0, this.getChromaColor());
             }
 
             GL11.glEnable(2896 /*GL_LIGHTING*/);
@@ -115,11 +116,13 @@ public class NametagEditorModule extends AbstractModule {
 
             GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
             GL11.glDepthMask(true);
+
             if (this.textShadow.value()) {
                 fontRenderer.drawStringWithShadow(s, -fontRenderer.getStringWidth(s) / 2, 0, 0x20ffffff);
             } else {
                 fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, 0, 0x20ffffff);
             }
+
             GL11.glEnable(2896 /*GL_LIGHTING*/);
             GL11.glDisable(3042 /*GL_BLEND*/);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
