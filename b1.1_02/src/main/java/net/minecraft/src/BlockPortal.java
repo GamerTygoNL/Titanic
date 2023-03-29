@@ -1,5 +1,8 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.world.block.PlayerPortalEvent;
+
 import java.util.Random;
 
 public class BlockPortal extends BlockBreakable {
@@ -127,6 +130,14 @@ public class BlockPortal extends BlockBreakable {
     }
 
     public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity) {
+        PlayerPortalEvent event = new PlayerPortalEvent();
+        Ref.getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            entity.setInPortal();
+            return;
+        }
+
         if (world.multiplayerWorld) {
         } else {
             entity.setInPortal();

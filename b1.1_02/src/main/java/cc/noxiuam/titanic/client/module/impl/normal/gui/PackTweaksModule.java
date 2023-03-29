@@ -2,6 +2,7 @@ package cc.noxiuam.titanic.client.module.impl.normal.gui;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.module.AbstractModule;
+import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.KeybindSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.MultiOptionSetting;
 import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
@@ -9,7 +10,10 @@ import cc.noxiuam.titanic.event.impl.font.DrawStringEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.MainMenuLogoDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
+import cc.noxiuam.titanic.event.impl.world.block.PlayerPortalEvent;
+import net.minecraft.src.Material;
 import net.minecraft.src.Tessellator;
+import net.minecraft.src.WorldClient;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -19,6 +23,7 @@ public class PackTweaksModule extends AbstractModule {
 
     private final KeybindSetting debugKeybind;
     private final StringSetting watermarkString;
+    private final BooleanSetting showPortalOverlay;
     private final MultiOptionSetting mainMenuLogo;
 
     public PackTweaksModule() {
@@ -32,18 +37,26 @@ public class PackTweaksModule extends AbstractModule {
                         "Classic",
                         "Classic", "Modern"
                 ),
+                this.showPortalOverlay = new BooleanSetting("showPortalOverlay", "Show Portal Overlay", false),
                 this.watermarkString = new StringSetting("watermarkString", "Watermark String", Ref.MC_VERSION, 35)
         );
 
         this.addEvent(KeyboardEvent.class, this::keyTyped);
         this.addEvent(DebugDrawEvent.class, this::onDebugDraw);
         this.addEvent(MainMenuLogoDrawEvent.class, this::onMainMenuLogoDraw);
+        this.addEvent(PlayerPortalEvent.class, this::onPortal);
         this.addEvent(DrawStringEvent.class, event -> {
             if (event.getString().equalsIgnoreCase(Ref.MC_VERSION)) {
                 event.cancel();
                 event.setString(this.watermarkString.value());
             }
         });
+    }
+
+    private void onPortal(PlayerPortalEvent event) {
+        if (this.showPortalOverlay.value()) {
+            event.cancel();
+        }
     }
 
     private void onMainMenuLogoDraw(MainMenuLogoDrawEvent event) {

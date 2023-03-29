@@ -8,6 +8,7 @@ import cc.noxiuam.titanic.event.impl.world.TickEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.mouse.ScrollEvent;
+import cc.noxiuam.titanic.event.impl.world.block.PlayerPortalEvent;
 import net.minecraft.src.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -1009,6 +1010,13 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
     }
 
     public void usePortal() {
+        PlayerPortalEvent event = new PlayerPortalEvent();
+        Ref.getEventManager().handleEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         if (thePlayer.dimension == -1) {
             thePlayer.dimension = 0;
         } else {
