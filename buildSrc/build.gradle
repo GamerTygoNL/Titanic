@@ -1,0 +1,12 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation files('RetroMCP-Java-CLI.jar')
+	implementation gradleApi()
+}

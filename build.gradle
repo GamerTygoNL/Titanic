@@ -10,3 +10,6 @@ repositories {
     mavenCentral()
 }
 
+project('b1.1_02') {
+	apply plugin: cc.noxiuam.titanic.gradle.TitanicGradlePlugin
+}
