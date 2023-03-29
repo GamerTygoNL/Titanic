@@ -9,22 +9,33 @@ import cc.noxiuam.titanic.client.module.data.setting.impl.StringSetting;
 import cc.noxiuam.titanic.event.impl.font.DrawStringEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.MainMenuLogoDrawEvent;
+import cc.noxiuam.titanic.event.impl.gui.PortalOverlayDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
-import cc.noxiuam.titanic.event.impl.world.block.PlayerPortalEvent;
-import net.minecraft.src.Material;
-import net.minecraft.src.Tessellator;
-import net.minecraft.src.WorldClient;
+import cc.noxiuam.titanic.event.impl.world.block.PortalOverlayEvent;
+import cc.noxiuam.titanic.event.impl.world.player.OnLivingUpdateEvent;
+import cc.noxiuam.titanic.event.impl.world.player.PlayerBlockCollideEvent;
+import cc.noxiuam.titanic.event.impl.world.player.PlayerWorldChangeEvent;
+import net.minecraft.src.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-public class PackTweaksModule extends AbstractModule {
+import java.util.Random;
 
-    public boolean showDebugInfo = false;
+public class PackTweaksModule extends AbstractModule {
 
     private final KeybindSetting debugKeybind;
     private final StringSetting watermarkString;
     private final BooleanSetting showPortalOverlay;
     private final MultiOptionSetting mainMenuLogo;
+    
+    private final Random rand = new Random();
+    
+    public boolean showDebugInfo = false;
+
+    private boolean inPortal;
+
+    private float timeInPortal;
+    private float prevTimeInPortal;
 
     public PackTweaksModule() {
         super("packTweaks", "Pack Tweaks", false);
@@ -44,7 +55,13 @@ public class PackTweaksModule extends AbstractModule {
         this.addEvent(KeyboardEvent.class, this::keyTyped);
         this.addEvent(DebugDrawEvent.class, this::onDebugDraw);
         this.addEvent(MainMenuLogoDrawEvent.class, this::onMainMenuLogoDraw);
-        this.addEvent(PlayerPortalEvent.class, this::onPortal);
+
+        this.addEvent(OnLivingUpdateEvent.class, this::onLivingUpdate);
+        this.addEvent(PlayerBlockCollideEvent.class, this::onBlockCollision);
+        this.addEvent(PortalOverlayEvent.class, this::onPortalOverlay);
+        this.addEvent(PortalOverlayDrawEvent.class, this::onPortalDraw);
+        this.addEvent(PlayerWorldChangeEvent.class, this::onWorldChange);
+
         this.addEvent(DrawStringEvent.class, event -> {
             if (event.getString().equalsIgnoreCase(Ref.MC_VERSION)) {
                 event.cancel();
@@ -53,10 +70,61 @@ public class PackTweaksModule extends AbstractModule {
         });
     }
 
-    private void onPortal(PlayerPortalEvent event) {
-        if (this.showPortalOverlay.value()) {
+    private void onLivingUpdate(OnLivingUpdateEvent event) {
+        if (event.getPlayer() != this.mc.thePlayer) {
+            return;
+        }
+
+        this.prevTimeInPortal = this.timeInPortal;
+
+        if (this.inPortal) {
+            if (this.timeInPortal == 0.0F) {
+                this.mc.sndManager.func_337_a("portal.trigger", 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+            }
+            this.timeInPortal += 0.0125F;
+
+            if (this.timeInPortal >= 1.0F) {
+                this.timeInPortal = 1.0F;
+                this.inPortal = false;
+            }
+        } else {
+            if (this.timeInPortal > 0.0F) {
+                this.timeInPortal -= 0.05F;
+            }
+
+            if (this.timeInPortal < 0.0F) {
+                this.timeInPortal = 0.0F;
+            }
+        }
+    }
+
+    private void onBlockCollision(PlayerBlockCollideEvent event) {
+        if (event.getEntity() == this.mc.thePlayer && event.getBlock() instanceof BlockPortal) {
+            this.inPortal = true;
+        }
+    }
+
+    private void onPortalOverlay(PortalOverlayEvent event) {
+        if (this.showPortalOverlay.value() && this.inPortal) {
             event.cancel();
         }
+    }
+
+    private void onWorldChange(PlayerWorldChangeEvent event) {
+        boolean comingFromOverWorld = event.getPrevWorld().worldProvider != null && event.getNewWorld().worldProvider instanceof WorldProviderHell;
+        boolean comingFromNether = event.getPrevWorld().worldProvider instanceof WorldProviderHell && event.getNewWorld().worldProvider != null;
+
+        if (comingFromOverWorld || comingFromNether) {
+            if (this.showPortalOverlay.value()) {
+                this.mc.sndManager.func_337_a("portal.travel", 1.0F, new Random().nextFloat() * 0.4F + 0.8F);
+            }
+        }
+    }
+
+    private void onPortalDraw(PortalOverlayDrawEvent event) {
+        event.cancel();
+        event.prevTimeInPortal = this.prevTimeInPortal;
+        event.timeInPortal = this.timeInPortal;
     }
 
     private void onMainMenuLogoDraw(MainMenuLogoDrawEvent event) {

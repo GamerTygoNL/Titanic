@@ -1,6 +1,8 @@
 package net.minecraft.src;
 
+import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.network.profile.Profile;
+import cc.noxiuam.titanic.event.impl.world.player.OnLivingUpdateEvent;
 
 import java.util.List;
 
@@ -120,6 +122,9 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     public void onLivingUpdate() {
+        OnLivingUpdateEvent event = new OnLivingUpdateEvent(this);
+        Ref.getEventManager().handleEvent(event);
+
         if (worldObj.difficultySetting == 0 && health < 20 && (ticksExisted % 20) * 12 == 0) {
             heal(1);
         }

@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.event.impl.gui.PortalOverlayDrawEvent;
 import cc.noxiuam.titanic.event.impl.mouse.PlayerLookInputEvent;
 import cc.noxiuam.titanic.event.impl.perspective.CameraChangeEvent;
 import cc.noxiuam.titanic.event.impl.perspective.ViewBobbingSetupEvent;
@@ -258,7 +259,16 @@ public class EntityRenderer {
         if (mc.gameSettings.viewBobbing) {
             setupViewBobbing(f);
         }
+
         float f2 = mc.thePlayer.prevTimeInPortal + (mc.thePlayer.timeInPortal - mc.thePlayer.prevTimeInPortal) * f;
+
+        PortalOverlayDrawEvent portalOverlayDrawEvent = new PortalOverlayDrawEvent(mc.thePlayer.prevTimeInPortal, mc.thePlayer.timeInPortal, f);
+        Ref.getEventManager().handleEvent(portalOverlayDrawEvent);
+
+        if (portalOverlayDrawEvent.isCancelled()) {
+            f2 = portalOverlayDrawEvent.prevTimeInPortal + (portalOverlayDrawEvent.timeInPortal - portalOverlayDrawEvent.prevTimeInPortal) * f;
+        }
+
         if (f2 > 0.0F) {
             float f3 = 5F / (f2 * f2 + 5F) - f2 * 0.04F;
             f3 *= f3;
@@ -266,6 +276,7 @@ public class EntityRenderer {
             GL11.glScalef(1.0F / f3, 1.0F, 1.0F);
             GL11.glRotatef(-f2 * f2 * 1500F, 0.0F, 1.0F, 1.0F);
         }
+
         orientCamera(f);
     }
 

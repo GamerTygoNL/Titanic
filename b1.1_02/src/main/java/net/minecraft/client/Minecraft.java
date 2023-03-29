@@ -8,7 +8,7 @@ import cc.noxiuam.titanic.event.impl.world.TickEvent;
 import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.keyboard.KeyboardEvent;
 import cc.noxiuam.titanic.event.impl.mouse.ScrollEvent;
-import cc.noxiuam.titanic.event.impl.world.block.PlayerPortalEvent;
+import cc.noxiuam.titanic.event.impl.world.player.PlayerWorldChangeEvent;
 import net.minecraft.src.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -1010,13 +1010,6 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
     }
 
     public void usePortal() {
-        PlayerPortalEvent event = new PlayerPortalEvent();
-        Ref.getEventManager().handleEvent(event);
-
-        if (event.isCancelled()) {
-            return;
-        }
-
         if (thePlayer.dimension == -1) {
             thePlayer.dimension = 0;
         } else {
@@ -1057,6 +1050,9 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
     }
 
     public void changeWorld(World world, String s, EntityPlayer entityplayer) {
+        PlayerWorldChangeEvent worldChangeEvent = new PlayerWorldChangeEvent(theWorld, world);
+        Ref.getEventManager().handleEvent(worldChangeEvent);
+
         loadingScreen.printText(s);
         loadingScreen.displayLoadingString("");
         sndManager.func_331_a(null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);

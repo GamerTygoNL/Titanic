@@ -5,6 +5,7 @@ import cc.noxiuam.titanic.event.impl.gui.DebugDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.GuiDrawEvent;
 import cc.noxiuam.titanic.event.impl.gui.HotbarRenderEvent;
 import cc.noxiuam.titanic.event.impl.gui.chat.ChatBackgroundDrawEvent;
+import cc.noxiuam.titanic.event.impl.world.block.PortalOverlayEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -50,8 +51,11 @@ public class GuiIngame extends Gui {
         if (!mc.gameSettings.thirdPersonView && itemstack != null && itemstack.itemID == Block.pumpkin.blockID) {
             func_4063_a(k, l);
         }
+
         float f1 = mc.thePlayer.prevTimeInPortal + (mc.thePlayer.timeInPortal - mc.thePlayer.prevTimeInPortal) * f;
-        if (f1 > 0.0F) {
+        PortalOverlayEvent portalEvent = new PortalOverlayEvent();
+        Ref.getEventManager().handleEvent(portalEvent);
+        if (f1 > 0.0F || portalEvent.isCancelled()) {
             func_4065_b(f1, k, l);
         }
 
