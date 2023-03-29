@@ -3,6 +3,7 @@ package cc.noxiuam.titanic.client.module.external;
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.Titanic;
 import cc.noxiuam.titanic.client.util.Logger;
+import cc.noxiuam.titanic.client.util.chat.ChatUtil;
 import cc.noxiuam.titanic.client.util.zip.ZipUtil;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -112,7 +113,6 @@ public class ThirdPartyLoader {
      */
     @SneakyThrows
     public void downloadAndSetupMod(ThirdPartyModule module) {
-        LOGGER.debug("Starting download of mod: " + module.getName());
         String zipName = Ref.getConfigManager().getThirdPartyModsDir()
                 + File.separator
                 + module.getName().replaceAll(" ", "") + ".zip";
@@ -128,6 +128,8 @@ public class ThirdPartyLoader {
         }
 
         try {
+            LOGGER.debug("Starting download of mod: " + module.getName());
+            ChatUtil.addChatMessage("Loading mod: " + module.getName());
             URL url = new URL(module.getLink());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -145,12 +147,12 @@ public class ThirdPartyLoader {
 
             fis.close();
             bis.close();
+            ChatUtil.addChatMessage("Downloaded " + module.getName() + " successfully!");
             LOGGER.debug("Downloaded \"" + module.getName() + "\" successfully!");
         } catch (Exception e) {
             LOGGER.error("Could not download mod \"" + module.getName() + "\" (" + e.getMessage() + ")");
             return;
         }
-
 
         if (module.isExtractable()) {
             this.extractMod(module, zipName);
@@ -176,12 +178,15 @@ public class ThirdPartyLoader {
      */
     private void extractMod(ThirdPartyModule module, String zipPath) {
         String extractionPoint = Ref.getConfigManager().getThirdPartyModsDir().toString();
-        LOGGER.debug("Extracting \"" + zipPath + "\"");
 
-        try {
-            ZipUtil.unzip(zipPath, extractionPoint);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!new File(module.getModPath()).exists()) {
+            LOGGER.debug("Extracting " + module.getName());
+            ChatUtil.addChatMessage("Extracting " + module.getName());
+            try {
+                ZipUtil.unzip(zipPath, extractionPoint);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         if (module.isExecutable()) {
@@ -196,6 +201,8 @@ public class ThirdPartyLoader {
      */
     @SneakyThrows
     private void executeMod(ThirdPartyModule module) {
+        ChatUtil.addChatMessage("Starting " + module.getName() + "...");
+
         Runtime.getRuntime().exec(
                 module.getExecuteCommand()
                         + module.getModPath()

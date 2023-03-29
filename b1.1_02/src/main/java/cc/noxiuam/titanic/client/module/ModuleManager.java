@@ -3,6 +3,7 @@ package cc.noxiuam.titanic.client.module;
 import cc.noxiuam.titanic.client.module.external.ThirdPartyLoader;
 import cc.noxiuam.titanic.client.module.impl.fix.impl.*;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.FPSModule;
+import cc.noxiuam.titanic.client.module.impl.hud.impl.FofoModule;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.LightLevelModule;
 import cc.noxiuam.titanic.client.module.impl.normal.world.ChunkLoadingFix;
 import cc.noxiuam.titanic.client.module.impl.hud.impl.CoordinatesModule;
@@ -31,6 +32,7 @@ public class ModuleManager {
     private final CoordinatesModule coordinatesModule;
     private final LightLevelModule lightLevelModule;
     private final FPSModule fpsModule;
+    private final FofoModule fofoModule;
 
     private final ChatEditorModule chatEditorModule;
     private final PerspectiveModule perspectiveModule;
@@ -63,6 +65,7 @@ public class ModuleManager {
         this.mods.add(this.worldEditor = new WorldEditor());
         this.mods.add(this.screenshotModule = new ScreenshotModule());
         this.mods.add(new ChunkLoadingFix());
+        this.mods.add(this.fofoModule = new FofoModule());
 
         // game fixes
         this.mods.add(new PlayerAssetFix());
