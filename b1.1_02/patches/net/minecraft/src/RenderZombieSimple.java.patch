@@ -1,0 +1,35 @@
+--- net/minecraft/src/RenderZombieSimple.java
++++ net/minecraft/src/RenderZombieSimple.java
+@@ -3,18 +3,19 @@
+ import org.lwjgl.opengl.GL11;
+ 
+ public class RenderZombieSimple extends RenderLiving {
+-    private float field_204_f;
+-
+-    public RenderZombieSimple(ModelBase var1, float var2, float var3) {
+-        super(var1, var2 * var3);
+-        this.field_204_f = var3;
+-    }
+-
+-    protected void a(EntityZombieSimple var1, float var2) {
+-        GL11.glScalef(this.field_204_f, this.field_204_f, this.field_204_f);
+-    }
+-
+-    protected void preRenderCallback(EntityLiving var1, float var2) {
+-        this.a((EntityZombieSimple)var1, var2);
++
++    private final float field_204_f;
++
++    public RenderZombieSimple(ModelBase modelbase, float f, float f1) {
++        super(modelbase, f * f1);
++        field_204_f = f1;
++    }
++
++    protected void func_175_a(EntityZombieSimple entityzombiesimple, float f) {
++        GL11.glScalef(field_204_f, field_204_f, field_204_f);
++    }
++
++    protected void preRenderCallback(EntityLiving entityliving, float f) {
++        func_175_a((EntityZombieSimple) entityliving, f);
+     }
+ }

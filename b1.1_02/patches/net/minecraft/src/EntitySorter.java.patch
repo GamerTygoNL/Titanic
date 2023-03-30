@@ -1,0 +1,34 @@
+--- net/minecraft/src/EntitySorter.java
++++ net/minecraft/src/EntitySorter.java
+@@ -2,18 +2,20 @@
+ 
+ import java.util.Comparator;
+ 
+-public class EntitySorter implements Comparator {
++public class EntitySorter
++        implements Comparator {
++
+     private Entity field_1594_a;
+ 
+-    public EntitySorter(Entity var1) {
+-        this.field_1594_a = var1;
+-    }
+-
+-    public int a(WorldRenderer var1, WorldRenderer var2) {
+-        return var1.distanceToEntity(this.field_1594_a) < var2.distanceToEntity(this.field_1594_a) ? -1 : 1;
+-    }
+-
+-    public int compare(Object var1, Object var2) {
+-        return this.a((WorldRenderer)var1, (WorldRenderer)var2);
++    public EntitySorter(Entity entity) {
++        field_1594_a = entity;
++    }
++
++    public int func_1063_a(WorldRenderer worldrenderer, WorldRenderer worldrenderer1) {
++        return worldrenderer.distanceToEntity(field_1594_a) >= worldrenderer1.distanceToEntity(field_1594_a) ? 1 : -1;
++    }
++
++    public int compare(Object obj, Object obj1) {
++        return func_1063_a((WorldRenderer) obj, (WorldRenderer) obj1);
+     }
+ }

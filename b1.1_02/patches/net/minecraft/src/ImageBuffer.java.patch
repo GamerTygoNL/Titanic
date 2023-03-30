@@ -1,0 +1,10 @@
+--- net/minecraft/src/ImageBuffer.java
++++ net/minecraft/src/ImageBuffer.java
+@@ -3,5 +3,6 @@
+ import java.awt.image.BufferedImage;
+ 
+ public interface ImageBuffer {
+-    BufferedImage parseUserSkin(BufferedImage var1);
++
++    BufferedImage parseUserSkin(BufferedImage bufferedimage);
+ }

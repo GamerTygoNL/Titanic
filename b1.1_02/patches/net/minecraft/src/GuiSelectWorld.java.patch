@@ -1,0 +1,136 @@
+--- net/minecraft/src/GuiSelectWorld.java
++++ net/minecraft/src/GuiSelectWorld.java
+@@ -1,76 +1,78 @@
+ package net.minecraft.src;
+ 
+-import java.io.File;
+ import net.minecraft.client.Minecraft;
+ 
+ public class GuiSelectWorld extends GuiScreen {
++
+     protected GuiScreen parentScreen;
+-    protected String screenTitle = "Select world";
+-    private boolean selected = false;
++    protected String screenTitle;
++    private boolean selected;
+ 
+-    public GuiSelectWorld(GuiScreen var1) {
+-        this.parentScreen = var1;
++    public GuiSelectWorld(GuiScreen guiscreen) {
++        screenTitle = "Select world";
++        selected = false;
++        parentScreen = guiscreen;
+     }
+ 
+     public void initGui() {
+-        StringTranslate var1 = StringTranslate.func_20162_a();
+-        this.screenTitle = var1.func_20163_a("selectWorld.title");
+-        String var2 = var1.func_20163_a("selectWorld.empty");
+-        String var3 = var1.func_20163_a("selectWorld.world");
+-        File var4 = Minecraft.getMinecraftDir();
+-
+-        for(int var5 = 0; var5 < 5; ++var5) {
+-            NBTTagCompound var6 = World.func_629_a(var4, "World" + (var5 + 1));
+-            if(var6 == null) {
+-                this.controlList.add(new GuiButton(var5, this.width / 2 - 100, this.height / 6 + 24 * var5, "- " + var2 + " -"));
++        StringTranslate stringtranslate = StringTranslate.func_20162_a();
++        screenTitle = stringtranslate.func_20163_a("selectWorld.title");
++        String s = stringtranslate.func_20163_a("selectWorld.empty");
++        String s1 = stringtranslate.func_20163_a("selectWorld.world");
++        java.io.File file = Minecraft.getMinecraftDir();
++        for (int i = 0; i < 5; i++) {
++            NBTTagCompound nbttagcompound = World.func_629_a(file, "World" + (i + 1));
++            if (nbttagcompound == null) {
++                controlList.add(new GuiButton(i, width / 2 - 100, height / 6 + 24 * i, "- " + s + " -"));
+             } else {
+-                String var7 = var3 + " " + (var5 + 1);
+-                long var8 = var6.getLong("SizeOnDisk");
+-                var7 = var7 + " (" + (float)(var8 / 1024L * 100L / 1024L) / 100.0F + " MB)";
+-                this.controlList.add(new GuiButton(var5, this.width / 2 - 100, this.height / 6 + 24 * var5, var7));
++                String s2 = s1 + " " + (i + 1);
++                long l = nbttagcompound.getLong("SizeOnDisk");
++                s2 = s2 + " (" + (float) (((l / 1024L) * 100L) / 1024L) / 100F + " MB)";
++                controlList.add(new GuiButton(i, width / 2 - 100, height / 6 + 24 * i, s2));
+             }
+         }
+ 
+-        this.initGui2();
++        initGui2();
+     }
+ 
+-    protected String getWorldName(int var1) {
+-        File var2 = Minecraft.getMinecraftDir();
+-        return World.func_629_a(var2, "World" + var1) != null ? "World" + var1 : null;
++    protected String getWorldName(int i) {
++        java.io.File file = Minecraft.getMinecraftDir();
++        return World.func_629_a(file, "World" + i) == null ? null : "World" + i;
+     }
+ 
+     public void initGui2() {
+-        StringTranslate var1 = StringTranslate.func_20162_a();
+-        this.controlList.add(new GuiButton(5, this.width / 2 - 100, this.height / 6 + 120 + 12, var1.func_20163_a("selectWorld.delete")));
+-        this.controlList.add(new GuiButton(6, this.width / 2 - 100, this.height / 6 + 168, var1.func_20163_a("gui.cancel")));
+-    }
+-
+-    protected void actionPerformed(GuiButton var1) {
+-        if(var1.enabled) {
+-            if(var1.id < 5) {
+-                this.selectWorld(var1.id + 1);
+-            } else if(var1.id == 5) {
+-                this.mc.displayGuiScreen(new GuiDeleteWorld(this));
+-            } else if(var1.id == 6) {
+-                this.mc.displayGuiScreen(this.parentScreen);
+-            }
+-
+-        }
+-    }
+-
+-    public void selectWorld(int var1) {
+-        this.mc.displayGuiScreen((GuiScreen)null);
+-        if(!this.selected) {
+-            this.selected = true;
+-            this.mc.playerController = new PlayerControllerSP(this.mc);
+-            this.mc.func_6247_b("World" + var1);
+-            this.mc.displayGuiScreen((GuiScreen)null);
+-        }
+-    }
+-
+-    public void drawScreen(int var1, int var2, float var3) {
+-        this.drawDefaultBackground();
+-        this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
+-        super.drawScreen(var1, var2, var3);
++        StringTranslate stringtranslate = StringTranslate.func_20162_a();
++        controlList.add(new GuiButton(5, width / 2 - 100, height / 6 + 120 + 12, stringtranslate.func_20163_a("selectWorld.delete")));
++        controlList.add(new GuiButton(6, width / 2 - 100, height / 6 + 168, stringtranslate.func_20163_a("gui.cancel")));
++    }
++
++    protected void actionPerformed(GuiButton guibutton) {
++        if (!guibutton.enabled) {
++            return;
++        }
++        if (guibutton.id < 5) {
++            selectWorld(guibutton.id + 1);
++        } else if (guibutton.id == 5) {
++            mc.displayGuiScreen(new GuiDeleteWorld(this));
++        } else if (guibutton.id == 6) {
++            mc.displayGuiScreen(parentScreen);
++        }
++    }
++
++    public void selectWorld(int i) {
++        mc.displayGuiScreen(null);
++        if (selected) {
++        } else {
++            selected = true;
++            mc.playerController = new PlayerControllerSP(mc);
++            mc.func_6247_b("World" + i);
++            mc.displayGuiScreen(null);
++        }
++    }
++
++    public void drawScreen(int i, int j, float f) {
++        drawDefaultBackground();
++        drawCenteredString(fontRenderer, screenTitle, width / 2, 20, 0xffffff);
++        super.drawScreen(i, j, f);
+     }
+ }

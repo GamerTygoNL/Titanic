@@ -1,0 +1,121 @@
+--- net/minecraft/src/ChunkProviderClient.java
++++ net/minecraft/src/ChunkProviderClient.java
+@@ -1,56 +1,59 @@
+ package net.minecraft.src;
+ 
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.HashMap;
+-import java.util.List;
+-import java.util.Map;
+-
+-public class ChunkProviderClient implements IChunkProvider {
+-    private Chunk blankChunk;
+-    private Map chunkMapping = new HashMap();
+-    private List unusedChunkList = new ArrayList();
+-    private World worldObj;
+-
+-    public ChunkProviderClient(World var1) {
+-        this.blankChunk = new Chunk(var1, new byte[-Short.MIN_VALUE], 0, 0);
+-        this.blankChunk.field_1524_q = true;
+-        this.blankChunk.neverSave = true;
+-        this.worldObj = var1;
+-    }
+-
+-    public boolean chunkExists(int var1, int var2) {
+-        ChunkCoordinates var3 = new ChunkCoordinates(var1, var2);
+-        return this.chunkMapping.containsKey(var3);
+-    }
+-
+-    public void func_539_c(int var1, int var2) {
+-        Chunk var3 = this.provideChunk(var1, var2);
+-        if(!var3.field_1524_q) {
+-            var3.onChunkUnload();
+-        }
+-
+-        this.chunkMapping.remove(new ChunkCoordinates(var1, var2));
+-        this.unusedChunkList.remove(var3);
+-    }
+-
+-    public Chunk func_538_d(int var1, int var2) {
+-        ChunkCoordinates var3 = new ChunkCoordinates(var1, var2);
+-        byte[] var4 = new byte[-Short.MIN_VALUE];
+-        Chunk var5 = new Chunk(this.worldObj, var4, var1, var2);
+-        Arrays.fill(var5.skylightMap.data, (byte)-1);
+-        this.chunkMapping.put(var3, var5);
+-        var5.isChunkLoaded = true;
+-        return var5;
+-    }
+-
+-    public Chunk provideChunk(int var1, int var2) {
+-        ChunkCoordinates var3 = new ChunkCoordinates(var1, var2);
+-        Chunk var4 = (Chunk)this.chunkMapping.get(var3);
+-        return var4 == null ? this.blankChunk : var4;
+-    }
+-
+-    public boolean saveChunks(boolean var1, IProgressUpdate var2) {
++import java.util.*;
++
++public class ChunkProviderClient
++        implements IChunkProvider {
++
++    private final Chunk blankChunk;
++    private final Map chunkMapping;
++    private final List unusedChunkList;
++    private final World worldObj;
++
++    public ChunkProviderClient(World world) {
++        chunkMapping = new HashMap();
++        unusedChunkList = new ArrayList();
++        blankChunk = new Chunk(world, new byte[32768], 0, 0);
++        blankChunk.field_1524_q = true;
++        blankChunk.neverSave = true;
++        worldObj = world;
++    }
++
++    public boolean chunkExists(int i, int j) {
++        ChunkCoordinates chunkcoordinates = new ChunkCoordinates(i, j);
++        return chunkMapping.containsKey(chunkcoordinates);
++    }
++
++    public void func_539_c(int i, int j) {
++        Chunk chunk = provideChunk(i, j);
++        if (!chunk.field_1524_q) {
++            chunk.onChunkUnload();
++        }
++        chunkMapping.remove(new ChunkCoordinates(i, j));
++        unusedChunkList.remove(chunk);
++    }
++
++    public Chunk func_538_d(int i, int j) {
++        ChunkCoordinates chunkcoordinates = new ChunkCoordinates(i, j);
++        byte[] abyte0 = new byte[32768];
++        Chunk chunk = new Chunk(worldObj, abyte0, i, j);
++        Arrays.fill(chunk.skylightMap.data, (byte) -1);
++        chunkMapping.put(chunkcoordinates, chunk);
++        chunk.isChunkLoaded = true;
++        return chunk;
++    }
++
++    public Chunk provideChunk(int i, int j) {
++        ChunkCoordinates chunkcoordinates = new ChunkCoordinates(i, j);
++        Chunk chunk = (Chunk) chunkMapping.get(chunkcoordinates);
++        if (chunk == null) {
++            return blankChunk;
++        } else {
++            return chunk;
++        }
++    }
++
++    public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
+         return true;
+     }
+ 
+@@ -62,6 +65,6 @@
+         return false;
+     }
+ 
+-    public void populate(IChunkProvider var1, int var2, int var3) {
++    public void populate(IChunkProvider ichunkprovider, int i, int j) {
+     }
+ }

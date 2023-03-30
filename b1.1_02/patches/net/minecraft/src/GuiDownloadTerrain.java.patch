@@ -1,0 +1,68 @@
+--- net/minecraft/src/GuiDownloadTerrain.java
++++ net/minecraft/src/GuiDownloadTerrain.java
+@@ -1,39 +1,39 @@
+ package net.minecraft.src;
+ 
+ public class GuiDownloadTerrain extends GuiScreen {
+-    private NetClientHandler netHandler;
+-    private int updateCounter = 0;
+-
+-    public GuiDownloadTerrain(NetClientHandler var1) {
+-        this.netHandler = var1;
++
++    private final NetClientHandler netHandler;
++    private int updateCounter;
++
++    public GuiDownloadTerrain(NetClientHandler netclienthandler) {
++        updateCounter = 0;
++        netHandler = netclienthandler;
+     }
+ 
+-    protected void keyTyped(char var1, int var2) {
++    protected void keyTyped(char c, int i) {
+     }
+ 
+     public void initGui() {
+-        this.controlList.clear();
++        controlList.clear();
+     }
+ 
+     public void updateScreen() {
+-        ++this.updateCounter;
+-        if(this.updateCounter % 20 == 0) {
+-            this.netHandler.addToSendQueue(new Packet0KeepAlive());
+-        }
+-
+-        if(this.netHandler != null) {
+-            this.netHandler.processReadPackets();
+-        }
+-
+-    }
+-
+-    protected void actionPerformed(GuiButton var1) {
+-    }
+-
+-    public void drawScreen(int var1, int var2, float var3) {
+-        this.drawBackground(0);
+-        StringTranslate var4 = StringTranslate.func_20162_a();
+-        this.drawCenteredString(this.fontRenderer, var4.func_20163_a("multiplayer.downloadingTerrain"), this.width / 2, this.height / 2 - 50, 16777215);
+-        super.drawScreen(var1, var2, var3);
++        updateCounter++;
++        if (updateCounter % 20 == 0) {
++            netHandler.addToSendQueue(new Packet0KeepAlive());
++        }
++        if (netHandler != null) {
++            netHandler.processReadPackets();
++        }
++    }
++
++    protected void actionPerformed(GuiButton guibutton) {
++    }
++
++    public void drawScreen(int i, int j, float f) {
++        drawBackground(0);
++        StringTranslate stringtranslate = StringTranslate.func_20162_a();
++        drawCenteredString(fontRenderer, stringtranslate.func_20163_a("multiplayer.downloadingTerrain"), width / 2, height / 2 - 50, 0xffffff);
++        super.drawScreen(i, j, f);
+     }
+ }

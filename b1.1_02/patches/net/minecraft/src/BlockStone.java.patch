@@ -1,0 +1,18 @@
+--- net/minecraft/src/BlockStone.java
++++ net/minecraft/src/BlockStone.java
+@@ -3,11 +3,12 @@
+ import java.util.Random;
+ 
+ public class BlockStone extends Block {
+-    public BlockStone(int var1, int var2) {
+-        super(var1, var2, Material.rock);
++
++    public BlockStone(int i, int j) {
++        super(i, j, Material.rock);
+     }
+ 
+-    public int idDropped(int var1, Random var2) {
++    public int idDropped(int i, Random random) {
+         return Block.cobblestone.blockID;
+     }
+ }

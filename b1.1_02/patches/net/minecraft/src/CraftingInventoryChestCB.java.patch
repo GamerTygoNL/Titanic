@@ -1,0 +1,60 @@
+--- net/minecraft/src/CraftingInventoryChestCB.java
++++ net/minecraft/src/CraftingInventoryChestCB.java
+@@ -1,34 +1,34 @@
+ package net.minecraft.src;
+ 
+ public class CraftingInventoryChestCB extends CraftingInventoryCB {
++
+     private IInventory field_20125_a;
+ 
+-    public CraftingInventoryChestCB(IInventory var1, IInventory var2) {
+-        this.field_20125_a = var2;
+-        int var3 = var2.getSizeInventory() / 9;
+-        int var4 = (var3 - 4) * 18;
+-
+-        int var5;
+-        int var6;
+-        for(var5 = 0; var5 < var3; ++var5) {
+-            for(var6 = 0; var6 < 9; ++var6) {
+-                this.func_20117_a(new Slot(var2, var6 + var5 * 9, 8 + var6 * 18, 18 + var5 * 18));
+-            }
+-        }
+-
+-        for(var5 = 0; var5 < 3; ++var5) {
+-            for(var6 = 0; var6 < 9; ++var6) {
+-                this.func_20117_a(new Slot(var1, var6 + var5 * 9 + 9, 8 + var6 * 18, 103 + var5 * 18 + var4));
+-            }
+-        }
+-
+-        for(var5 = 0; var5 < 9; ++var5) {
+-            this.func_20117_a(new Slot(var1, var5, 8 + var5 * 18, 161 + var4));
++    public CraftingInventoryChestCB(IInventory iinventory, IInventory iinventory1) {
++        field_20125_a = iinventory1;
++        int i = iinventory1.getSizeInventory() / 9;
++        int j = (i - 4) * 18;
++        for (int k = 0; k < i; k++) {
++            for (int j1 = 0; j1 < 9; j1++) {
++                func_20117_a(new Slot(iinventory1, j1 + k * 9, 8 + j1 * 18, 18 + k * 18));
++            }
++
++        }
++
++        for (int l = 0; l < 3; l++) {
++            for (int k1 = 0; k1 < 9; k1++) {
++                func_20117_a(new Slot(iinventory, k1 + l * 9 + 9, 8 + k1 * 18, 103 + l * 18 + j));
++            }
++
++        }
++
++        for (int i1 = 0; i1 < 9; i1++) {
++            func_20117_a(new Slot(iinventory, i1, 8 + i1 * 18, 161 + j));
+         }
+ 
+     }
+ 
+-    public boolean func_20120_b(EntityPlayer var1) {
+-        return this.field_20125_a.func_20070_a_(var1);
++    public boolean func_20120_b(EntityPlayer entityplayer) {
++        return field_20125_a.func_20070_a_(entityplayer);
+     }
+ }

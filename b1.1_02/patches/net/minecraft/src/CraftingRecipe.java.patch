@@ -1,0 +1,99 @@
+--- net/minecraft/src/CraftingRecipe.java
++++ net/minecraft/src/CraftingRecipe.java
+@@ -1,64 +1,65 @@
+ package net.minecraft.src;
+ 
+ public class CraftingRecipe {
+-    private int width;
+-    private int height;
+-    private int[] ingredientMap;
+-    private ItemStack resultStack;
++
+     public final int resultId;
++    private final int width;
++    private final int height;
++    private final int[] ingredientMap;
++    private final ItemStack resultStack;
+ 
+-    public CraftingRecipe(int var1, int var2, int[] var3, ItemStack var4) {
+-        this.resultId = var4.itemID;
+-        this.width = var1;
+-        this.height = var2;
+-        this.ingredientMap = var3;
+-        this.resultStack = var4;
++    public CraftingRecipe(int i, int j, int[] ai, ItemStack itemstack) {
++        resultId = itemstack.itemID;
++        width = i;
++        height = j;
++        ingredientMap = ai;
++        resultStack = itemstack;
+     }
+ 
+-    public boolean matchRecipe(int[] var1) {
+-        for(int var2 = 0; var2 <= 3 - this.width; ++var2) {
+-            for(int var3 = 0; var3 <= 3 - this.height; ++var3) {
+-                if(this.matches(var1, var2, var3, true)) {
++    public boolean matchRecipe(int[] ai) {
++        for (int i = 0; i <= 3 - width; i++) {
++            for (int j = 0; j <= 3 - height; j++) {
++                if (matches(ai, i, j, true)) {
+                     return true;
+                 }
+-
+-                if(this.matches(var1, var2, var3, false)) {
++                if (matches(ai, i, j, false)) {
+                     return true;
+                 }
+             }
++
+         }
+ 
+         return false;
+     }
+ 
+-    private boolean matches(int[] var1, int var2, int var3, boolean var4) {
+-        for(int var5 = 0; var5 < 3; ++var5) {
+-            for(int var6 = 0; var6 < 3; ++var6) {
+-                int var7 = var5 - var2;
+-                int var8 = var6 - var3;
+-                int var9 = -1;
+-                if(var7 >= 0 && var8 >= 0 && var7 < this.width && var8 < this.height) {
+-                    if(var4) {
+-                        var9 = this.ingredientMap[this.width - var7 - 1 + var8 * this.width];
++    private boolean matches(int[] ai, int i, int j, boolean flag) {
++        for (int k = 0; k < 3; k++) {
++            for (int l = 0; l < 3; l++) {
++                int i1 = k - i;
++                int j1 = l - j;
++                int k1 = -1;
++                if (i1 >= 0 && j1 >= 0 && i1 < width && j1 < height) {
++                    if (flag) {
++                        k1 = ingredientMap[(width - i1 - 1) + j1 * width];
+                     } else {
+-                        var9 = this.ingredientMap[var7 + var8 * this.width];
++                        k1 = ingredientMap[i1 + j1 * width];
+                     }
+                 }
+-
+-                if(var1[var5 + var6 * 3] != var9) {
++                if (ai[k + l * 3] != k1) {
+                     return false;
+                 }
+             }
++
+         }
+ 
+         return true;
+     }
+ 
+-    public ItemStack createResult(int[] var1) {
+-        return new ItemStack(this.resultStack.itemID, this.resultStack.stackSize);
++    public ItemStack createResult(int[] ai) {
++        return new ItemStack(resultStack.itemID, resultStack.stackSize);
+     }
+ 
+     public int getRecipeSize() {
+-        return this.width * this.height;
++        return width * height;
+     }
+ }

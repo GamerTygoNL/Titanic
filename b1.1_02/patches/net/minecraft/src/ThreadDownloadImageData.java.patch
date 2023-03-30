@@ -1,0 +1,24 @@
+--- net/minecraft/src/ThreadDownloadImageData.java
++++ net/minecraft/src/ThreadDownloadImageData.java
+@@ -3,12 +3,15 @@
+ import java.awt.image.BufferedImage;
+ 
+ public class ThreadDownloadImageData {
+-    public BufferedImage image;
+-    public int referenceCount = 1;
+-    public int textureName = -1;
+-    public boolean textureSetupComplete = false;
+ 
+-    public ThreadDownloadImageData(String var1, ImageBuffer var2) {
+-        (new ThreadDownloadImage(this, var1, var2)).start();
++    public BufferedImage image;
++    public int referenceCount;
++    public int textureName;
++    public boolean textureSetupComplete;
++    public ThreadDownloadImageData(String s, ImageBuffer imagebuffer) {
++        referenceCount = 1;
++        textureName = -1;
++        textureSetupComplete = false;
++        (new ThreadDownloadImage(this, s, imagebuffer)).start();
+     }
+ }

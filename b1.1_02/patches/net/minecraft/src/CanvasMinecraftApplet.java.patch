@@ -1,0 +1,34 @@
+--- net/minecraft/src/CanvasMinecraftApplet.java
++++ net/minecraft/src/CanvasMinecraftApplet.java
+@@ -1,22 +1,24 @@
+ package net.minecraft.src;
+ 
+-import java.awt.Canvas;
+ import net.minecraft.client.MinecraftApplet;
+ 
++import java.awt.*;
++
+ public class CanvasMinecraftApplet extends Canvas {
+-    final MinecraftApplet mcApplet;
+-
+-    public CanvasMinecraftApplet(MinecraftApplet var1) {
+-        this.mcApplet = var1;
++
++    final MinecraftApplet mcApplet; /* synthetic field */
++
++    public CanvasMinecraftApplet(MinecraftApplet minecraftapplet) {
++        mcApplet = minecraftapplet;
+     }
+ 
+     public synchronized void addNotify() {
+         super.addNotify();
+-        this.mcApplet.func_6233_a();
++        mcApplet.func_6233_a();
+     }
+ 
+     public synchronized void removeNotify() {
+-        this.mcApplet.shutdown();
++        mcApplet.shutdown();
+         super.removeNotify();
+     }
+ }

@@ -1,0 +1,134 @@
+--- net/minecraft/src/EntityMobs.java
++++ net/minecraft/src/EntityMobs.java
+@@ -1,80 +1,82 @@
+ package net.minecraft.src;
+ 
+-public class EntityMobs extends EntityCreature implements IMobs {
+-    protected int attackStrength = 2;
+-
+-    public EntityMobs(World var1) {
+-        super(var1);
+-        this.health = 20;
++public class EntityMobs extends EntityCreature
++        implements IMobs {
++
++    protected int attackStrength;
++
++    public EntityMobs(World world) {
++        super(world);
++        attackStrength = 2;
++        health = 20;
+     }
+ 
+     public void onLivingUpdate() {
+-        float var1 = this.getEntityBrightness(1.0F);
+-        if(var1 > 0.5F) {
+-            this.field_9344_ag += 2;
++        float f = getEntityBrightness(1.0F);
++        if (f > 0.5F) {
++            field_9344_ag += 2;
+         }
+-
+         super.onLivingUpdate();
+     }
+ 
+     public void onUpdate() {
+         super.onUpdate();
+-        if(this.worldObj.difficultySetting == 0) {
+-            this.setEntityDead();
++        if (worldObj.difficultySetting == 0) {
++            setEntityDead();
+         }
+-
+     }
+ 
+     protected Entity findPlayerToAttack() {
+-        EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, 16.0D);
+-        return var1 != null && this.canEntityBeSeen(var1) ? var1 : null;
++        EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 16D);
++        if (entityplayer != null && canEntityBeSeen(entityplayer)) {
++            return entityplayer;
++        } else {
++            return null;
++        }
+     }
+ 
+-    public boolean attackEntityFrom(Entity var1, int var2) {
+-        if(super.attackEntityFrom(var1, var2)) {
+-            if(this.riddenByEntity != var1 && this.ridingEntity != var1) {
+-                if(var1 != this) {
+-                    this.playerToAttack = var1;
+-                }
+-
+-                return true;
+-            } else {
+-                return true;
+-            }
++    public boolean attackEntityFrom(Entity entity, int i) {
++        if (super.attackEntityFrom(entity, i)) {
++            if (riddenByEntity == entity || ridingEntity == entity) {
++                return true;
++            }
++            if (entity != this) {
++                playerToAttack = entity;
++            }
++            return true;
+         } else {
+             return false;
+         }
+     }
+ 
+-    protected void attackEntity(Entity var1, float var2) {
+-        if((double)var2 < 2.5D && var1.boundingBox.maxY > this.boundingBox.minY && var1.boundingBox.minY < this.boundingBox.maxY) {
+-            this.attackTime = 20;
+-            var1.attackEntityFrom(this, this.attackStrength);
++    protected void attackEntity(Entity entity, float f) {
++        if ((double) f < 2.5D && entity.boundingBox.maxY > boundingBox.minY && entity.boundingBox.minY < boundingBox.maxY) {
++            attackTime = 20;
++            entity.attackEntityFrom(this, attackStrength);
+         }
+-
+-    }
+-
+-    protected float getBlockPathWeight(int var1, int var2, int var3) {
+-        return 0.5F - this.worldObj.getLightBrightness(var1, var2, var3);
+-    }
+-
+-    public void writeEntityToNBT(NBTTagCompound var1) {
+-        super.writeEntityToNBT(var1);
+-    }
+-
+-    public void readEntityFromNBT(NBTTagCompound var1) {
+-        super.readEntityFromNBT(var1);
++    }
++
++    protected float getBlockPathWeight(int i, int j, int k) {
++        return 0.5F - worldObj.getLightBrightness(i, j, k);
++    }
++
++    public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
++        super.writeEntityToNBT(nbttagcompound);
++    }
++
++    public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
++        super.readEntityFromNBT(nbttagcompound);
+     }
+ 
+     public boolean getCanSpawnHere() {
+-        int var1 = MathHelper.floor_double(this.posX);
+-        int var2 = MathHelper.floor_double(this.boundingBox.minY);
+-        int var3 = MathHelper.floor_double(this.posZ);
+-        if(this.worldObj.getSavedLightValue(EnumSkyBlock.Sky, var1, var2, var3) > this.rand.nextInt(32)) {
++        int i = MathHelper.floor_double(posX);
++        int j = MathHelper.floor_double(boundingBox.minY);
++        int k = MathHelper.floor_double(posZ);
++        if (worldObj.getSavedLightValue(EnumSkyBlock.Sky, i, j, k) > rand.nextInt(32)) {
+             return false;
+         } else {
+-            int var4 = this.worldObj.getBlockLightValue(var1, var2, var3);
+-            return var4 <= this.rand.nextInt(8) && super.getCanSpawnHere();
++            int l = worldObj.getBlockLightValue(i, j, k);
++            return l <= rand.nextInt(8) && super.getCanSpawnHere();
+         }
+     }
+ }

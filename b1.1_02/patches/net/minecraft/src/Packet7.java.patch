@@ -1,0 +1,57 @@
+--- net/minecraft/src/Packet7.java
++++ net/minecraft/src/Packet7.java
+@@ -5,6 +5,7 @@
+ import java.io.IOException;
+ 
+ public class Packet7 extends Packet {
++
+     public int field_9277_a;
+     public int field_9276_b;
+     public int field_9278_c;
+@@ -12,26 +13,26 @@
+     public Packet7() {
+     }
+ 
+-    public Packet7(int var1, int var2, int var3) {
+-        this.field_9277_a = var1;
+-        this.field_9276_b = var2;
+-        this.field_9278_c = var3;
+-    }
+-
+-    public void readPacketData(DataInputStream var1) throws IOException {
+-        this.field_9277_a = var1.readInt();
+-        this.field_9276_b = var1.readInt();
+-        this.field_9278_c = var1.readByte();
+-    }
+-
+-    public void writePacketData(DataOutputStream var1) throws IOException {
+-        var1.writeInt(this.field_9277_a);
+-        var1.writeInt(this.field_9276_b);
+-        var1.writeByte(this.field_9278_c);
+-    }
+-
+-    public void processPacket(NetHandler var1) {
+-        var1.func_6499_a(this);
++    public Packet7(int i, int j, int k) {
++        field_9277_a = i;
++        field_9276_b = j;
++        field_9278_c = k;
++    }
++
++    public void readPacketData(DataInputStream datainputstream) throws IOException {
++        field_9277_a = datainputstream.readInt();
++        field_9276_b = datainputstream.readInt();
++        field_9278_c = datainputstream.readByte();
++    }
++
++    public void writePacketData(DataOutputStream dataoutputstream) throws IOException {
++        dataoutputstream.writeInt(field_9277_a);
++        dataoutputstream.writeInt(field_9276_b);
++        dataoutputstream.writeByte(field_9278_c);
++    }
++
++    public void processPacket(NetHandler nethandler) {
++        nethandler.func_6499_a(this);
+     }
+ 
+     public int getPacketSize() {

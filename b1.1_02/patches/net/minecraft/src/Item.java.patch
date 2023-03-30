@@ -1,0 +1,200 @@
+--- net/minecraft/src/Item.java
++++ net/minecraft/src/Item.java
+@@ -3,7 +3,7 @@
+ import java.util.Random;
+ 
+ public class Item {
+-    protected static Random itemRand = new Random();
++
+     public static Item[] itemsList = new Item[32000];
+     public static Item shovelSteel = (new ItemSpade(0, 2)).func_20010_a(2, 5).func_20011_a("shovelIron");
+     public static Item pickaxeSteel = (new ItemPickaxe(1, 2)).func_20010_a(2, 6).func_20011_a("pickaxeIron");
+@@ -44,7 +44,7 @@
+     public static Item hoeSteel = (new ItemHoe(36, 2)).func_20010_a(2, 8).func_20011_a("hoeIron");
+     public static Item hoeDiamond = (new ItemHoe(37, 3)).func_20010_a(3, 8).func_20011_a("hoeDiamond");
+     public static Item hoeGold = (new ItemHoe(38, 1)).func_20010_a(4, 8).func_20011_a("hoeGold");
+-    public static Item seeds = (new ItemSeeds(39, Block.crops.blockID)).func_20010_a(9, 0).func_20011_a("seeds");
++    public static Item seeds;
+     public static Item wheat = (new Item(40)).func_20010_a(9, 1).func_20011_a("wheat");
+     public static Item bread = (new ItemFood(41, 5)).func_20010_a(9, 2).func_20011_a("bread");
+     public static Item helmetLeather = (new ItemArmor(42, 0, 0, 0)).func_20010_a(0, 0).func_20011_a("helmetCloth");
+@@ -73,13 +73,13 @@
+     public static Item painting = (new ItemPainting(65)).func_20010_a(10, 1).func_20011_a("painting");
+     public static Item appleGold = (new ItemFood(66, 42)).func_20010_a(11, 0).func_20011_a("appleGold");
+     public static Item sign = (new ItemSign(67)).func_20010_a(10, 2).func_20011_a("sign");
+-    public static Item doorWood = (new ItemDoor(68, Material.wood)).func_20010_a(11, 2).func_20011_a("doorWood");
++    public static Item doorWood;
+     public static Item bucketEmpty = (new ItemBucket(69, 0)).func_20010_a(10, 4).func_20011_a("bucket");
+-    public static Item bucketWater = (new ItemBucket(70, Block.waterStill.blockID)).func_20010_a(11, 4).func_20011_a("bucketWater");
+-    public static Item bucketLava = (new ItemBucket(71, Block.lavaStill.blockID)).func_20010_a(12, 4).func_20011_a("bucketLava");
++    public static Item bucketWater;
++    public static Item bucketLava;
+     public static Item minecartEmpty = (new ItemMinecart(72, 0)).func_20010_a(7, 8).func_20011_a("minecart");
+     public static Item saddle = (new ItemSaddle(73)).func_20010_a(8, 6).func_20011_a("saddle");
+-    public static Item doorSteel = (new ItemDoor(74, Material.iron)).func_20010_a(12, 2).func_20011_a("doorIron");
++    public static Item doorSteel;
+     public static Item redstone = (new ItemRedstone(75)).func_20010_a(8, 3).func_20011_a("redstone");
+     public static Item snowball = (new ItemSnowball(76)).func_20010_a(14, 0).func_20011_a("snowball");
+     public static Item boat = (new ItemBoat(77)).func_20010_a(8, 8).func_20011_a("boat");
+@@ -87,7 +87,7 @@
+     public static Item bucketMilk = (new ItemBucket(79, -1)).func_20010_a(13, 4).func_20011_a("milk");
+     public static Item brick = (new Item(80)).func_20010_a(6, 1).func_20011_a("brick");
+     public static Item clay = (new Item(81)).func_20010_a(9, 3).func_20011_a("clay");
+-    public static Item reed = (new ItemReed(82, Block.reed)).func_20010_a(11, 1).func_20011_a("reeds");
++    public static Item reed;
+     public static Item paper = (new Item(83)).func_20010_a(10, 3).func_20011_a("paper");
+     public static Item book = (new Item(84)).func_20010_a(11, 3).func_20011_a("book");
+     public static Item slimeBall = (new Item(85)).func_20010_a(14, 1).func_20011_a("slimeball");
+@@ -102,92 +102,104 @@
+     public static Item fishCooked = (new ItemFood(94, 5)).func_20010_a(10, 5).func_20011_a("fishCooked");
+     public static Item record13 = (new ItemRecord(2000, "13")).func_20010_a(0, 15).func_20011_a("record");
+     public static Item recordCat = (new ItemRecord(2001, "cat")).func_20010_a(1, 15).func_20011_a("record");
++    protected static Random itemRand = new Random();
++
++    static {
++        seeds = (new ItemSeeds(39, Block.crops.blockID)).func_20010_a(9, 0).func_20011_a("seeds");
++        doorWood = (new ItemDoor(68, Material.wood)).func_20010_a(11, 2).func_20011_a("doorWood");
++        bucketWater = (new ItemBucket(70, Block.waterStill.blockID)).func_20010_a(11, 4).func_20011_a("bucketWater");
++        bucketLava = (new ItemBucket(71, Block.lavaStill.blockID)).func_20010_a(12, 4).func_20011_a("bucketLava");
++        doorSteel = (new ItemDoor(74, Material.iron)).func_20010_a(12, 2).func_20011_a("doorIron");
++        reed = (new ItemReed(82, Block.reed)).func_20010_a(11, 1).func_20011_a("reeds");
++    }
++
+     public final int shiftedIndex;
+-    protected int maxStackSize = 64;
+-    protected int maxDamage = 32;
++    protected int maxStackSize;
++    protected int maxDamage;
+     protected int iconIndex;
+-    protected boolean bFull3D = false;
++    protected boolean bFull3D;
+     private String healAmount;
+-
+-    protected Item(int var1) {
+-        this.shiftedIndex = 256 + var1;
+-        if(itemsList[256 + var1] != null) {
+-            System.out.println("CONFLICT @ " + var1);
++    protected Item(int i) {
++        maxStackSize = 64;
++        maxDamage = 32;
++        bFull3D = false;
++        shiftedIndex = 256 + i;
++        if (itemsList[256 + i] != null) {
++            System.out.println("CONFLICT @ " + i);
+         }
+-
+-        itemsList[256 + var1] = this;
+-    }
+-
+-    public Item setIconIndex(int var1) {
+-        this.iconIndex = var1;
+-        return this;
+-    }
+-
+-    public Item func_20010_a(int var1, int var2) {
+-        this.iconIndex = var1 + var2 * 16;
+-        return this;
+-    }
+-
+-    public int getIconIndex(ItemStack var1) {
+-        return this.iconIndex;
+-    }
+-
+-    public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
++        itemsList[256 + i] = this;
++    }
++
++    public Item setIconIndex(int i) {
++        iconIndex = i;
++        return this;
++    }
++
++    public Item func_20010_a(int i, int j) {
++        iconIndex = i + j * 16;
++        return this;
++    }
++
++    public int getIconIndex(ItemStack itemstack) {
++        return iconIndex;
++    }
++
++    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
+         return false;
+     }
+ 
+-    public float getStrVsBlock(ItemStack var1, Block var2) {
++    public float getStrVsBlock(ItemStack itemstack, Block block) {
+         return 1.0F;
+     }
+ 
+-    public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3) {
+-        return var1;
++    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
++        return itemstack;
+     }
+ 
+     public int getItemStackLimit() {
+-        return this.maxStackSize;
++        return maxStackSize;
+     }
+ 
+     public int getMaxDamage() {
+-        return this.maxDamage;
+-    }
+-
+-    public void hitEntity(ItemStack var1, EntityLiving var2) {
+-    }
+-
+-    public void hitBlock(ItemStack var1, int var2, int var3, int var4, int var5) {
+-    }
+-
+-    public int getDamageVsEntity(Entity var1) {
++        return maxDamage;
++    }
++
++    public void hitEntity(ItemStack itemstack, EntityLiving entityliving) {
++    }
++
++    public void hitBlock(ItemStack itemstack, int i, int j, int k, int l) {
++    }
++
++    public int getDamageVsEntity(Entity entity) {
+         return 1;
+     }
+ 
+-    public boolean canHarvestBlock(Block var1) {
++    public boolean canHarvestBlock(Block block) {
+         return false;
+     }
+ 
+-    public void func_4019_b(ItemStack var1, EntityLiving var2) {
++    public void func_4019_b(ItemStack itemstack, EntityLiving entityliving) {
+     }
+ 
+     public Item setFull3D() {
+-        this.bFull3D = true;
++        bFull3D = true;
+         return this;
+     }
+ 
+     public boolean isFull3D() {
+-        return this.bFull3D;
++        return bFull3D;
+     }
+ 
+     public boolean shouldRotateAroundWhenRendering() {
+         return false;
+     }
+ 
+-    public Item func_20011_a(String var1) {
+-        this.healAmount = "item." + var1;
++    public Item func_20011_a(String s) {
++        healAmount = "item." + s;
+         return this;
+     }
+ 
+     public String func_20009_a() {
+-        return this.healAmount;
++        return healAmount;
+     }
+ }

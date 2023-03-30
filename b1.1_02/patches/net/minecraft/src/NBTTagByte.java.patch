@@ -1,0 +1,44 @@
+--- net/minecraft/src/NBTTagByte.java
++++ net/minecraft/src/NBTTagByte.java
+@@ -5,28 +5,29 @@
+ import java.io.IOException;
+ 
+ public class NBTTagByte extends NBTBase {
++
+     public byte byteValue;
+ 
+     public NBTTagByte() {
+     }
+ 
+-    public NBTTagByte(byte var1) {
+-        this.byteValue = var1;
+-    }
+-
+-    void writeTagContents(DataOutput var1) throws IOException {
+-        var1.writeByte(this.byteValue);
+-    }
+-
+-    void readTagContents(DataInput var1) throws IOException {
+-        this.byteValue = var1.readByte();
++    public NBTTagByte(byte byte0) {
++        byteValue = byte0;
++    }
++
++    void writeTagContents(DataOutput dataoutput) throws IOException {
++        dataoutput.writeByte(byteValue);
++    }
++
++    void readTagContents(DataInput datainput) throws IOException {
++        byteValue = datainput.readByte();
+     }
+ 
+     public byte getType() {
+-        return (byte)1;
++        return 1;
+     }
+ 
+     public String toString() {
+-        return "" + this.byteValue;
++        return String.valueOf(byteValue);
+     }
+ }

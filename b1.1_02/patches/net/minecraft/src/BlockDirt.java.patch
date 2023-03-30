@@ -1,0 +1,13 @@
+--- net/minecraft/src/BlockDirt.java
++++ net/minecraft/src/BlockDirt.java
+@@ -1,7 +1,8 @@
+ package net.minecraft.src;
+ 
+ public class BlockDirt extends Block {
+-    protected BlockDirt(int var1, int var2) {
+-        super(var1, var2, Material.ground);
++
++    protected BlockDirt(int i, int j) {
++        super(i, j, Material.ground);
+     }
+ }

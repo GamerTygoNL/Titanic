@@ -1,0 +1,234 @@
+--- net/minecraft/src/MCHashTable.java
++++ net/minecraft/src/MCHashTable.java
+@@ -1,135 +1,132 @@
+ package net.minecraft.src;
+ 
+ public class MCHashTable {
+-    private transient HashEntry[] slots = new HashEntry[16];
++
++    private final float growFactor = 0.75F;
++    private transient HashEntry[] slots;
+     private transient int count;
+-    private int threshold = 12;
+-    private final float growFactor = 12.0F / 16.0F;
+-    private transient volatile int versionStamp;
+-
+-    private static int computeHash(int var0) {
+-        var0 ^= var0 >>> 20 ^ var0 >>> 12;
+-        return var0 ^ var0 >>> 7 ^ var0 >>> 4;
+-    }
+-
+-    private static int getSlotIndex(int var0, int var1) {
+-        return var0 & var1 - 1;
+-    }
+-
+-    public Object lookup(int var1) {
+-        int var2 = computeHash(var1);
+-
+-        for(HashEntry var3 = this.slots[getSlotIndex(var2, this.slots.length)]; var3 != null; var3 = var3.nextEntry) {
+-            if(var3.hashEntry == var1) {
+-                return var3.valueEntry;
++    private int threshold;
++    private volatile transient int versionStamp;
++
++    public MCHashTable() {
++        threshold = 12;
++        slots = new HashEntry[16];
++    }
++
++    private static int computeHash(int i) {
++        i ^= i >>> 20 ^ i >>> 12;
++        return i ^ i >>> 7 ^ i >>> 4;
++    }
++
++    private static int getSlotIndex(int i, int j) {
++        return i & j - 1;
++    }
++
++    static int getHash(int i) {
++        return computeHash(i);
++    }
++
++    public Object lookup(int i) {
++        int j = computeHash(i);
++        for (HashEntry hashentry = slots[getSlotIndex(j, slots.length)]; hashentry != null; hashentry = hashentry.nextEntry) {
++            if (hashentry.hashEntry == i) {
++                return hashentry.valueEntry;
+             }
+         }
+ 
+         return null;
+     }
+ 
+-    public void addKey(int var1, Object var2) {
+-        int var3 = computeHash(var1);
+-        int var4 = getSlotIndex(var3, this.slots.length);
+-
+-        for(HashEntry var5 = this.slots[var4]; var5 != null; var5 = var5.nextEntry) {
+-            if(var5.hashEntry == var1) {
+-                var5.valueEntry = var2;
++    public void addKey(int i, Object obj) {
++        int j = computeHash(i);
++        int k = getSlotIndex(j, slots.length);
++        for (HashEntry hashentry = slots[k]; hashentry != null; hashentry = hashentry.nextEntry) {
++            if (hashentry.hashEntry == i) {
++                hashentry.valueEntry = obj;
+             }
+         }
+ 
+-        ++this.versionStamp;
+-        this.insert(var3, var1, var2, var4);
++        versionStamp++;
++        insert(j, i, obj, k);
+     }
+ 
+-    private void grow(int var1) {
+-        HashEntry[] var2 = this.slots;
+-        int var3 = var2.length;
+-        if(var3 == 1073741824) {
+-            this.threshold = Integer.MAX_VALUE;
++    private void grow(int i) {
++        HashEntry[] ahashentry = slots;
++        int j = ahashentry.length;
++        if (j == 0x40000000) {
++            threshold = 0x7fffffff;
+         } else {
+-            HashEntry[] var4 = new HashEntry[var1];
+-            this.copyTo(var4);
+-            this.slots = var4;
+-            this.threshold = (int)((float)var1 * this.growFactor);
++            HashEntry[] ahashentry1 = new HashEntry[i];
++            copyTo(ahashentry1);
++            slots = ahashentry1;
++            threshold = (int) ((float) i * growFactor);
+         }
+     }
+ 
+-    private void copyTo(HashEntry[] var1) {
+-        HashEntry[] var2 = this.slots;
+-        int var3 = var1.length;
+-
+-        for(int var4 = 0; var4 < var2.length; ++var4) {
+-            HashEntry var5 = var2[var4];
+-            if(var5 != null) {
+-                var2[var4] = null;
+-
+-                HashEntry var6;
+-                do {
+-                    var6 = var5.nextEntry;
+-                    int var7 = getSlotIndex(var5.slotHash, var3);
+-                    var5.nextEntry = var1[var7];
+-                    var1[var7] = var5;
+-                    var5 = var6;
+-                } while(var6 != null);
++    private void copyTo(HashEntry[] ahashentry) {
++        HashEntry[] ahashentry1 = slots;
++        int i = ahashentry.length;
++        for (int j = 0; j < ahashentry1.length; j++) {
++            HashEntry hashentry = ahashentry1[j];
++            if (hashentry == null) {
++                continue;
+             }
++            ahashentry1[j] = null;
++            do {
++                HashEntry hashentry1 = hashentry.nextEntry;
++                int k = getSlotIndex(hashentry.slotHash, i);
++                hashentry.nextEntry = ahashentry[k];
++                ahashentry[k] = hashentry;
++                hashentry = hashentry1;
++            } while (hashentry != null);
+         }
+ 
+     }
+ 
+-    public Object removeObject(int var1) {
+-        HashEntry var2 = this.removeEntry(var1);
+-        return var2 == null ? null : var2.valueEntry;
++    public Object removeObject(int i) {
++        HashEntry hashentry = removeEntry(i);
++        return hashentry != null ? hashentry.valueEntry : null;
+     }
+ 
+-    final HashEntry removeEntry(int var1) {
+-        int var2 = computeHash(var1);
+-        int var3 = getSlotIndex(var2, this.slots.length);
+-        HashEntry var4 = this.slots[var3];
+-
+-        HashEntry var5;
+-        HashEntry var6;
+-        for(var5 = var4; var5 != null; var5 = var6) {
+-            var6 = var5.nextEntry;
+-            if(var5.hashEntry == var1) {
+-                ++this.versionStamp;
+-                --this.count;
+-                if(var4 == var5) {
+-                    this.slots[var3] = var6;
++    final HashEntry removeEntry(int i) {
++        int j = computeHash(i);
++        int k = getSlotIndex(j, slots.length);
++        HashEntry hashentry = slots[k];
++        HashEntry hashentry1;
++        HashEntry hashentry2;
++        for (hashentry1 = hashentry; hashentry1 != null; hashentry1 = hashentry2) {
++            hashentry2 = hashentry1.nextEntry;
++            if (hashentry1.hashEntry == i) {
++                versionStamp++;
++                count--;
++                if (hashentry == hashentry1) {
++                    slots[k] = hashentry2;
+                 } else {
+-                    var4.nextEntry = var6;
++                    hashentry.nextEntry = hashentry2;
+                 }
+-
+-                return var5;
++                return hashentry1;
+             }
+-
+-            var4 = var5;
++            hashentry = hashentry1;
+         }
+ 
+-        return var5;
++        return hashentry1;
+     }
+ 
+     public void clearMap() {
+-        ++this.versionStamp;
+-        HashEntry[] var1 = this.slots;
+-
+-        for(int var2 = 0; var2 < var1.length; ++var2) {
+-            var1[var2] = null;
+-        }
+-
+-        this.count = 0;
+-    }
+-
+-    private void insert(int var1, int var2, Object var3, int var4) {
+-        HashEntry var5 = this.slots[var4];
+-        this.slots[var4] = new HashEntry(var1, var2, var3, var5);
+-        if(this.count++ >= this.threshold) {
+-            this.grow(2 * this.slots.length);
+-        }
+-
+-    }
+-
+-    static int getHash(int var0) {
+-        return computeHash(var0);
++        versionStamp++;
++        HashEntry[] ahashentry = slots;
++        for (int i = 0; i < ahashentry.length; i++) {
++            ahashentry[i] = null;
++        }
++
++        count = 0;
++    }
++
++    private void insert(int i, int j, Object obj, int k) {
++        HashEntry hashentry = slots[k];
++        slots[k] = new HashEntry(i, j, obj, hashentry);
++        if (count++ >= threshold) {
++            grow(2 * slots.length);
++        }
+     }
+ }

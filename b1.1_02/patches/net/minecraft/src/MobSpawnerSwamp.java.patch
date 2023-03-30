@@ -1,0 +1,10 @@
+--- net/minecraft/src/MobSpawnerSwamp.java
++++ net/minecraft/src/MobSpawnerSwamp.java
+@@ -1,4 +1,7 @@
+ package net.minecraft.src;
+ 
+ public class MobSpawnerSwamp extends MobSpawnerBase {
++
++    public MobSpawnerSwamp() {
++    }
+ }

@@ -1,0 +1,35 @@
+--- net/minecraft/src/Packet8.java
++++ net/minecraft/src/Packet8.java
+@@ -5,18 +5,22 @@
+ import java.io.IOException;
+ 
+ public class Packet8 extends Packet {
++
+     public int healthMP;
+ 
+-    public void readPacketData(DataInputStream var1) throws IOException {
+-        this.healthMP = var1.readShort();
+-    }
+-
+-    public void writePacketData(DataOutputStream var1) throws IOException {
+-        var1.writeShort(this.healthMP);
+-    }
+-
+-    public void processPacket(NetHandler var1) {
+-        var1.handleHealth(this);
++    public Packet8() {
++    }
++
++    public void readPacketData(DataInputStream datainputstream) throws IOException {
++        healthMP = datainputstream.readShort();
++    }
++
++    public void writePacketData(DataOutputStream dataoutputstream) throws IOException {
++        dataoutputstream.writeShort(healthMP);
++    }
++
++    public void processPacket(NetHandler nethandler) {
++        nethandler.handleHealth(this);
+     }
+ 
+     public int getPacketSize() {

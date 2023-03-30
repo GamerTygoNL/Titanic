@@ -1,0 +1,50 @@
+--- net/minecraft/src/Packet18ArmAnimation.java
++++ net/minecraft/src/Packet18ArmAnimation.java
+@@ -5,29 +5,30 @@
+ import java.io.IOException;
+ 
+ public class Packet18ArmAnimation extends Packet {
++
+     public int entityId;
+     public int animate;
+ 
+     public Packet18ArmAnimation() {
+     }
+ 
+-    public Packet18ArmAnimation(Entity var1, int var2) {
+-        this.entityId = var1.field_620_ab;
+-        this.animate = var2;
+-    }
+-
+-    public void readPacketData(DataInputStream var1) throws IOException {
+-        this.entityId = var1.readInt();
+-        this.animate = var1.readByte();
+-    }
+-
+-    public void writePacketData(DataOutputStream var1) throws IOException {
+-        var1.writeInt(this.entityId);
+-        var1.writeByte(this.animate);
+-    }
+-
+-    public void processPacket(NetHandler var1) {
+-        var1.handleArmAnimation(this);
++    public Packet18ArmAnimation(Entity entity, int i) {
++        entityId = entity.field_620_ab;
++        animate = i;
++    }
++
++    public void readPacketData(DataInputStream datainputstream) throws IOException {
++        entityId = datainputstream.readInt();
++        animate = datainputstream.readByte();
++    }
++
++    public void writePacketData(DataOutputStream dataoutputstream) throws IOException {
++        dataoutputstream.writeInt(entityId);
++        dataoutputstream.writeByte(animate);
++    }
++
++    public void processPacket(NetHandler nethandler) {
++        nethandler.handleArmAnimation(this);
+     }
+ 
+     public int getPacketSize() {

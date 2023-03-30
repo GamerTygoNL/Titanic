@@ -1,14 +1,19 @@
 --- net/minecraft/src/CodecMus.java
 +++ net/minecraft/src/CodecMus.java
-@@ -1,11 +1,6 @@
+@@ -1,11 +1,13 @@
  package net.minecraft.src;
  
--import java.io.IOException;
--import java.io.InputStream;
- import paulscode.sound.codecs.CodecJOrbis;
++import paulscode.sound.codecs.CodecJOrbis;
++
+ import java.io.IOException;
+ import java.io.InputStream;
+-import paulscode.sound.codecs.CodecJOrbis;
  
  public class CodecMus extends CodecJOrbis {
--	protected InputStream openInputStream() throws IOException {
--		return new MusInputStream(this, this.url, this.urlConnection.getInputStream());
--	}
+-    protected InputStream openInputStream() throws IOException {
+-        return new MusInputStream(this, this.url, this.urlConnection.getInputStream());
++
++    public CodecMus() {
+     }
++
  }

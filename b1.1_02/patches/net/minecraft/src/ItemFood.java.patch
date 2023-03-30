@@ -1,0 +1,31 @@
+--- net/minecraft/src/ItemFood.java
++++ net/minecraft/src/ItemFood.java
+@@ -1,17 +1,18 @@
+ package net.minecraft.src;
+ 
+ public class ItemFood extends Item {
+-    private int a;
+-
+-    public ItemFood(int var1, int var2) {
+-        super(var1);
+-        this.a = var2;
+-        this.maxStackSize = 1;
++
++    private final int healAmount;
++
++    public ItemFood(int i, int j) {
++        super(i);
++        healAmount = j;
++        maxStackSize = 1;
+     }
+ 
+-    public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3) {
+-        --var1.stackSize;
+-        var3.heal(this.a);
+-        return var1;
++    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
++        itemstack.stackSize--;
++        entityplayer.heal(healAmount);
++        return itemstack;
+     }
+ }

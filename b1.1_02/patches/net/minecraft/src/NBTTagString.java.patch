@@ -1,0 +1,45 @@
+--- net/minecraft/src/NBTTagString.java
++++ net/minecraft/src/NBTTagString.java
+@@ -5,31 +5,33 @@
+ import java.io.IOException;
+ 
+ public class NBTTagString extends NBTBase {
++
+     public String stringValue;
+ 
+     public NBTTagString() {
+     }
+ 
+-    public NBTTagString(String var1) {
+-        this.stringValue = var1;
+-        if(var1 == null) {
++    public NBTTagString(String s) {
++        stringValue = s;
++        if (s == null) {
+             throw new IllegalArgumentException("Empty string not allowed");
++        } else {
+         }
+     }
+ 
+-    void writeTagContents(DataOutput var1) throws IOException {
+-        var1.writeUTF(this.stringValue);
++    void writeTagContents(DataOutput dataoutput) throws IOException {
++        dataoutput.writeUTF(stringValue);
+     }
+ 
+-    void readTagContents(DataInput var1) throws IOException {
+-        this.stringValue = var1.readUTF();
++    void readTagContents(DataInput datainput) throws IOException {
++        stringValue = datainput.readUTF();
+     }
+ 
+     public byte getType() {
+-        return (byte)8;
++        return 8;
+     }
+ 
+     public String toString() {
+-        return "" + this.stringValue;
++        return stringValue;
+     }
+ }

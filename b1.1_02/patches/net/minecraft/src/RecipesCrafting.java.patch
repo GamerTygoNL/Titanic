@@ -1,0 +1,26 @@
+--- net/minecraft/src/RecipesCrafting.java
++++ net/minecraft/src/RecipesCrafting.java
+@@ -1,9 +1,19 @@
+ package net.minecraft.src;
+ 
+ public class RecipesCrafting {
+-    public void addRecipes(CraftingManager var1) {
+-        var1.addRecipe(new ItemStack(Block.crate), new Object[]{"###", "# #", "###", Character.valueOf('#'), Block.planks});
+-        var1.addRecipe(new ItemStack(Block.stoneOvenIdle), new Object[]{"###", "# #", "###", Character.valueOf('#'), Block.cobblestone});
+-        var1.addRecipe(new ItemStack(Block.workbench), new Object[]{"##", "##", Character.valueOf('#'), Block.planks});
++
++    public RecipesCrafting() {
++    }
++
++    public void addRecipes(CraftingManager craftingmanager) {
++        craftingmanager.addRecipe(new ItemStack(Block.crate), new Object[]{
++                "###", "# #", "###", Character.valueOf('#'), Block.planks
++        });
++        craftingmanager.addRecipe(new ItemStack(Block.stoneOvenIdle), new Object[]{
++                "###", "# #", "###", Character.valueOf('#'), Block.cobblestone
++        });
++        craftingmanager.addRecipe(new ItemStack(Block.workbench), new Object[]{
++                "##", "##", Character.valueOf('#'), Block.planks
++        });
+     }
+ }

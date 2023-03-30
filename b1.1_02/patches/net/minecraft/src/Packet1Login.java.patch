@@ -1,0 +1,69 @@
+--- net/minecraft/src/Packet1Login.java
++++ net/minecraft/src/Packet1Login.java
+@@ -5,6 +5,7 @@
+ import java.io.IOException;
+ 
+ public class Packet1Login extends Packet {
++
+     public int protocolVersion;
+     public String username;
+     public String password;
+@@ -14,33 +15,33 @@
+     public Packet1Login() {
+     }
+ 
+-    public Packet1Login(String var1, String var2, int var3) {
+-        this.username = var1;
+-        this.password = var2;
+-        this.protocolVersion = var3;
+-    }
+-
+-    public void readPacketData(DataInputStream var1) throws IOException {
+-        this.protocolVersion = var1.readInt();
+-        this.username = var1.readUTF();
+-        this.password = var1.readUTF();
+-        this.field_4074_d = var1.readLong();
+-        this.field_4073_e = var1.readByte();
+-    }
+-
+-    public void writePacketData(DataOutputStream var1) throws IOException {
+-        var1.writeInt(this.protocolVersion);
+-        var1.writeUTF(this.username);
+-        var1.writeUTF(this.password);
+-        var1.writeLong(this.field_4074_d);
+-        var1.writeByte(this.field_4073_e);
+-    }
+-
+-    public void processPacket(NetHandler var1) {
+-        var1.handleLogin(this);
++    public Packet1Login(String s, String s1, int i) {
++        username = s;
++        password = s1;
++        protocolVersion = i;
++    }
++
++    public void readPacketData(DataInputStream datainputstream) throws IOException {
++        protocolVersion = datainputstream.readInt();
++        username = datainputstream.readUTF();
++        password = datainputstream.readUTF();
++        field_4074_d = datainputstream.readLong();
++        field_4073_e = datainputstream.readByte();
++    }
++
++    public void writePacketData(DataOutputStream dataoutputstream) throws IOException {
++        dataoutputstream.writeInt(protocolVersion);
++        dataoutputstream.writeUTF(username);
++        dataoutputstream.writeUTF(password);
++        dataoutputstream.writeLong(field_4074_d);
++        dataoutputstream.writeByte(field_4073_e);
++    }
++
++    public void processPacket(NetHandler nethandler) {
++        nethandler.handleLogin(this);
+     }
+ 
+     public int getPacketSize() {
+-        return 4 + this.username.length() + this.password.length() + 4 + 5;
++        return 4 + username.length() + password.length() + 4 + 5;
+     }
+ }

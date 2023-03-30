@@ -1,0 +1,25 @@
+--- net/minecraft/src/WorldIso.java
++++ net/minecraft/src/WorldIso.java
+@@ -3,14 +3,15 @@
+ import java.io.File;
+ 
+ class WorldIso extends World {
+-    final CanvasIsomPreview A;
+-
+-    WorldIso(CanvasIsomPreview var1, File var2, String var3) {
+-        super(var2, var3);
+-        this.A = var1;
++
++    final CanvasIsomPreview field_1051_z; /* synthetic field */
++
++    WorldIso(CanvasIsomPreview canvasisompreview, File file, String s) {
++        super(file, s);
++        field_1051_z = canvasisompreview;
+     }
+ 
+-    protected IChunkProvider func_4081_a(File var1) {
+-        return new ChunkProviderIso(this, new ChunkLoader(var1, false));
++    protected IChunkProvider func_4081_a(File file) {
++        return new ChunkProviderIso(this, new ChunkLoader(file, false));
+     }
+ }

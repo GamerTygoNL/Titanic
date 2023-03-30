@@ -1,0 +1,10 @@
+--- net/minecraft/src/MobSpawnerDesert.java
++++ net/minecraft/src/MobSpawnerDesert.java
+@@ -1,4 +1,7 @@
+ package net.minecraft.src;
+ 
+ public class MobSpawnerDesert extends MobSpawnerBase {
++
++    public MobSpawnerDesert() {
++    }
+ }

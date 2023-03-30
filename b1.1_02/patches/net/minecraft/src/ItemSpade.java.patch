@@ -1,0 +1,34 @@
+--- net/minecraft/src/ItemSpade.java
++++ net/minecraft/src/ItemSpade.java
+@@ -1,13 +1,23 @@
+ package net.minecraft.src;
+ 
+ public class ItemSpade extends ItemTool {
+-    private static Block[] blocksEffectiveAgainst = new Block[]{Block.grass, Block.dirt, Block.sand, Block.gravel, Block.snow, Block.blockSnow, Block.blockClay};
+-
+-    public ItemSpade(int var1, int var2) {
+-        super(var1, 1, var2, blocksEffectiveAgainst);
+-    }
+-
+-    public boolean canHarvestBlock(Block var1) {
+-        return var1 == Block.snow ? true : var1 == Block.blockSnow;
++
++    private static final Block[] blocksEffectiveAgainst;
++
++    static {
++        blocksEffectiveAgainst = (new Block[]{
++                Block.grass, Block.dirt, Block.sand, Block.gravel, Block.snow, Block.blockSnow, Block.blockClay
++        });
++    }
++
++    public ItemSpade(int i, int j) {
++        super(i, 1, j, blocksEffectiveAgainst);
++    }
++
++    public boolean canHarvestBlock(Block block) {
++        if (block == Block.snow) {
++            return true;
++        }
++        return block == Block.blockSnow;
+     }
+ }

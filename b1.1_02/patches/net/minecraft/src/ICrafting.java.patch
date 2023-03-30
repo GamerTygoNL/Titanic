@@ -1,0 +1,14 @@
+--- net/minecraft/src/ICrafting.java
++++ net/minecraft/src/ICrafting.java
+@@ -1,7 +1,8 @@
+ package net.minecraft.src;
+ 
+ public interface ICrafting {
+-    void func_20159_a(CraftingInventoryCB var1, int var2, ItemStack var3);
+-
+-    void func_20158_a(CraftingInventoryCB var1, int var2, int var3);
++
++    public abstract void func_20159_a(CraftingInventoryCB craftinginventorycb, int i, ItemStack itemstack);
++
++    public abstract void func_20158_a(CraftingInventoryCB craftinginventorycb, int i, int j);
+ }

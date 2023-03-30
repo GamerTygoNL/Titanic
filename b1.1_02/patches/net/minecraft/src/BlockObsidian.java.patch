@@ -1,0 +1,23 @@
+--- net/minecraft/src/BlockObsidian.java
++++ net/minecraft/src/BlockObsidian.java
+@@ -3,15 +3,16 @@
+ import java.util.Random;
+ 
+ public class BlockObsidian extends BlockStone {
+-    public BlockObsidian(int var1, int var2) {
+-        super(var1, var2);
++
++    public BlockObsidian(int i, int j) {
++        super(i, j);
+     }
+ 
+-    public int quantityDropped(Random var1) {
++    public int quantityDropped(Random random) {
+         return 1;
+     }
+ 
+-    public int idDropped(int var1, Random var2) {
++    public int idDropped(int i, Random random) {
+         return Block.obsidian.blockID;
+     }
+ }

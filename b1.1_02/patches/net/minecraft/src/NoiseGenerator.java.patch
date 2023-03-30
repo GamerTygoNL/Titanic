@@ -1,0 +1,10 @@
+--- net/minecraft/src/NoiseGenerator.java
++++ net/minecraft/src/NoiseGenerator.java
+@@ -1,4 +1,7 @@
+ package net.minecraft.src;
+ 
+ public abstract class NoiseGenerator {
++
++    public NoiseGenerator() {
++    }
+ }

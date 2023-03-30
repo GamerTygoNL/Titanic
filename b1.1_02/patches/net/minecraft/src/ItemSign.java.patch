@@ -1,0 +1,98 @@
+--- net/minecraft/src/ItemSign.java
++++ net/minecraft/src/ItemSign.java
+@@ -1,55 +1,48 @@
+ package net.minecraft.src;
+ 
+ public class ItemSign extends Item {
+-    public ItemSign(int var1) {
+-        super(var1);
+-        this.maxDamage = 64;
+-        this.maxStackSize = 1;
++
++    public ItemSign(int i) {
++        super(i);
++        maxDamage = 64;
++        maxStackSize = 1;
+     }
+ 
+-    public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
+-        if(var7 == 0) {
+-            return false;
+-        } else if(!var3.getBlockMaterial(var4, var5, var6).func_878_a()) {
+-            return false;
++    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
++        if (l == 0) {
++            return false;
++        }
++        if (!world.getBlockMaterial(i, j, k).func_878_a()) {
++            return false;
++        }
++        if (l == 1) {
++            j++;
++        }
++        if (l == 2) {
++            k--;
++        }
++        if (l == 3) {
++            k++;
++        }
++        if (l == 4) {
++            i--;
++        }
++        if (l == 5) {
++            i++;
++        }
++        if (!Block.signPost.canPlaceBlockAt(world, i, j, k)) {
++            return false;
++        }
++        if (l == 1) {
++            world.setBlockAndMetadataWithNotify(i, j, k, Block.signPost.blockID, MathHelper.floor_double((double) (((entityplayer.rotationYaw + 180F) * 16F) / 360F) + 0.5D) & 0xf);
+         } else {
+-            if(var7 == 1) {
+-                ++var5;
+-            }
+-
+-            if(var7 == 2) {
+-                --var6;
+-            }
+-
+-            if(var7 == 3) {
+-                ++var6;
+-            }
+-
+-            if(var7 == 4) {
+-                --var4;
+-            }
+-
+-            if(var7 == 5) {
+-                ++var4;
+-            }
+-
+-            if(!Block.signPost.canPlaceBlockAt(var3, var4, var5, var6)) {
+-                return false;
+-            } else {
+-                if(var7 == 1) {
+-                    var3.setBlockAndMetadataWithNotify(var4, var5, var6, Block.signPost.blockID, MathHelper.floor_double((double)((var2.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
+-                } else {
+-                    var3.setBlockAndMetadataWithNotify(var4, var5, var6, Block.signWall.blockID, var7);
+-                }
+-
+-                --var1.stackSize;
+-                TileEntitySign var8 = (TileEntitySign)var3.getBlockTileEntity(var4, var5, var6);
+-                if(var8 != null) {
+-                    var2.displayGUIEditSign(var8);
+-                }
+-
+-                return true;
+-            }
+-        }
++            world.setBlockAndMetadataWithNotify(i, j, k, Block.signWall.blockID, l);
++        }
++        itemstack.stackSize--;
++        TileEntitySign tileentitysign = (TileEntitySign) world.getBlockTileEntity(i, j, k);
++        if (tileentitysign != null) {
++            entityplayer.displayGUIEditSign(tileentitysign);
++        }
++        return true;
+     }
+ }

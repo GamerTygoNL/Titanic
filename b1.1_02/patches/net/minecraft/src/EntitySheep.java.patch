@@ -1,0 +1,70 @@
+--- net/minecraft/src/EntitySheep.java
++++ net/minecraft/src/EntitySheep.java
+@@ -1,38 +1,39 @@
+ package net.minecraft.src;
+ 
+ public class EntitySheep extends EntityAnimals {
+-    public boolean sheared = false;
+-
+-    public EntitySheep(World var1) {
+-        super(var1);
+-        this.texture = "/mob/sheep.png";
+-        this.setSize(0.9F, 1.3F);
++
++    public boolean sheared;
++
++    public EntitySheep(World world) {
++        super(world);
++        sheared = false;
++        texture = "/mob/sheep.png";
++        setSize(0.9F, 1.3F);
+     }
+ 
+-    public boolean attackEntityFrom(Entity var1, int var2) {
+-        if(!this.worldObj.multiplayerWorld && !this.sheared && var1 instanceof EntityLiving) {
+-            this.sheared = true;
+-            int var3 = 1 + this.rand.nextInt(3);
+-
+-            for(int var4 = 0; var4 < var3; ++var4) {
+-                EntityItem var5 = this.dropItemWithOffset(Block.cloth.blockID, 1, 1.0F);
+-                var5.motionY += (double)(this.rand.nextFloat() * 0.05F);
+-                var5.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+-                var5.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
++    public boolean attackEntityFrom(Entity entity, int i) {
++        if (!worldObj.multiplayerWorld && !sheared && (entity instanceof EntityLiving)) {
++            sheared = true;
++            int j = 1 + rand.nextInt(3);
++            for (int k = 0; k < j; k++) {
++                EntityItem entityitem = dropItemWithOffset(Block.cloth.blockID, 1, 1.0F);
++                entityitem.motionY += rand.nextFloat() * 0.05F;
++                entityitem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
++                entityitem.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+             }
++
+         }
+-
+-        return super.attackEntityFrom(var1, var2);
+-    }
+-
+-    public void writeEntityToNBT(NBTTagCompound var1) {
+-        super.writeEntityToNBT(var1);
+-        var1.setBoolean("Sheared", this.sheared);
+-    }
+-
+-    public void readEntityFromNBT(NBTTagCompound var1) {
+-        super.readEntityFromNBT(var1);
+-        this.sheared = var1.getBoolean("Sheared");
++        return super.attackEntityFrom(entity, i);
++    }
++
++    public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
++        super.writeEntityToNBT(nbttagcompound);
++        nbttagcompound.setBoolean("Sheared", sheared);
++    }
++
++    public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
++        super.readEntityFromNBT(nbttagcompound);
++        sheared = nbttagcompound.getBoolean("Sheared");
+     }
+ 
+     protected String getLivingSound() {

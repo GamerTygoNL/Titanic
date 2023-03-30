@@ -1,0 +1,42 @@
+--- net/minecraft/src/RecipesIngots.java
++++ net/minecraft/src/RecipesIngots.java
+@@ -1,14 +1,31 @@
+ package net.minecraft.src;
+ 
+ public class RecipesIngots {
+-    private Object[][] recipeItems = new Object[][]{{Block.blockGold, Item.ingotGold}, {Block.blockSteel, Item.ingotIron}, {Block.blockDiamond, Item.diamond}};
+-
+-    public void addRecipes(CraftingManager var1) {
+-        for(int var2 = 0; var2 < this.recipeItems.length; ++var2) {
+-            Block var3 = (Block)this.recipeItems[var2][0];
+-            Item var4 = (Item)this.recipeItems[var2][1];
+-            var1.addRecipe(new ItemStack(var3), new Object[]{"###", "###", "###", Character.valueOf('#'), var4});
+-            var1.addRecipe(new ItemStack(var4, 9), new Object[]{"#", Character.valueOf('#'), var3});
++
++    private Object recipeItems[][];
++
++    public RecipesIngots() {
++        recipeItems = (new Object[][]{
++                new Object[]{
++                        Block.blockGold, Item.ingotGold
++                }, new Object[]{
++                Block.blockSteel, Item.ingotIron
++        }, new Object[]{
++                Block.blockDiamond, Item.diamond
++        }
++        });
++    }
++
++    public void addRecipes(CraftingManager craftingmanager) {
++        for (int i = 0; i < recipeItems.length; i++) {
++            Block block = (Block) recipeItems[i][0];
++            Item item = (Item) recipeItems[i][1];
++            craftingmanager.addRecipe(new ItemStack(block), new Object[]{
++                    "###", "###", "###", Character.valueOf('#'), item
++            });
++            craftingmanager.addRecipe(new ItemStack(item, 9), new Object[]{
++                    "#", Character.valueOf('#'), block
++            });
+         }
+ 
+     }

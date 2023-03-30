@@ -1,0 +1,246 @@
+--- net/minecraft/src/TextureCompassFX.java
++++ net/minecraft/src/TextureCompassFX.java
+@@ -1,141 +1,119 @@
+ package net.minecraft.src;
+ 
++import net.minecraft.client.Minecraft;
++
++import javax.imageio.ImageIO;
+ import java.awt.image.BufferedImage;
+ import java.io.IOException;
+-import javax.imageio.ImageIO;
+-import net.minecraft.client.Minecraft;
+ 
+ public class TextureCompassFX extends TextureFX {
++
+     private Minecraft mc;
+-    private int[] field_4230_h = new int[256];
++    private int field_4230_h[];
+     private double field_4229_i;
+     private double field_4228_j;
+-
+-    public TextureCompassFX(Minecraft var1) {
+-        super(Item.compass.getIconIndex((ItemStack)null));
+-        this.mc = var1;
+-        this.field_1128_f = 1;
+-
++    public TextureCompassFX(Minecraft minecraft) {
++        super(Item.compass.getIconIndex(null));
++        field_4230_h = new int[256];
++        mc = minecraft;
++        field_1128_f = 1;
+         try {
+-            BufferedImage var2 = ImageIO.read(Minecraft.class.getResource("/gui/items.png"));
+-            int var3 = this.field_1126_b % 16 * 16;
+-            int var4 = this.field_1126_b / 16 * 16;
+-            var2.getRGB(var3, var4, 16, 16, this.field_4230_h, 0, 16);
+-        } catch (IOException var5) {
+-            var5.printStackTrace();
++            BufferedImage bufferedimage = ImageIO.read((net.minecraft.client.Minecraft.class).getResource("/gui/items.png"));
++            int i = (field_1126_b % 16) * 16;
++            int j = (field_1126_b / 16) * 16;
++            bufferedimage.getRGB(i, j, 16, 16, field_4230_h, 0, 16);
++        } catch (IOException ioexception) {
++            ioexception.printStackTrace();
+         }
+-
+     }
+ 
+     public void func_783_a() {
+-        for(int var1 = 0; var1 < 256; ++var1) {
+-            int var2 = this.field_4230_h[var1] >> 24 & 255;
+-            int var3 = this.field_4230_h[var1] >> 16 & 255;
+-            int var4 = this.field_4230_h[var1] >> 8 & 255;
+-            int var5 = this.field_4230_h[var1] >> 0 & 255;
+-            if(this.field_1131_c) {
+-                int var6 = (var3 * 30 + var4 * 59 + var5 * 11) / 100;
+-                int var7 = (var3 * 30 + var4 * 70) / 100;
+-                int var8 = (var3 * 30 + var5 * 70) / 100;
+-                var3 = var6;
+-                var4 = var7;
+-                var5 = var8;
+-            }
+-
+-            this.field_1127_a[var1 * 4 + 0] = (byte)var3;
+-            this.field_1127_a[var1 * 4 + 1] = (byte)var4;
+-            this.field_1127_a[var1 * 4 + 2] = (byte)var5;
+-            this.field_1127_a[var1 * 4 + 3] = (byte)var2;
+-        }
+-
+-        double var20 = 0.0D;
+-        double var21;
+-        double var22;
+-        if(this.mc.theWorld != null && this.mc.thePlayer != null) {
+-            var21 = (double)this.mc.theWorld.spawnX - this.mc.thePlayer.posX;
+-            var22 = (double)this.mc.theWorld.spawnZ - this.mc.thePlayer.posZ;
+-            var20 = (double)(this.mc.thePlayer.rotationYaw - 90.0F) * Math.PI / 180.0D - Math.atan2(var22, var21);
+-            if(this.mc.theWorld.worldProvider.field_4220_c) {
+-                var20 = Math.random() * (double)((float)Math.PI) * 2.0D;
+-            }
+-        }
+-
+-        for(var21 = var20 - this.field_4229_i; var21 < -Math.PI; var21 += Math.PI * 2.0D) {
+-        }
+-
+-        while(var21 >= Math.PI) {
+-            var21 -= Math.PI * 2.0D;
+-        }
+-
+-        if(var21 < -1.0D) {
+-            var21 = -1.0D;
+-        }
+-
+-        if(var21 > 1.0D) {
+-            var21 = 1.0D;
+-        }
+-
+-        this.field_4228_j += var21 * 0.1D;
+-        this.field_4228_j *= 0.8D;
+-        this.field_4229_i += this.field_4228_j;
+-        var22 = Math.sin(this.field_4229_i);
+-        double var23 = Math.cos(this.field_4229_i);
+-
+-        int var9;
+-        int var10;
+-        int var11;
+-        int var12;
+-        int var13;
+-        int var14;
+-        int var15;
+-        short var16;
+-        int var17;
+-        int var18;
+-        int var19;
+-        for(var9 = -4; var9 <= 4; ++var9) {
+-            var10 = (int)(8.5D + var23 * (double)var9 * 0.3D);
+-            var11 = (int)(7.5D - var22 * (double)var9 * 0.3D * 0.5D);
+-            var12 = var11 * 16 + var10;
+-            var13 = 100;
+-            var14 = 100;
+-            var15 = 100;
+-            var16 = 255;
+-            if(this.field_1131_c) {
+-                var17 = (var13 * 30 + var14 * 59 + var15 * 11) / 100;
+-                var18 = (var13 * 30 + var14 * 70) / 100;
+-                var19 = (var13 * 30 + var15 * 70) / 100;
+-                var13 = var17;
+-                var14 = var18;
+-                var15 = var19;
+-            }
+-
+-            this.field_1127_a[var12 * 4 + 0] = (byte)var13;
+-            this.field_1127_a[var12 * 4 + 1] = (byte)var14;
+-            this.field_1127_a[var12 * 4 + 2] = (byte)var15;
+-            this.field_1127_a[var12 * 4 + 3] = (byte)var16;
+-        }
+-
+-        for(var9 = -8; var9 <= 16; ++var9) {
+-            var10 = (int)(8.5D + var22 * (double)var9 * 0.3D);
+-            var11 = (int)(7.5D + var23 * (double)var9 * 0.3D * 0.5D);
+-            var12 = var11 * 16 + var10;
+-            var13 = var9 >= 0 ? 255 : 100;
+-            var14 = var9 >= 0 ? 20 : 100;
+-            var15 = var9 >= 0 ? 20 : 100;
+-            var16 = 255;
+-            if(this.field_1131_c) {
+-                var17 = (var13 * 30 + var14 * 59 + var15 * 11) / 100;
+-                var18 = (var13 * 30 + var14 * 70) / 100;
+-                var19 = (var13 * 30 + var15 * 70) / 100;
+-                var13 = var17;
+-                var14 = var18;
+-                var15 = var19;
+-            }
+-
+-            this.field_1127_a[var12 * 4 + 0] = (byte)var13;
+-            this.field_1127_a[var12 * 4 + 1] = (byte)var14;
+-            this.field_1127_a[var12 * 4 + 2] = (byte)var15;
+-            this.field_1127_a[var12 * 4 + 3] = (byte)var16;
++        for (int i = 0; i < 256; i++) {
++            int j = field_4230_h[i] >> 24 & 0xff;
++            int k = field_4230_h[i] >> 16 & 0xff;
++            int l = field_4230_h[i] >> 8 & 0xff;
++            int i1 = field_4230_h[i] >> 0 & 0xff;
++            if (field_1131_c) {
++                int j1 = (k * 30 + l * 59 + i1 * 11) / 100;
++                int k1 = (k * 30 + l * 70) / 100;
++                int l1 = (k * 30 + i1 * 70) / 100;
++                k = j1;
++                l = k1;
++                i1 = l1;
++            }
++            field_1127_a[i * 4 + 0] = (byte) k;
++            field_1127_a[i * 4 + 1] = (byte) l;
++            field_1127_a[i * 4 + 2] = (byte) i1;
++            field_1127_a[i * 4 + 3] = (byte) j;
++        }
++
++        double d = 0.0D;
++        if (mc.theWorld != null && mc.thePlayer != null) {
++            double d1 = (double) mc.theWorld.spawnX - mc.thePlayer.posX;
++            double d3 = (double) mc.theWorld.spawnZ - mc.thePlayer.posZ;
++            d = ((double) (mc.thePlayer.rotationYaw - 90F) * 3.1415926535897931D) / 180D - Math.atan2(d3, d1);
++            if (mc.theWorld.worldProvider.field_4220_c) {
++                d = Math.random() * 3.1415927410125732D * 2D;
++            }
++        }
++        double d2;
++        for (d2 = d - field_4229_i; d2 < -3.1415926535897931D; d2 += 6.2831853071795862D) {
++        }
++        for (; d2 >= 3.1415926535897931D; d2 -= 6.2831853071795862D) {
++        }
++        if (d2 < -1D) {
++            d2 = -1D;
++        }
++        if (d2 > 1.0D) {
++            d2 = 1.0D;
++        }
++        field_4228_j += d2 * 0.10000000000000001D;
++        field_4228_j *= 0.80000000000000004D;
++        field_4229_i += field_4228_j;
++        double d4 = Math.sin(field_4229_i);
++        double d5 = Math.cos(field_4229_i);
++        for (int i2 = -4; i2 <= 4; i2++) {
++            int k2 = (int) (8.5D + d5 * (double) i2 * 0.29999999999999999D);
++            int i3 = (int) (7.5D - d4 * (double) i2 * 0.29999999999999999D * 0.5D);
++            int k3 = i3 * 16 + k2;
++            int i4 = 100;
++            int k4 = 100;
++            int i5 = 100;
++            char c = '\377';
++            if (field_1131_c) {
++                int k5 = (i4 * 30 + k4 * 59 + i5 * 11) / 100;
++                int i6 = (i4 * 30 + k4 * 70) / 100;
++                int k6 = (i4 * 30 + i5 * 70) / 100;
++                i4 = k5;
++                k4 = i6;
++                i5 = k6;
++            }
++            field_1127_a[k3 * 4 + 0] = (byte) i4;
++            field_1127_a[k3 * 4 + 1] = (byte) k4;
++            field_1127_a[k3 * 4 + 2] = (byte) i5;
++            field_1127_a[k3 * 4 + 3] = (byte) c;
++        }
++
++        for (int j2 = -8; j2 <= 16; j2++) {
++            int l2 = (int) (8.5D + d4 * (double) j2 * 0.29999999999999999D);
++            int j3 = (int) (7.5D + d5 * (double) j2 * 0.29999999999999999D * 0.5D);
++            int l3 = j3 * 16 + l2;
++            int j4 = j2 < 0 ? 100 : 255;
++            int l4 = j2 < 0 ? 100 : 20;
++            int j5 = j2 < 0 ? 100 : 20;
++            char c1 = '\377';
++            if (field_1131_c) {
++                int l5 = (j4 * 30 + l4 * 59 + j5 * 11) / 100;
++                int j6 = (j4 * 30 + l4 * 70) / 100;
++                int l6 = (j4 * 30 + j5 * 70) / 100;
++                j4 = l5;
++                l4 = j6;
++                j5 = l6;
++            }
++            field_1127_a[l3 * 4 + 0] = (byte) j4;
++            field_1127_a[l3 * 4 + 1] = (byte) l4;
++            field_1127_a[l3 * 4 + 2] = (byte) j5;
++            field_1127_a[l3 * 4 + 3] = (byte) c1;
+         }
+ 
+     }

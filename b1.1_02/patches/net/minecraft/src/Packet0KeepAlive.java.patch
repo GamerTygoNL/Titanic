@@ -1,0 +1,27 @@
+--- net/minecraft/src/Packet0KeepAlive.java
++++ net/minecraft/src/Packet0KeepAlive.java
+@@ -5,13 +5,17 @@
+ import java.io.IOException;
+ 
+ public class Packet0KeepAlive extends Packet {
+-    public void processPacket(NetHandler var1) {
+-    }
+-
+-    public void readPacketData(DataInputStream var1) throws IOException {
+-    }
+-
+-    public void writePacketData(DataOutputStream var1) throws IOException {
++
++    public Packet0KeepAlive() {
++    }
++
++    public void processPacket(NetHandler nethandler) {
++    }
++
++    public void readPacketData(DataInputStream datainputstream) throws IOException {
++    }
++
++    public void writePacketData(DataOutputStream dataoutputstream) throws IOException {
+     }
+ 
+     public int getPacketSize() {

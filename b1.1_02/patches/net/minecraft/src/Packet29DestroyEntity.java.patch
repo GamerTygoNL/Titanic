@@ -1,0 +1,35 @@
+--- net/minecraft/src/Packet29DestroyEntity.java
++++ net/minecraft/src/Packet29DestroyEntity.java
+@@ -5,18 +5,22 @@
+ import java.io.IOException;
+ 
+ public class Packet29DestroyEntity extends Packet {
++
+     public int entityId;
+ 
+-    public void readPacketData(DataInputStream var1) throws IOException {
+-        this.entityId = var1.readInt();
+-    }
+-
+-    public void writePacketData(DataOutputStream var1) throws IOException {
+-        var1.writeInt(this.entityId);
+-    }
+-
+-    public void processPacket(NetHandler var1) {
+-        var1.handleDestroyEntity(this);
++    public Packet29DestroyEntity() {
++    }
++
++    public void readPacketData(DataInputStream datainputstream) throws IOException {
++        entityId = datainputstream.readInt();
++    }
++
++    public void writePacketData(DataOutputStream dataoutputstream) throws IOException {
++        dataoutputstream.writeInt(entityId);
++    }
++
++    public void processPacket(NetHandler nethandler) {
++        nethandler.handleDestroyEntity(this);
+     }
+ 
+     public int getPacketSize() {

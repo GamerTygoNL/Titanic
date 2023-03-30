@@ -1,0 +1,38 @@
+--- net/minecraft/src/IInventory.java
++++ net/minecraft/src/IInventory.java
+@@ -1,19 +1,20 @@
+ package net.minecraft.src;
+ 
+ public interface IInventory {
+-    int getSizeInventory();
+-
+-    ItemStack getStackInSlot(int var1);
+-
+-    ItemStack decrStackSize(int var1, int var2);
+-
+-    void setInventorySlotContents(int var1, ItemStack var2);
+-
+-    String getInvName();
+-
+-    int getInventoryStackLimit();
+-
+-    void onInventoryChanged();
+-
+-    boolean func_20070_a_(EntityPlayer var1);
++
++    public abstract int getSizeInventory();
++
++    public abstract ItemStack getStackInSlot(int i);
++
++    public abstract ItemStack decrStackSize(int i, int j);
++
++    public abstract void setInventorySlotContents(int i, ItemStack itemstack);
++
++    public abstract String getInvName();
++
++    public abstract int getInventoryStackLimit();
++
++    public abstract void onInventoryChanged();
++
++    public abstract boolean func_20070_a_(EntityPlayer entityplayer);
+ }
