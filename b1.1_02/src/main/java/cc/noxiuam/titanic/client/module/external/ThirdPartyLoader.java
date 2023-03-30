@@ -2,6 +2,7 @@ package cc.noxiuam.titanic.client.module.external;
 
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.Titanic;
+import cc.noxiuam.titanic.client.ui.module.external.ThirdPartyOpenMenu;
 import cc.noxiuam.titanic.client.util.Logger;
 import cc.noxiuam.titanic.client.util.chat.ChatUtil;
 import cc.noxiuam.titanic.client.util.zip.ZipUtil;
@@ -9,6 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.io.*;
@@ -25,6 +27,24 @@ public class ThirdPartyLoader {
 
     private final List<ThirdPartyModule> thirdPartyModules = new CopyOnWriteArrayList<>();
     private int totalModsDownloaded = 0;
+
+    @Setter private boolean locked;
+
+    @SneakyThrows
+    public ThirdPartyLoader() {
+        File thirdPartyIndex = Ref.getConfigManager().getThirdPartyIndex();
+        JsonParser parser = new JsonParser();
+
+        try {
+            parser.parse(new FileReader(thirdPartyIndex)).getAsJsonObject();
+        } catch (IllegalStateException ignored) {
+            return;
+        }
+
+        JsonObject indexObject = parser.parse(new FileReader(thirdPartyIndex)).getAsJsonObject();
+
+        this.locked = indexObject.get("locked") != null && indexObject.get("locked").getAsBoolean();
+    }
 
     public void load() {
         new Thread(() -> {
@@ -46,6 +66,7 @@ public class ThirdPartyLoader {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         JsonObject remoteIndex = new JsonParser().parse(br).getAsJsonObject();
+        remoteIndex.addProperty("locked", this.locked);
 
         FileWriter thirdParty = new FileWriter(Ref.getConfigManager().getThirdPartyIndex());
         thirdParty.write(Ref.getConfigManager().beautifyJson(remoteIndex));
@@ -69,6 +90,10 @@ public class ThirdPartyLoader {
         JsonObject indexObject = parser.parse(new FileReader(thirdPartyIndex)).getAsJsonObject();
 
         for (Map.Entry<String, JsonElement> entry : indexObject.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase("locked")) {
+                continue;
+            }
+
             JsonObject modObject = entry.getValue().getAsJsonObject();
 
             String name = modObject.get("name").getAsString();
@@ -202,6 +227,10 @@ public class ThirdPartyLoader {
     @SneakyThrows
     private void executeMod(ThirdPartyModule module) {
         ChatUtil.addChatMessage("Starting " + module.getName() + "...");
+
+        if (this.locked) {
+            Ref.getMinecraft().displayGuiScreen(new ThirdPartyOpenMenu());
+        }
 
         Runtime.getRuntime().exec(
                 module.getExecuteCommand()

@@ -28,7 +28,18 @@
      long prevFrameTime = -1L;
      public boolean field_6289_L = false;
      private int field_6302_aa = 0;
-@@ -213,7 +223,7 @@
+@@ -139,7 +149,10 @@
+     long systemTime = System.currentTimeMillis();
+     private int field_6300_ab = 0;
+ 
++    public static Minecraft theMinecraft;
++
+     public Minecraft(Component var1, Canvas var2, MinecraftApplet var3, int var4, int var5, boolean var6) {
++        theMinecraft = this;
+         this.field_9235_U = var5;
+         this.a = var6;
+         this.mcApplet = var3;
+@@ -213,7 +226,7 @@
          } catch (Exception var4) {
              var4.printStackTrace();
          }
@@ -37,7 +48,18 @@
          this.checkGLError("Pre startup");
          GL11.glEnable(GL11.GL_TEXTURE_2D);
          GL11.glShadeModel(GL11.GL_SMOOTH);
-@@ -502,7 +512,10 @@
+@@ -315,6 +328,10 @@
+         return minecraftDir;
+     }
+ 
++    public static Minecraft getMinecraft() {
++        return theMinecraft;
++    }
++
+     public static File getAppDir(String var0) {
+         String var1 = System.getProperty("user.home", ".");
+         File var2;
+@@ -502,7 +519,10 @@
                          Thread.sleep(10L);
                      }
  
@@ -49,7 +71,7 @@
                          this.displayDebugInfo(var20);
                      } else {
                          this.prevFrameTime = System.nanoTime();
-@@ -643,13 +656,11 @@
+@@ -643,13 +663,11 @@
      }
  
      public void func_6259_e() {
@@ -68,7 +90,7 @@
          }
      }
  
-@@ -671,19 +682,17 @@
+@@ -671,19 +689,17 @@
      }
  
      private void func_6254_a(int var1, boolean var2) {
@@ -98,7 +120,7 @@
          }
      }
  
-@@ -862,6 +871,9 @@
+@@ -862,6 +878,9 @@
              this.displayGuiScreen((GuiScreen)null);
          }
  
@@ -108,7 +130,7 @@
          if(this.currentScreen != null) {
              this.field_6302_aa = this.ticksRan + 10000;
          }
-@@ -922,7 +934,10 @@
+@@ -922,7 +941,10 @@
                                                      this.forceReload();
                                                  }
  
@@ -120,7 +142,7 @@
                                                      this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
                                                  }
  
-@@ -935,7 +950,7 @@
+@@ -935,7 +957,7 @@
                                                  }
  
                                                  if(this.isMultiplayerWorld() && Keyboard.getEventKey() == this.gameSettings.keyBindChat.keyCode) {
@@ -129,7 +151,7 @@
                                                  }
                                              }
  
-@@ -957,8 +972,14 @@
+@@ -957,8 +979,14 @@
                          } while(var1 > 200L);
  
                          int var3 = Mouse.getEventDWheel();
@@ -145,7 +167,7 @@
                          }
  
                          if(this.currentScreen == null) {
-@@ -979,6 +1000,11 @@
+@@ -979,6 +1007,11 @@
                                      this.clickMiddleMouseButton();
                                  }
                              }
@@ -157,7 +179,7 @@
                          } else if(this.currentScreen != null) {
                              this.currentScreen.handleMouseInput();
                          }
-@@ -1096,6 +1122,9 @@
+@@ -1096,6 +1129,9 @@
      }
  
      public void changeWorld(World var1, String var2, EntityPlayer var3) {

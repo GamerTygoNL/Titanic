@@ -1,27 +1,21 @@
 package cc.noxiuam.titanic.client.ui.component.type.button;
 
-import cc.noxiuam.titanic.client.ui.component.AbstractComponent;
 import cc.noxiuam.titanic.client.ui.fade.impl.ColorFade;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
-import lombok.AllArgsConstructor;
 import org.lwjgl.opengl.GL11;
 
-@AllArgsConstructor
-public class RoundedIconButton extends AbstractComponent {
+public class LockButton extends RoundedIconButton {
 
-    public final ColorFade outlineColor = new ColorFade(0x00000000, 0xCCC2C2C2);
-    public final ColorFade backgroundColor = new ColorFade(0x80000000, 0xBF000000);
+    private final ColorFade lockedColor = new ColorFade(0x00000000, 0x50FC0303);
 
-    public String icon;
-    public boolean showBackground;
-    public float iconWidth;
-    public float iconHeight;
-    public float xOffset;
-    public float yOffset;
+    public boolean locked = false;
+
+    public LockButton() {
+        super("/titanic/lock.png", true, 11, 11, 4.5F, 4.5F);
+    }
 
     @Override
     public void draw(float x, float y) {
-
         if (this.showBackground) {
             RenderUtil.drawRoundedRect(
                     this.x,
@@ -29,17 +23,15 @@ public class RoundedIconButton extends AbstractComponent {
                     this.x + this.width,
                     this.y + this.height,
                     5,
-                    this.backgroundColor.getColor(mouseInside(x, y)).getRGB()
+                    this.backgroundColor.getColor(this.mouseInside(x, y)).getRGB()
             );
-
-            RenderUtil.drawRoundedOutline(
+            RenderUtil.drawRoundedRect(
                     this.x,
                     this.y,
                     this.x + this.width,
                     this.y + this.height,
-                    5.0F,
-                    3.0F,
-                    this.outlineColor.getColor(mouseInside(x, y)).getRGB()
+                    5,
+                    this.lockedColor.getColor(this.locked).getRGB()
             );
         }
 
@@ -51,7 +43,6 @@ public class RoundedIconButton extends AbstractComponent {
                 this.iconWidth,
                 this.iconHeight
         );
-
     }
 
 }

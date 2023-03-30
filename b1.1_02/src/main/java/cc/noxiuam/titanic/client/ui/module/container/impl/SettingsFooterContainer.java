@@ -1,5 +1,7 @@
 package cc.noxiuam.titanic.client.ui.module.container.impl;
 
+import cc.noxiuam.titanic.Ref;
+import cc.noxiuam.titanic.client.ui.component.type.button.LockButton;
 import cc.noxiuam.titanic.client.ui.component.type.button.RoundedIconButton;
 import cc.noxiuam.titanic.client.ui.module.container.AbstractContainer;
 import cc.noxiuam.titanic.client.util.sound.SoundUtil;
@@ -23,11 +25,14 @@ public class SettingsFooterContainer extends AbstractContainer {
             4.5F
     );
 
+    private final LockButton lockButton = new LockButton();
+
     private final ModuleListContainer container;
 
     public SettingsFooterContainer(ModuleListContainer container) {
         super("/settings/footer");
         this.container = container;
+        this.lockButton.locked = Ref.getModuleManager().getThirdPartyLoader().isLocked();
     }
 
     @Override
@@ -35,6 +40,10 @@ public class SettingsFooterContainer extends AbstractContainer {
         this.backButton.position(this.x, this.y + this.height);
         this.backButton.size(20, 20);
         this.backButton.draw(x, y);
+
+        this.lockButton.position(this.x + this.backButton.getWidth() + 5, this.y + this.height);
+        this.lockButton.size(20, 20);
+        this.lockButton.draw(x, y);
 
         this.closeButton.position(this.x + this.width - 20, this.y + this.height);
         this.closeButton.size(20, 20);
@@ -49,6 +58,10 @@ public class SettingsFooterContainer extends AbstractContainer {
         } else if (this.backButton.mouseInside(x, y)) {
             SoundUtil.playClick();
             this.container.setCurrentComponent(new ModuleListContainer());
+        } else if (this.lockButton.mouseInside(x, y)) {
+            SoundUtil.playClick();
+            this.lockButton.locked = !this.lockButton.locked;
+            Ref.getModuleManager().getThirdPartyLoader().setLocked(this.lockButton.locked);
         }
     }
 

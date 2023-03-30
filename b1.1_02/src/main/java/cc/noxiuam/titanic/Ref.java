@@ -39,10 +39,7 @@ public class Ref {
     }
 
     public Minecraft getMinecraft() {
-        return Titanic.getInstance()
-                .getBridge()
-                .getMinecraftBridge()
-                .bridge$getMinecraft();
+        return Minecraft.getMinecraft();
     }
 
 }
