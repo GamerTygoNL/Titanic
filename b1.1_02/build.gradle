@@ -47,8 +47,9 @@ jar {
 }
 
 sourceSets {
-	minecraft {
+	main {
 		java {
+			srcDir 'src/minecraft/java'
 		}
 	}
 }
