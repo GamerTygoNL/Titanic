@@ -25,7 +25,6 @@ public class TextBoxComponent extends AbstractComponent {
     public TextBoxComponent(StringSetting setting) {
         this.setting = setting;
         this.text = setting.value();
-        Keyboard.enableRepeatEvents(true);
     }
 
     @Override
