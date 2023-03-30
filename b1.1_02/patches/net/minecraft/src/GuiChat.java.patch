@@ -1,27 +1,18 @@
 --- net/minecraft/src/GuiChat.java
 +++ net/minecraft/src/GuiChat.java
-@@ -1,11 +1,30 @@
- package net.minecraft.src;
+@@ -2,11 +2,25 @@
+ 
+ import org.lwjgl.input.Keyboard;
  
 +import cc.noxiuam.titanic.Ref;
 +import cc.noxiuam.titanic.event.impl.gui.chat.ChatBackgroundDrawEvent;
 +import cc.noxiuam.titanic.event.impl.gui.chat.PreChatMessageUpdateEvent;
- import org.lwjgl.input.Keyboard;
- 
++
  public class GuiChat extends GuiScreen {
--    private String message = "";
--    private int updateCounter = 0;
--    private static final String field_20082_i = FontAllowedCharacters.field_20157_a;
-+
-+    private static final String field_20082_i;
-+
-+    static {
-+        field_20082_i = FontAllowedCharacters.field_20157_a;
-+    }
-+
-+    private String message;
-+    private int updateCounter;
-+
+     private String message = "";
+     private int updateCounter = 0;
+     private static final String field_20082_i = FontAllowedCharacters.field_20157_a;
+ 
 +    public GuiChat(boolean command) {
 +        message = "";
 +
@@ -31,109 +22,31 @@
 +
 +        updateCounter = 0;
 +    }
- 
++
      public void initGui() {
          Keyboard.enableRepeatEvents(true);
-@@ -16,48 +35,59 @@
      }
+@@ -39,10 +53,22 @@
+             }
  
-     public void updateScreen() {
--        ++this.updateCounter;
--    }
--
--    protected void keyTyped(char var1, int var2) {
--        if(var2 == 1) {
--            this.mc.displayGuiScreen((GuiScreen)null);
--        } else if(var2 == 28) {
--            String var3 = this.message.trim();
--            if(var3.length() > 0) {
--                this.mc.thePlayer.sendChatMessage(this.message.trim());
--            }
--
--            this.mc.displayGuiScreen((GuiScreen)null);
--        } else {
--            if(var2 == 14 && this.message.length() > 0) {
--                this.message = this.message.substring(0, this.message.length() - 1);
--            }
--
--            if(field_20082_i.indexOf(var1) >= 0 && this.message.length() < 100) {
--                this.message = this.message + var1;
--            }
--
--        }
--    }
--
--    public void drawScreen(int var1, int var2, float var3) {
--        this.drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
--        this.drawString(this.fontRenderer, "> " + this.message + (this.updateCounter / 6 % 2 == 0 ? "_" : ""), 4, this.height - 12, 14737632);
--    }
--
--    protected void mouseClicked(int var1, int var2, int var3) {
--        if(var3 == 0 && this.mc.ingameGUI.field_933_a != null) {
--            if(this.message.length() > 0 && !this.message.endsWith(" ")) {
--                this.message = this.message + " ";
--            }
--
--            this.message = this.message + this.mc.ingameGUI.field_933_a;
--            byte var4 = 100;
--            if(this.message.length() > var4) {
--                this.message = this.message.substring(0, var4);
--            }
--        }
--
-+        updateCounter++;
-+    }
+         }
 +
-+    protected void keyTyped(char c, int i) {
-+        if (i == 1) {
-+            mc.displayGuiScreen(null);
-+            return;
-+        }
-+        if (i == 28) {
-+            String s = message.trim();
-+            if (s.length() > 0) {
-+                mc.thePlayer.sendChatMessage(message.trim());
-+            }
-+            mc.displayGuiScreen(null);
-+            return;
-+        }
-+        if (i == 14 && message.length() > 0) {
-+            message = message.substring(0, message.length() - 1);
-+        }
-+        if (field_20082_i.indexOf(c) >= 0 && message.length() < 100) {
-+            message += c;
-+        }
-+
-+        PreChatMessageUpdateEvent event = new PreChatMessageUpdateEvent(i, message);
++        PreChatMessageUpdateEvent event = new PreChatMessageUpdateEvent(var2, message);
 +        Ref.getEventManager().handleEvent(event);
 +
 +        if (event.isCancelled()) {
 +            message = event.getMessage();
 +        }
-+    }
-+
-+    public void drawScreen(int i, int j, float f) {
-+
+     }
+ 
+     public void drawScreen(int var1, int var2, float var3) {
+-        this.drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
 +        ChatBackgroundDrawEvent chatBackgroundDrawEvent = new ChatBackgroundDrawEvent();
 +        Ref.getEventManager().handleEvent(chatBackgroundDrawEvent);
 +
 +        if (!chatBackgroundDrawEvent.isCancelled()) {
 +            drawRect(2, height - 14, width - 2, height - 2, 0x80000000);
 +        }
-+        drawString(fontRenderer, (new StringBuilder()).append("> ").append(message).append((updateCounter / 6) % 2 != 0 ? "" : "_").toString(), 4, height - 12, 0xe0e0e0);
-+    }
-+
-+    protected void mouseClicked(int i, int j, int k) {
-+        if (k != 0 || mc.ingameGUI.field_933_a == null) {
-+            return;
-+        }
-+        if (message.length() > 0 && !message.endsWith(" ")) {
-+            message += " ";
-+        }
-+        message += mc.ingameGUI.field_933_a;
-+        byte byte0 = 100;
-+        if (message.length() > byte0) {
-+            message = message.substring(0, byte0);
-+        }
+         this.drawString(this.fontRenderer, "> " + this.message + (this.updateCounter / 6 % 2 == 0 ? "_" : ""), 4, this.height - 12, 14737632);
      }
- }
+ 

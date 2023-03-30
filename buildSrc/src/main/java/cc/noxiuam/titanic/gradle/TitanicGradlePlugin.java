@@ -11,6 +11,7 @@ import cc.noxiuam.titanic.gradle.task.Diff;
 import cc.noxiuam.titanic.gradle.task.Patch;
 import cc.noxiuam.titanic.gradle.task.Setup;
 
+// nice MCP tools
 public class TitanicGradlePlugin implements Plugin<Project> {
 
     private Project project;
@@ -23,7 +24,7 @@ public class TitanicGradlePlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         if (this.project != null)
-            throw new IllegalStateException("owo");
+            throw new IllegalStateException("Can only be used on one project");
 
         this.project = project;
 
