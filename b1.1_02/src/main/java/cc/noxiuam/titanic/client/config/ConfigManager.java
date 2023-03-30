@@ -54,6 +54,7 @@ public class ConfigManager {
     public void saveConfigs() {
         if (isSetup()) {
             writeModsProfile();
+            Ref.getModuleManager().getThirdPartyLoader().writeLatestModInfo();
             for (AbstractModule module : Ref.getModuleManager().getMods()) {
                 module.writeModuleConfig();
             }
@@ -70,11 +71,9 @@ public class ConfigManager {
     @SneakyThrows
     private void writeModsProfile() {
         List<AbstractModule> modules = new ArrayList<>(Ref.getModuleManager().getMods());
-
         JsonObject configObj = new JsonObject();
 
         for (AbstractModule module : modules) {
-
             JsonObject modObj = new JsonObject();
             JsonObject info = new JsonObject();
             JsonObject settings = new JsonObject();
