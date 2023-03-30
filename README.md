@@ -13,23 +13,23 @@ No, we are in contact with server owners and plan to satisfy all rules.
 
 Titanic will come with a Bukkit API that will allow servers to stop the use of certain features on the server.
 
-# Gradle: The Build Tool Of Nightmares
+## Gradle: The Build Tool Of Nightmares
 
 `src/main/java` contains the client code; `src/minecraft/java` is for the modified game code and is ignored in favour of `patches`.
 
-## Setup
+### Setup
 Runs RetroMCP and and `patch`.
 ```
 ./gradlew setup
 ```
 
-## Patch
+### Patch
 Copies the source from MCP and applies the patches. This will override any changes made without `diff`!
 ```
 ./gradlew patch
 ```
 
-## Diff
+### Diff
 Generates the patches. Do this before you commit or stash otherwise your changes will be ignored!
 ```
 ./gradlew diff
