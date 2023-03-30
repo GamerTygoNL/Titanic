@@ -1,7 +1,12 @@
 package cc.noxiuam.titanic.gradle;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Comparator;
 
 import org.gradle.api.Action;
 import org.gradle.api.Task;
@@ -12,6 +17,9 @@ import org.mcphackers.mcp.tasks.Task.Side;
 import org.mcphackers.mcp.tasks.mode.TaskMode;
 import org.mcphackers.mcp.tasks.mode.TaskParameter;
 import org.mcphackers.mcp.tools.versions.json.Version;
+
+import codechicken.diffpatch.PatchOperation;
+import codechicken.diffpatch.util.PatchMode;
 
 public class Setup extends MCP implements Action<Task> {
 
@@ -28,10 +36,49 @@ public class Setup extends MCP implements Action<Task> {
 
     @Override
     public void execute(Task task) {
-        log("Downloading...");
-        performTask(TaskMode.SETUP, Side.CLIENT);
-        log("Decompiling...");
-        performTask(TaskMode.DECOMPILE, Side.CLIENT);
+        try {
+            log("Cleaning...");
+            clean();
+
+            log("Downloading...");
+            performTask(TaskMode.SETUP, Side.CLIENT);
+
+            log("Decompiling...");
+            performTask(TaskMode.DECOMPILE, Side.CLIENT);
+
+            log("Relocating...");
+            Path src = plugin.getMcpSrc();
+            Path dst = plugin.getMinecraftSrc();
+            for (Path file : Util.walk(src)) {
+                Path out = dst.resolve(src.relativize(file));
+
+                if (Files.exists(out)) {
+                    continue;
+                }
+
+                Files.copy(file, out);
+            }
+
+            log("Applying patches...");
+            PatchOperation.builder()
+                    .basePath(plugin.getMinecraftSrc())
+                    .patchesPath(plugin.getPatches())
+                    .outputPath(plugin.getMinecraftSrc())
+                    .mode(PatchMode.OFFSET)
+                    .build()
+                    .doPatch();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    private void clean() throws IOException {
+        Util.removeDirectory(getWorkingDir());
+        Util.removeDirectory(plugin.getMinecraftSrc());
+
+        // make sure git keeps it
+        Files.createDirectories(plugin.getMinecraftSrc());
+        Files.createFile(plugin.getMinecraftSrc().resolve(".gitkeep"));
     }
 
     @Override
@@ -49,7 +96,7 @@ public class Setup extends MCP implements Action<Task> {
 
     @Override
     public Path getWorkingDir() {
-        return plugin.getWork();
+        return plugin.getMcp();
     }
 
     @Override

@@ -11,26 +11,36 @@ public class TitanicGradlePlugin implements Plugin<Project> {
 
     private Project project;
     private String version;
-    private Path work;
+    private Path mcp;
+    private Path mcpSrc;
+    private Path patches;
+    private Path minecraftSrc;
 
     @Override
     public void apply(Project project) {
         if (this.project != null)
             throw new IllegalStateException("owo");
+
         this.project = project;
 
         version = project.property("minecraft_version").toString();
-        work = project.getProjectDir().toPath().resolve("mcp");
 
-        if (!Files.isDirectory(work)) {
+        Path projectDir = project.getProjectDir().toPath();
+        mcp = projectDir.resolve("mcp");
+        mcpSrc = mcp.resolve("minecraft/src");
+        patches = projectDir.resolve("patches");
+        minecraftSrc = projectDir.resolve("src/minecraft/java");
+
+        if (!Files.isDirectory(mcp)) {
             try {
-                Files.createDirectories(work);
+                Files.createDirectories(mcp);
             } catch (IOException error) {
                 throw new IllegalStateException(error);
             }
         }
 
         project.task("setup", task -> task.doLast(new Setup(this)));
+        project.task("updateDiff", task -> task.doLast(new UpdateDiff(this)));
     }
 
     public Project getProject() {
@@ -41,7 +51,19 @@ public class TitanicGradlePlugin implements Plugin<Project> {
         return version;
     }
 
-    public Path getWork() {
-        return work;
+    public Path getMcp() {
+        return mcp;
+    }
+
+    public Path getMcpSrc() {
+        return mcpSrc;
+    }
+
+    public Path getPatches() {
+        return patches;
+    }
+
+    public Path getMinecraftSrc() {
+        return minecraftSrc;
     }
 }

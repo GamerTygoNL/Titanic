@@ -42,8 +42,15 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": "net.minecraft.client.Minecraft"
+        attributes 'Main-Class': 'net.minecraft.client.Minecraft'
     }
+}
+
+sourceSets {
+	minecraft {
+		java {
+		}
+	}
 }
 
 build.dependsOn(shadowJar)
