@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.gradle;
+package cc.noxiuam.titanic.gradle.task;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import org.mcphackers.mcp.tasks.mode.TaskMode;
 import org.mcphackers.mcp.tasks.mode.TaskParameter;
 import org.mcphackers.mcp.tools.versions.json.Version;
 
+import cc.noxiuam.titanic.gradle.TitanicGradlePlugin;
+import cc.noxiuam.titanic.gradle.Util;
 import codechicken.diffpatch.PatchOperation;
 import codechicken.diffpatch.util.PatchMode;
 
@@ -38,47 +40,16 @@ public class Setup extends MCP implements Action<Task> {
     public void execute(Task task) {
         try {
             log("Cleaning...");
-            clean();
+            Util.removeDirectory(getWorkingDir());
 
             log("Downloading...");
             performTask(TaskMode.SETUP, Side.CLIENT);
 
             log("Decompiling...");
             performTask(TaskMode.DECOMPILE, Side.CLIENT);
-
-            log("Relocating...");
-            Path src = plugin.getMcpSrc();
-            Path dst = plugin.getMinecraftSrc();
-            for (Path file : Util.walk(src)) {
-                Path out = dst.resolve(src.relativize(file));
-
-                if (Files.exists(out)) {
-                    continue;
-                }
-
-                Files.copy(file, out);
-            }
-
-            log("Applying patches...");
-            PatchOperation.builder()
-                    .basePath(plugin.getMinecraftSrc())
-                    .patchesPath(plugin.getPatches())
-                    .outputPath(plugin.getMinecraftSrc())
-                    .mode(PatchMode.OFFSET)
-                    .build()
-                    .doPatch();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    private void clean() throws IOException {
-        Util.removeDirectory(getWorkingDir());
-        Util.removeDirectory(plugin.getMinecraftSrc());
-
-        // make sure git keeps it
-        Files.createDirectories(plugin.getMinecraftSrc());
-        Files.createFile(plugin.getMinecraftSrc().resolve(".gitkeep"));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package cc.noxiuam.titanic.gradle;
+package cc.noxiuam.titanic.gradle.task;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -8,13 +8,15 @@ import java.nio.file.Path;
 import org.gradle.api.Action;
 import org.gradle.api.Task;
 
+import cc.noxiuam.titanic.gradle.TitanicGradlePlugin;
+import cc.noxiuam.titanic.gradle.Util;
 import codechicken.diffpatch.DiffOperation;
 
-public class UpdateDiff implements Action<Task> {
+public class Diff implements Action<Task> {
 
     private TitanicGradlePlugin plugin;
 
-    public UpdateDiff(TitanicGradlePlugin plugin) {
+    public Diff(TitanicGradlePlugin plugin) {
         this.plugin = plugin;
     }
 

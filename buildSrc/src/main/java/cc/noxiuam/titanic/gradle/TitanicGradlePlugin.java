@@ -7,6 +7,10 @@ import java.nio.file.Path;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
+import cc.noxiuam.titanic.gradle.task.Diff;
+import cc.noxiuam.titanic.gradle.task.Patch;
+import cc.noxiuam.titanic.gradle.task.Setup;
+
 public class TitanicGradlePlugin implements Plugin<Project> {
 
     private Project project;
@@ -39,8 +43,12 @@ public class TitanicGradlePlugin implements Plugin<Project> {
             }
         }
 
-        project.task("setup", task -> task.doLast(new Setup(this)));
-        project.task("updateDiff", task -> task.doLast(new UpdateDiff(this)));
+        project.task("setup", task -> {
+            task.doLast(new Setup(this));
+            task.finalizedBy("patch");
+        });
+        project.task("diff", task -> task.doLast(new Diff(this)));
+        project.task("patch", task -> task.doLast(new Patch(this)));
     }
 
     public Project getProject() {
