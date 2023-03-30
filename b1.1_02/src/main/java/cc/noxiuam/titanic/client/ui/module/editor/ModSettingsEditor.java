@@ -3,6 +3,7 @@ package cc.noxiuam.titanic.client.ui.module.editor;
 import cc.noxiuam.titanic.Ref;
 import cc.noxiuam.titanic.client.ui.GuiScreenWrapper;
 import cc.noxiuam.titanic.client.ui.module.MainListUI;
+import org.lwjgl.input.Keyboard;
 
 public class ModSettingsEditor extends GuiScreenWrapper {
 
@@ -16,11 +17,13 @@ public class ModSettingsEditor extends GuiScreenWrapper {
         float height = 300.0F / 2;
         this.moduleList.size(width, height);
         this.moduleList.position(this.width / 2.0f - width / 2.0f, this.height / 2.0f - height / 2.0f);
+        Keyboard.enableRepeatEvents(true);
     }
 
     @Override
     public void onGuiClosed() {
         super.onGuiClosed();
+        Keyboard.enableRepeatEvents(false);
         Ref.getConfigManager().saveConfigs();
     }
 

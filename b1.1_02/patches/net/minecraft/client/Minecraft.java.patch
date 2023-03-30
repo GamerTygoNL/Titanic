@@ -138,7 +138,7 @@
 +                                                KeyboardEvent event = new KeyboardEvent(Keyboard.getEventKey());
 +                                                Ref.getEventManager().handleEvent(event);
 +
-+                                                if(Keyboard.getEventKey() == Keyboard.KEY_F5 && !event.isCancelled()) {
++                                                if(Keyboard.getEventKey() == Keyboard.KEY_F5 && !Ref.getModuleManager().getPerspectiveModule().enabled()) {
                                                      this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
                                                  }
  
