@@ -5,6 +5,7 @@ import cc.noxiuam.titanic.client.module.data.setting.impl.BooleanSetting;
 import cc.noxiuam.titanic.client.module.impl.hud.AbstractMovableModule;
 import cc.noxiuam.titanic.client.ui.util.FontUtil;
 import cc.noxiuam.titanic.client.ui.util.RenderUtil;
+import cc.noxiuam.titanic.client.util.chat.ChatColor;
 import cc.noxiuam.titanic.event.impl.gui.GuiDrawEvent;
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,7 +28,7 @@ public class FPSModule extends AbstractMovableModule {
         String text = this.getPrefixedTextColor() + StringUtils.substringBefore(Ref.getMinecraft().debug, " fps, ") + " FPS";
 
         if (!this.showBackground.value()) {
-            text = "[" + text + "]";
+            text = ChatColor.RESET + "[" + text + "]";
         }
 
         if (this.showBackground.value()) {
