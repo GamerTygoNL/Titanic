@@ -1,0 +1,26 @@
+--- net/minecraft/src/World.java
++++ net/minecraft/src/World.java
+@@ -14,6 +14,9 @@
+ import java.util.Set;
+ import java.util.TreeSet;
+ 
++import cc.noxiuam.titanic.Ref;
++import cc.noxiuam.titanic.event.impl.world.block.BlockParticleRenderEvent;
++
+ public class World implements IBlockAccess {
+     public boolean field_4214_a;
+     private List field_1051_z;
+@@ -1739,6 +1742,13 @@
+             int var9 = var3 + this.rand.nextInt(var4) - this.rand.nextInt(var4);
+             int var10 = this.getBlockId(var7, var8, var9);
+             if(var10 > 0) {
++                BlockParticleRenderEvent event = new BlockParticleRenderEvent(Block.blocksList[var10]);
++                Ref.getEventManager().handleEvent(event);
++
++                if (event.isCancelled()) {
++                    return;
++                }
++
+                 Block.blocksList[var10].randomDisplayTick(this, var7, var8, var9, var5);
+             }
+         }
