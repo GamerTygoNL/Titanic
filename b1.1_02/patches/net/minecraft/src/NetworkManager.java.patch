@@ -10,12 +10,13 @@
  public class NetworkManager {
      public static final Object threadSyncObject = new Object();
      public static int numReadThreads;
-@@ -169,7 +172,7 @@
+@@ -169,7 +172,8 @@
  
          while(!this.readPackets.isEmpty() && var1-- >= 0) {
              Packet var2 = (Packet)this.readPackets.remove(0);
 -            var2.processPacket(this.netHandler);
 +            Ref.getEventManager().handleEvent(new PacketReceivedEvent(var2));
++            var2.processPacket(netHandler);
          }
  
          if(this.isTerminating && this.readPackets.isEmpty()) {
