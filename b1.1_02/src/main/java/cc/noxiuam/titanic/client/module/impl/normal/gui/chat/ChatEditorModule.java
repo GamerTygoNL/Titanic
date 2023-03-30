@@ -19,7 +19,7 @@ public class ChatEditorModule extends AbstractModule {
     public int chatMessageIndex = -1;
     private final String empty = "";
     
-    private final BooleanSetting chatHistory, chatBackground, showHotbarWhileTyping;
+    private final BooleanSetting chatHistory, chatBackground, hideHotbarWhileTyping;
 
     public ChatEditorModule() {
         super("chatEditor", "Chat Editor", false);
@@ -27,7 +27,7 @@ public class ChatEditorModule extends AbstractModule {
         initSettings(
                 this.chatHistory = new BooleanSetting("chatHistory", "Message History", false),
                 this.chatBackground = new BooleanSetting("chatBackground", "Chat Background", true),
-                this.showHotbarWhileTyping = new BooleanSetting("showHotbarWhileTyping", "Show Hotbar While Typing", true)
+                this.hideHotbarWhileTyping = new BooleanSetting("hideHotbarWhileTyping", "Hide Hotbar While Typing", true)
         );
 
         this.addEvent(HotbarRenderEvent.class, this::onHotbarRender);
@@ -36,7 +36,7 @@ public class ChatEditorModule extends AbstractModule {
     }
 
     private void onHotbarRender(HotbarRenderEvent event) {
-        if (this.showHotbarWhileTyping.value() && Ref.getMinecraft().currentScreen instanceof GuiChat) {
+        if (this.hideHotbarWhileTyping.value() && Ref.getMinecraft().currentScreen instanceof GuiChat) {
             event.cancel();
         }
     }
