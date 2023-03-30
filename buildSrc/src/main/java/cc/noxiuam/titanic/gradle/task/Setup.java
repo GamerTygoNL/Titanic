@@ -6,10 +6,10 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Comparator;
 
 import org.gradle.api.Action;
 import org.gradle.api.Task;
+import org.gradle.api.internal.tasks.TaskOutputCachingDisabledReasonCategory;
 import org.gradle.api.logging.Logger;
 import org.mcphackers.mcp.MCP;
 import org.mcphackers.mcp.Options;
@@ -20,8 +20,6 @@ import org.mcphackers.mcp.tools.versions.json.Version;
 
 import cc.noxiuam.titanic.gradle.TitanicGradlePlugin;
 import cc.noxiuam.titanic.gradle.Util;
-import codechicken.diffpatch.PatchOperation;
-import codechicken.diffpatch.util.PatchMode;
 
 public class Setup extends MCP implements Action<Task> {
 
@@ -34,6 +32,7 @@ public class Setup extends MCP implements Action<Task> {
         this.plugin = plugin;
         this.logger = plugin.getProject().getLogger();
         options.setParameter(TaskParameter.SETUP_VERSION, plugin.getVersion());
+        options.setParameter(TaskParameter.INDENTATION_STRING, "    ");
     }
 
     @Override
