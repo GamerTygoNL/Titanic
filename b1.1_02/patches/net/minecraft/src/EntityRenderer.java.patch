@@ -87,16 +87,24 @@
          if(var4 > 0.0F) {
              float var5 = 5.0F / (var4 * var4 + 5.0F) - var4 * 0.04F;
              var5 *= var5;
-@@ -283,7 +321,12 @@
-                 var6 = -1;
-             }
- 
+@@ -278,12 +316,16 @@
+             float var3 = var2 * var2 * var2 * 8.0F;
+             float var4 = (float)this.mc.mouseHelper.field_1114_a * var3;
+             float var5 = (float)this.mc.mouseHelper.field_1113_b * var3;
+-            byte var6 = 1;
+             if(this.mc.gameSettings.invertMouse) {
+-                var6 = -1;
+-            }
+-
 -            this.mc.thePlayer.func_346_d(var4, var5 * (float)var6);
++                var5 = -var5;
++            }
++
 +            PlayerLookInputEvent event = new PlayerLookInputEvent(var4, var5, var1);
 +            Ref.getEventManager().handleEvent(event);
 +
 +            if (!event.isCancelled()) {
-+                this.mc.thePlayer.func_346_d(var4, var5 * (float)var6);
++                this.mc.thePlayer.func_346_d(event.getDx(), event.getDy());
 +            }
          }
  
