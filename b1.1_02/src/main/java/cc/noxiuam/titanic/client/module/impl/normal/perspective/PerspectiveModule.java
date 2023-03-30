@@ -64,7 +64,7 @@ public class PerspectiveModule extends AbstractModule {
         event.cancel();
 
         if (currentPerspective == PerspectiveView.THIRD) {
-            event.setF2(event.getF2() + 180F);
+            event.setPitch(event.getPitch() + 180F);
         }
 
         if (currentPerspective == PerspectiveView.THIRD) {

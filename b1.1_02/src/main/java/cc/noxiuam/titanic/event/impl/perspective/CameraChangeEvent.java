@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CameraChangeEvent extends AbstractEvent {
 
-    private float f2;
+    private float pitch;
 
 }
