@@ -26,6 +26,8 @@ public class SmoothUtil {
     public void inject() {
         Ref.getEventManager().addEvent(PlayerLookInputEvent.class, event -> {
             if (active()) {
+                event.cancel();
+
                 cursorDx += event.getDx();
                 cursorDy += event.getDy();
                 float tickProgression = event.getPartialTicks() - lastPartialTicks;
