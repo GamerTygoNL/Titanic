@@ -42,6 +42,7 @@ public class ConfigManager {
         try {
             return !(!configDir.exists() && !configDir.mkdirs()
                     || !thirdPartyModsDir.exists() && !thirdPartyModsDir.mkdirs()
+                    || !thirdPartyModsConfigDir.exists() && !thirdPartyModsConfigDir.mkdirs()
                     || !modsConfig.exists() && !modsConfig.createNewFile()
                     || !thirdPartyIndex.exists() && !thirdPartyIndex.createNewFile());
         } catch (IOException e) {

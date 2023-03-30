@@ -77,7 +77,11 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
     private TextureLavaFX textureLavaFX;
     private int field_6302_aa;
     private int field_6300_ab;
+
+    public static Minecraft theMinecraft;
+
     public Minecraft(Component component, Canvas canvas, MinecraftApplet minecraftapplet, int i, int j, boolean flag) {
+        theMinecraft = this;
         mainFrame = false;
         timer = new Timer(20F);
         session = null;
@@ -120,6 +124,10 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
             minecraftDir = getAppDir("minecraft");
         }
         return minecraftDir;
+    }
+
+    public static Minecraft getMinecraft() {
+        return theMinecraft;
     }
 
     public static File getAppDir(String s) {
