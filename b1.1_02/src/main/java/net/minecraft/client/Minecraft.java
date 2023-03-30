@@ -924,7 +924,7 @@ public abstract class Minecraft implements Runnable, MinecraftBridge {
                             KeyboardEvent event = new KeyboardEvent(Keyboard.getEventKey());
                             Ref.getEventManager().handleEvent(event);
 
-                            if (Keyboard.getEventKey() == 63 && !event.isCancelled()) {
+                            if (Keyboard.getEventKey() == 63 && !Ref.getModuleManager().getPerspectiveModule().enabled()) {
                                 gameSettings.thirdPersonView = !gameSettings.thirdPersonView;
                             }
                             if (Keyboard.getEventKey() == gameSettings.keyBindInventory.keyCode) {

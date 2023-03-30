@@ -73,11 +73,6 @@ public class PerspectiveModule extends AbstractModule {
     }
 
     private void updateCurrentPerspective(KeyboardEvent event) {
-        if (event.getKey() == Keyboard.KEY_F5) {
-            event.cancel();
-            return;
-        }
-
         if (event.getKey() == switchPerspectiveKey.value()) {
             if (currentPerspective == PerspectiveView.FIRST) {
                 currentPerspective = PerspectiveView.SECOND;
