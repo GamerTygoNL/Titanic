@@ -1,8 +1,5 @@
 package net.minecraft.src;
 
-import cc.noxiuam.titanic.Ref;
-import cc.noxiuam.titanic.event.impl.world.block.BlockParticleRenderEvent;
-
 import java.util.Random;
 
 public class BlockRedstoneOre extends Block {
